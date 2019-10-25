@@ -1,0 +1,1469 @@
+﻿{
+  "user":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "SELECT SQL_CALC_FOUND_ROWS user_id,user_disabled,user_name,user_email,user_mobile,user_account,dept_name FROM FW_USERS LEFT JOIN FW_DEPARTMENT ON FW_USERS.DEPT_ID=FW_DEPARTMENT.DEPT_ID WHERE FW_USERS.REC_ISDELETED=0",
+      "sort": "user_name",
+      "search": 
+      [
+        {"pattern": " and user_name like '%@name@%' "},
+        {"pattern": " and user_account like '%@account@%' "},
+        {"pattern": " and user_disabled = @status@ "},
+        {"pattern": " and find_in_set(fw_users.dept_id ,fun_getDepartmentHierarchySubItems('@dept_id@')) " }
+      ],
+      "field": [
+        {"name": "user_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dept_name","format": "","nullValue": "","mapping": "deptname"},
+        {"name": "user_name","format": "", "nullValue": "", "mapping": "name"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_email","format": "","nullValue": "","mapping": "email"},
+        {"name": "user_account","format": "","nullValue": "","mapping": "account"},
+        {"name": "user_disabled","format": "","nullValue": "","mapping": "disabled"}
+      ]
+    },
+    "detail": {
+       "primary":"user_id",
+       "field": [
+        {"name": "user_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "dept_id","format": "","nullValue": "","mapping": "deptid"},
+        {"name": "dept_name","format": "","nullValue": "","mapping": "deptname","direction":"frontonly"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "user_email","format": "","nullValue": "","mapping": "email"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_photo","format": "","nullValue": "","mapping": "image"},
+        {"name": "user_account","format": "","nullValue": "","mapping": "account"},
+        {"name": "user_password","format": "","nullValue": "value.123456","mapping": "password","action":"create","direction":"backonly"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","direction":"backonly","action":"create"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","direction":"backonly"}
+      ]
+    }
+  },
+  "department":{
+    "list": {
+      "sqltype": "sql",
+      "sql": "select * from fw_department",
+      "field": [
+        {"name": "dept_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dept_name","format": "", "nullValue": "","mapping": "name"}
+      ]
+    },
+    "detail": {
+       "primary":"dept_id",
+       "field": [
+        {"name": "dept_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "dept_parent_id","format": "","nullValue": "","mapping": "pid"},
+        {"name": "dept_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "dept_code","format": "","nullValue": "","mapping": "code"},
+        {"name": "dept_index","format": "","nullValue": "value.0","mapping": "index"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","direction":"backonly","action":"create"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","direction":"backonly"}
+      ]
+    }
+  },
+  "dictionary":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS dict_id,dict_name,dict_code,dict_index from fw_dict where rec_isdeleted=0",
+      "sort": "dict_index",
+      "field": [
+        {"name": "dict_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dict_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "dict_code","format": "", "nullValue": "", "mapping": "code"}
+      ]
+    },
+    "detail": {
+       "primary":["dict_id"],
+       "field": [
+        {"name": "dict_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "dict_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "dict_code","format": "","nullValue": "","mapping": "code"},
+        {"name": "dict_index","format": "","nullValue": "","mapping": "index"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": ""},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": ""}
+      ]
+    }
+  },
+
+  "dictionaryitem":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS rec_id,fw_dict.dict_name, item_name,item_value from fw_dict_item inner join fw_dict on fw_dict_item.dict_id=fw_dict.dict_id where fw_dict_item.dict_id='@query.dict_id@' and fw_dict.rec_isdeleted=0",
+      "sort": "item_value",
+      "field": [
+        {"name": "rec_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dict_name","format": "","nullValue": "","mapping": "dictname"},
+        {"name": "item_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "item_value","format": "", "nullValue": "", "mapping": "value"}
+      ]
+    },
+    "detail": {
+       "primary":["rec_id"],
+       "field": [
+        {"name": "rec_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "item_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "item_value","format": "","nullValue": "","mapping": "value"},
+        {"name": "dict_id","format": "","nullValue": "","mapping": "dict_id"}
+      ]
+    }
+  },
+  "label":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS bas_label.label_id,plabel.label_name as parent_name, bas_label.label_name ,ifnull(ul.label_count,0) as label_count from bas_label inner join bas_label plabel on bas_label.parent_id=plabel.label_id left join (select label_id,sum(label_count) as label_count  from crm_user_label group by label_id) ul on ul.label_id=bas_label.label_id where bas_label.label_disabled=0",
+      "sort": "bas_label.label_index",
+       "search":[{"pattern": " and bas_label.parent_id='@query.pid@'"}],
+      "field": [
+        {"name": "label_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "parent_name","format": "","nullValue": "","mapping": "parentname"},
+        {"name": "label_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "label_count","format": "","nullValue": "","mapping": "count"}
+      ]
+    },
+    "detail": {
+       "primary":"rec_id",
+        "field": [
+         {"name": "parent_id","format": "","nullValue": "","mapping": "parent"},
+         {"name": "label_name","format": "","nullValue": "","mapping": "label"},
+         {"name": "label_index","format": "","nullValue": "","mapping": "index"}
+      ]
+    }
+  },
+  "roles":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS role_id,role_name,role_admin from fw_roles where rec_isdeleted=0",
+      "sort": "role_name",
+      "search":[{"pattern": " and role_name like '%@name@%' "}],
+      "field": [
+        {"name": "role_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "role_name","format": "","nullValue": "","mapping": "name"},
+         {"name": "role_admin","format": "","nullValue": "","mapping": "admin"}
+         
+      ]
+    },
+    "detail": {
+       "primary":"role_id",
+       "field": [
+        {"name": "role_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "role_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "role_admin","format": "0:|1:on","nullValue": "value.0","mapping": "admin"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","direction":"backonly","action":"create"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","direction":"backonly"}
+      ]
+    }
+  },
+   "function":{
+    "detail": {
+       "primary":"fun_id",
+       "field": [
+        {"name": "fun_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "fun_parent_id","format": "","nullValue": "","mapping": "pid"},
+        {"name": "fun_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "fun_type","format": "","nullValue": "0","mapping": "type"},
+        {"name": "fun_open","format": "","nullValue": "0","mapping": "open"},
+         {"name": "fun_url","format": "","nullValue": "","mapping": "url"},
+          {"name": "fun_icon","format": "","nullValue": "","mapping": "icon"},
+          {"name": "fun_index","format": "","nullValue": "","mapping": "index"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create","direction":"backonly"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": "","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": "","direction":"backonly"}
+      ]
+    }
+  },
+  "systemsetting":{
+    "detail": {
+       "primary":"setting_id",
+       "field": [
+        {"name": "setting_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "setting_json","format": "","nullValue": "","mapping": "json"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create","direction":"backonly"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": "","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": "","direction":"backonly"}
+      ]
+    }
+  },
+  "store":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS s.store_id,DATE_FORMAT(store_create,'%Y-%m-%d') as store_create,store_name,store_grade,store_city_name,store_url,store_type,store_level,store_ho,store_logistics,store_delivery_days,store_logistics_days,store_price_level,store_quality_level,store_design_level,store_package_level,store_service_level,p.discountRate,p.success,p.sales,p.total from bus_store s left join (select store_id, sum(product_discount_price)/sum(product_origin_price) as discountRate,sum(product_sales)/count(store_id) as sales,sum(product_success)/count(store_id) as success,sum(product_total)/count(store_id) as total from bus_product group by store_id) p on s.store_id = p.store_id where s.rec_isdeleted=0",
+      "sort": "store_grade desc",
+      "search":[
+        {"pattern": " and store_name like '%@name@%' "},
+        {"pattern": " and store_type = @type@ "}
+      ],
+      "field": [
+        {"name": "store_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "store_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "store_create","format": "","nullValue": "","mapping": "setup"},
+         {"name": "store_url","format": "","nullValue": "","mapping": "url"},
+         {"name": "store_type","format": "","nullValue": "","mapping": "type"},
+         {"name": "store_level","format": "","nullValue": "","mapping": "level"},
+         {"name": "store_ho","format": "","nullValue": "","mapping": "ho"},
+         {"name": "store_logistics","format": "","nullValue": "","mapping": "logistics"},
+         {"name": "store_logistics_days","format": "","nullValue": "","mapping": "days"},
+         {"name": "store_delivery_days","format": "","nullValue": "","mapping": "delivery"},
+         {"name": "store_city_name","format": "","nullValue": "","mapping": "city"},
+         {"name": "store_price_level","format": "","nullValue": "","mapping": "price"},
+         {"name": "store_package_level","format": "","nullValue": "","mapping": "package"},
+         {"name": "store_design_level","format": "","nullValue": "","mapping": "design"},
+         {"name": "store_quality_level","format": "","nullValue": "","mapping": "quality"},
+         {"name": "store_grade","format": "","nullValue": "","mapping": "grade"},
+         {"name": "discountRate","format": "","nullValue": "","mapping": "discount"},
+         {"name": "sales","format": "","nullValue": "","mapping": "sales"},
+         {"name": "success","format": "","nullValue": "","mapping": "success"},
+         {"name": "total","format": "","nullValue": "","mapping": "total"},
+         {"name": "store_service_level","format": "","nullValue": "","mapping": "service"}
+         
+      ]
+    },
+    "detail": {
+       "primary":"store_id",
+        "field": [
+        {"name": "store_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "store_create","format": "","nullValue": "","mapping": "createdate"},
+        {"name": "store_name","format": "","nullValue": "","mapping": "name"},
+         {"name": "store_url","format": "","nullValue": "","mapping": "url"},
+         {"name": "store_type","format": "","nullValue": "value.1","mapping": "type"},
+         {"name": "store_level","format": "","nullValue": "value.0","mapping": "level"},
+         {"name": "store_ho","format": "","nullValue": "value.80","mapping": "ho"},
+         {"name": "store_promotion","format": "","nullValue": "","mapping": "promotion"},
+         {"name": "store_logistics","format": "","nullValue": "","mapping": "logistics"},
+         {"name": "store_logistics_days","format": "","nullValue": "value.5","mapping": "days"},
+         {"name": "store_delivery_days","format": "","nullValue": "","mapping": "delivery"},
+         {"name": "store_refund_address","format": "","nullValue": "","mapping": "refund"},
+         {"name": "store_city_id","format": "","nullValue": "","mapping": "cityid"},
+         {"name": "store_city_name","format": "","nullValue": "","mapping": "city"},
+         {"name": "store_price_level","format": "","nullValue": "value.2","mapping": "price"},
+         {"name": "store_package_level","format": "","nullValue": "value.2","mapping": "package"},
+         {"name": "store_design_level","format": "","nullValue": "value.2","mapping": "design"},
+         {"name": "store_quality_level","format": "","nullValue": "value.2","mapping": "quality"},
+         {"name": "store_service_level","format": "","nullValue": "value.2","mapping": "service"},
+         {"name": "store_decoration_level","format": "","nullValue": "value.2","mapping": "decoration"},
+         {"name": "store_logistics_level","format": "","nullValue": "value.2","mapping": "logisticslevel"},
+         {"name": "store_grade","format": "","nullValue": "value.0","mapping": "grade"},
+         {"name": "store_memo","format": "","nullValue": "","mapping": "memo"}
+      ]
+    }
+  },
+  "member":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS crm_user.user_id,user_city,(case user_sex when 0 then '女' else '男' end) as sexname,gpnames,platform.ptname,user_name,membertypeids,umlist.membertypenames, user_image,user_mobile,user_real_name,user_corp_name,user_corp_department,user_corp_position,user_create_date,user_serial from crm_user left join (select user_id,group_concat(platform_type) as ptname from crm_platform group by user_id) platform on crm_user.user_id=platform.user_id left join (select user_id,group_concat(mt.member_id) as membertypeids,group_concat(mt.member_name) as membertypenames from crm_user_member um inner join crm_membership_type mt on um.member_id = mt.member_id where mt.rec_isdeleted=0 and valid_forever=1 or (valid_forever=0 and valid_start<now() and valid_end>now()) group by user_id) umlist on crm_user.user_id=umlist.user_id left join (select user_id,group_concat(gu.group_id) as gpids,group_concat(gp.group_name) as gpnames from crm_group_user gu inner join (select group_id,group_name from crm_group order by group_index) gp on gu.group_id=gp.group_id  group by gu.user_id) usergroup on crm_user.user_id=usergroup.user_id where 1=1",
+      "sort": "user_create_date desc",
+      "search":[
+        {"pattern": " and find_in_set('@group_id@',usergroup.gpids) "},
+        {"pattern": " and (user_name like '%@name@%' or user_real_name like '%@name@%') "},
+        {"pattern": " and find_in_set('@memberid@',umlist.membertypeids) "},
+        {"pattern": " and user_city like '%@city@%' "},
+        {"pattern": " and user_mobile like '%@mobile@%' "}
+      ],
+      "field": [
+        {"name": "user_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "ptname","format": "","nullValue": "","mapping": "platform"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_real_name","format": "","nullValue": "","mapping": "real_name"},
+        {"name": "user_corp_name","format": "","nullValue": "","mapping": "corp"},
+        {"name": "user_corp_department","format": "","nullValue": "","mapping": "department"},
+        {"name": "user_corp_position","format": "","nullValue": "","mapping": "position"},
+        {"name": "user_birthday","format": "","nullValue": "","mapping": "birthday"},
+        {"name": "user_age","format": "","nullValue": "","mapping": "age"},
+        {"name": "user_create_date","format": "","nullValue": "","mapping": "createdate"},
+        {"name": "user_city","format": "","nullValue": "","mapping": "city"},
+        {"name": "user_sex","format": "","nullValue": "","mapping": "sex"},
+        {"name": "sexname","format": "","nullValue": "","mapping": "sexname"},
+        {"name": "user_serial","format": "","nullValue": "","mapping": "serial"},
+        {"name": "gpnames","format": "","nullValue": "","mapping": "groups"},
+        {"name": "membertypenames","format": "","nullValue": "","mapping": "membernames"}
+        
+      ]
+    },
+    "detail": {
+       "primary":"user_id",
+        "field": [
+          {"name": "user_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+          {"name": "user_name","format": "","nullValue": "","mapping": "name","direction":"frontonly"},
+          {"name": "user_image","format": "","nullValue": "","mapping": "image","direction":"frontonly"},
+          {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+          {"name": "user_birthday","format": "","nullValue": "","mapping": "birthday"},
+          {"name": "user_age","format": "","nullValue": "","mapping": "age"},
+          {"name": "user_real_name","format": "","nullValue": "","mapping": "realname","direction":"frontonly"},
+          {"name": "user_corp_name","format": "","nullValue": "","mapping": "corp"},
+          {"name": "user_corp_department","format": "","nullValue": "","mapping": "department"},
+          {"name": "user_corp_position","format": "","nullValue": "","mapping": "position"},
+          {"name": "user_serial","format": "","nullValue": "","mapping": "serial","direction":"frontonly"},
+          {"name": "user_city","format": "","nullValue": "","mapping": "city"},
+          {"name": "user_sex","format": "","nullValue": "","mapping": "sex"},
+          {"name": "user_memo","format": "","nullValue": "","mapping": "memo"}
+      ]
+    }
+  },
+  "usermember":{
+    "detail": {
+       "primary":"rec_id",
+        "field": [
+          {"name": "user_id","format": "","nullValue": "query.userid","mapping": "userid","action":"create"},
+          {"name": "member_id","format": "","nullValue": "","mapping": "memberid"},
+          {"name": "user_guide_name","format": "","nullValue": "","mapping": "guidename","direction":"frontonly"},
+          {"name": "join_date","format": "","nullValue": "","mapping": "joindate"},
+          {"name": "valid_forever","format": "","nullValue": "","mapping": "forever"},
+          {"name": "valid_start","format": "","nullValue": "","mapping": "start"},
+          {"name": "valid_end","format": "","nullValue": "","mapping": "end"},
+          {"name": "ext_field1","format": "","nullValue": "","mapping": "memo"}
+      ]
+    }
+  },
+  "memberorder":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS order_id,u.user_id,u.user_name,u.user_mobile,u.user_image, order_no,app_date,member_type_name,user_guide_name,order_total from crm_join_order mo inner join crm_user u on mo.user_id=u.user_id where pay_status=1",
+      "countsql": "select ifnull(sum(order_total),0) as total from crm_join_order mo inner join crm_user u on mo.user_id=u.user_id where pay_status=1",
+      "sort": "app_date desc",
+      "search":[
+         {"pattern": " and order_no like '%@orderno@%' "},
+         {"pattern": " and (user_name like '%@username@%' or user_mobile like '%@username@%') "},
+         {"pattern": " and app_date >= '@start@ 00:00:00' "},
+         {"pattern": " and app_date <= '@end@ 23:59:59' "}
+      ],
+      "field": [
+        {"name": "order_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "order_no","format": "","nullValue": "","mapping": "orderno"},
+        {"name": "user_id","format": "","nullValue": "","mapping": "userid"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "username"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "member_type_name","format": "","nullValue": "","mapping": "member"},
+        {"name": "order_total","format": "","nullValue": "","mapping": "total"},
+        {"name": "app_date","format": "","nullValue": "","mapping": "paydate"},
+        {"name": "user_guide_name","format": "","nullValue": "","mapping": "guider"}
+      ],
+      "footer":[
+        {"name": "guider","format": "","nullValue": "合计"},
+        {"name": "total","format": "","nullValue": ""}
+      ]
+    }
+  },
+  "userlabel":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS rec_id,lb.label_name,label_count from crm_user_label ul inner join bas_label lb on ul.label_id=lb.label_id where lb.label_disabled=0 and user_id='@query.userid@'",
+      "sort": "label_count desc",
+      "field": [
+        {"name": "rec_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "label_name","format": "","nullValue": "","mapping": "label"},
+        {"name": "label_count","format": "","nullValue": "","mapping": "count"}
+      ]
+    },
+    "detail": {
+       "primary":"rec_id",
+        "field": [
+         {"name": "user_id","format": "","nullValue": "query.userid","mapping": "userid","action":"create"},
+         {"name": "label_id","format": "","nullValue": "","mapping": "label"},
+         {"name": "label_count","format": "","nullValue": "","mapping": "count"}
+      ]
+    }
+  },
+  "socialgroup":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS crm_group.group_id,group_name,group_type,group_image,ifnull(groupusers.usertotal,0) as usertotal from crm_group left join (select group_id,count(1) as usertotal from crm_group_user where user_exit_status=0 group by  group_id) groupusers on crm_group.group_id=groupusers.group_id where rec_isdeleted=0",
+      "sort": "group_index desc",
+      "search":[
+        {"pattern": " and group_name like '%@name@%' "},
+         {"pattern": " and group_is_wp = @wechat@ "},
+         {"pattern": " and group_is_fee like  = @charge@ "}
+      ],
+      "field": [
+        {"name": "group_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "group_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "usertotal","format": "","nullValue": "","mapping": "total"},
+        {"name": "group_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "group_image","format": "","nullValue": "","mapping": "image"}
+      ]
+    },
+    "detail": {
+       "primary":"group_id",
+        "field": [
+          {"name": "group_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "group_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "group_type","format": "","nullValue": "0","mapping": "type"},
+        {"name": "group_charge","format": "","nullValue": "","mapping": "charge"},
+        {"name": "group_image","format": "","nullValue": "","mapping": "image"},
+         {"name": "group_qrcode","format": "","nullValue": "","mapping": "qrcode"},
+         {"name": "group_describ","format": "","nullValue": "","mapping": "desc"},
+         {"name": "group_memo","format": "","nullValue": "","mapping": "memo"},
+         {"name": "group_app_id","format": "","nullValue": "","mapping": "appid"},
+         {"name": "group_security_key","format": "","nullValue": "","mapping": "securitykey"},
+          {"name": "group_token","format": "","nullValue": "","mapping": "token"},
+          {"name": "group_index","format": "","nullValue": "value.0","mapping": "index"},
+          {"name": "rec_create_date","format": "","nullValue": "now()","mapping": "create"}
+      ]
+    }
+  },
+  "membertype":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS member_id,member_name,member_price,member_level,(select count(1) from crm_user_member where member_id=t.member_id and (valid_forever=1 or (valid_forever=0 and DATE_FORMAT(valid_start,'%Y-%m-%d')<=curdate() and  DATE_FORMAT(valid_end,'%Y-%m-%d')>=curdate()))) as membercount from crm_membership_type t where rec_isdeleted=0",
+      "sort": "member_level",
+      "search":null,
+      "field": [
+        {"name": "member_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "member_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "member_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "member_level","format": "","nullValue": "","mapping": "level"},
+        {"name": "membercount","format": "","nullValue": "","mapping": "count"}
+      ]
+    },
+    "detail": {
+       "primary":"member_id",
+        "field": [
+          {"name": "member_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+          {"name": "member_name","format": "","nullValue": "","mapping": "name"},
+          {"name": "member_price","format": "","nullValue": "","mapping": "price"},
+          {"name": "member_poster","format": "","nullValue": "","mapping": "poster"},
+          {"name": "share_title","format": "","nullValue": "","mapping": "sharetitle"},
+          {"name": "member_desc","format": "","nullValue": "","mapping": "desc"},
+          {"name": "share_image","format": "","nullValue": "","mapping": "shareimage"},
+          {"name": "member_level","format": "","nullValue": "value.1","mapping": "level"},
+          {"name": "button_text","format": "","nullValue": "","mapping": "buttontext"},
+          {"name": "button_color","format": "","nullValue": "","mapping": "buttoncolor"},
+          {"name": "rec_creator","format": "","nullValue": "userid()","direction":"backonly","action":"create"},
+          {"name": "rec_create_date", "format": "", "nullValue": "now()","direction":"backonly","action":"create"},
+          {"name": "rec_updator","format": "","nullValue": "userid()","direction":"backonly"},
+          {"name": "rec_update_date","format": "","nullValue": "now()","direction":"backonly"}
+      ]
+    }
+  },
+  "workexperience":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS rec_id,company,department,position,status,fulltime,DATE_FORMAT(startdate,'%Y-%m-%d') as startdate,DATE_FORMAT(leavedate,'%Y-%m-%d') as leavedate from crm_user_we where user_id='@query.userid@'",
+      "sort": "startdate desc",
+      "search":null,
+      "field":null
+    },
+    "detail": {
+       "primary":"rec_id",
+        "field": [
+        {"name": "user_id","format": "","nullValue": "query.userid","mapping": "userid","action":"create" },
+        {"name": "company","format": "","nullValue": "","mapping": "company"},
+        {"name": "department","format": "","nullValue": "","mapping": "department"},
+        {"name": "position","format": "","nullValue": "","mapping": "position"},
+        {"name": "status","format": "","nullValue": "","mapping": "status"},
+        {"name": "fulltime","format": "","nullValue": "","mapping": "fulltime"},
+        {"name": "startdate","format": "","nullValue": "","mapping": "startdate"},
+        {"name": "leavedate","format": "","nullValue": "","mapping": "leavedate"},
+        {"name": "workmemo","format": "","nullValue": "","mapping": "workmemo"}
+
+      ]
+    }
+  },
+  "articlecatelog":{
+    
+    "detail": {
+       "primary":"catelog_id",
+       "field": [
+        {"name": "catelog_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "parent_id","format": "","nullValue": "","mapping": "pid"},
+        {"name": "catelog_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "catelog_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "catelog_index","format": "","nullValue": "value.0","mapping": "index"},
+        {"name": "catelog_disabled","format": "0:off|1:on","nullValue": "value.off","mapping": "disabled"}
+      ]
+    }
+  },
+  "article":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS article_id,catelog.catelog_id,catelog.catelog_name,article_source,article_source_url,article_publish_status,article_author,article_title,article_cover,article_type,article_brief,article_label,article_original,DATE_FORMAT(article_publish_date,'%Y-%m-%d') as article_publish_date,article_audit_opinion from cnt_article inner join cnt_catelog catelog on cnt_article.catelog_id=catelog.catelog_id where cnt_article.rec_isdeleted=0 and catelog.rec_isdeleted=0",
+      "sort": "rec_create_date desc",
+      "search":[
+        
+        {"pattern": " and FIND_IN_SET(catelog.catelog_id,fun_getContentCatalogHierarchySubItems('@catelogid@')) "},
+        {"pattern": " and article_title like '%@title@%' "},
+        {"pattern": " and article_original =@original@ "}],
+
+      "field": [
+        {"name": "article_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "catelog_name","format": "","nullValue": "","mapping": "catelogname"},
+        {"name": "article_title","format": "","nullValue": "","mapping": "name"},
+        {"name": "article_cover","format": "","nullValue": "","mapping": "image"},
+        {"name": "article_brief","format": "","nullValue": "","mapping": "brief"},
+        {"name": "article_author","format": "","nullValue": "","mapping": "author"},
+        {"name": "article_publish_status","format": "","nullValue": "","mapping": "publishstatus"},
+         {"name": "article_publish_date","format": "","nullValue": "","mapping": "publishdate"},
+        {"name": "article_audit_opinion","format": "","nullValue": "","mapping": "opinion"},
+        {"name": "article_is_top","format": "","nullValue": "","mapping": "top"},
+        {"name": "article_original","format": "","nullValue": "","mapping": "original"},
+        {"name": "article_source","format": "","nullValue": "","mapping": "source"},
+        {"name": "article_source_url","format": "","nullValue": "","mapping": "sourceurl"}
+      ]
+    },
+    "detail": {
+       "primary":"article_id",
+       "field": [
+        {"name": "article_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "article_title","format": "","nullValue": "","mapping": "title"},
+        {"name": "article_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "article_cover","format": "","nullValue": "","mapping": "image"},
+        {"name": "article_share","format": "","nullValue": "","mapping": "share"},
+        {"name": "article_share_title","format": "","nullValue": "","mapping": "sharetitle"},
+        {"name": "article_brief","format": "","nullValue": "","mapping": "brief"},
+        {"name": "article_author","format": "","nullValue": "","mapping": "author"},
+        {"name": "article_original","format": "","nullValue": "","mapping": "original"},
+        {"name": "article_source","format": "","nullValue": "","mapping": "source"},
+        {"name": "article_source_url","format": "","nullValue": "","mapping": "sourceurl"},
+        {"name": "article_source","format": "","nullValue": "","mapping": "source"},
+        {"name": "article_publish_status","format": "","nullValue": "","mapping": "publishstatus"},
+        {"name": "article_publish_date","format": "","nullValue": "","mapping": "publishdate"},
+        {"name": "article_submit_audit","format": "","nullValue": "","mapping": "submitdate"},
+        {"name": "article_audit_date","format": "","nullValue": "","mapping": "auditdate"},
+        {"name": "article_audit_opinion","format": "","nullValue": "","mapping": "opinion"},
+        {"name": "article_label","format": "","nullValue": "","mapping": "label"},
+        {"name": "catelog_id","format": "","nullValue": "","mapping": "catelogid"},
+        {"name": "article_is_top","format": "","nullValue": "","mapping": "istop"},
+        {"name": "article_publish_status","format": "","nullValue": "","mapping": "publishstatus"},
+        {"name": "catelog_name","format": "","nullValue": "","mapping": "catelogname","direction":"frontonly"},
+        {"name": "rich_text","format": "","nullValue": "","mapping": "richtext","direction":"frontonly"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create","direction":"backonly"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": "","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": "","direction":"backonly"}
+      ]
+    }
+  },
+  "activitycatalog":{
+     "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS catalog_id,catalog_name,catalog_image,catalog_disabled from act_catalog where rec_isdeleted=0",
+      "sort": "catalog_index",
+      "field": [
+        {"name": "catalog_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "catalog_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "catalog_disabled","format": "","nullValue": "","mapping": "disabled"}
+      ]
+    },
+    "detail": {
+       "primary":"catalog_id",
+       "field": [
+        {"name": "catalog_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "catalog_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "catalog_index","format": "","nullValue": "value.0","mapping": "index"},
+        {"name": "catalog_disabled","format": "0:off|1:on","nullValue": "value.off","mapping": "disabled"}
+      ]
+    }
+  },
+  "slider":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS slider_id,slider_position,slider_key from portal_slider  where rec_isdeleted=0",
+      "sort": "slider_position",
+      "search":[
+        {"pattern": " and slider_topic like '%@topic@%' "},
+        {"pattern": " and slider_position = @position@ "}],
+      "field": [
+        {"name": "slider_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "slider_position","format": "","nullValue": "","mapping": "name"},
+        {"name": "slider_key","format": "","nullValue": "","mapping": "key"}
+      ]
+    },
+    "detail": {
+       "primary":"slider_id",
+       "field": [
+         {"name": "slider_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "slider_position","format": "","nullValue": "","mapping": "name"},
+        {"name": "slider_key","format": "","nullValue": "","mapping": "key"}
+      ]
+    }
+  },
+  "sliderimage":{
+    "detail": {
+       "primary":"image_id",
+       "field": [
+         {"name": "image_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "image_topic","format": "","nullValue": "","mapping": "topic"},
+        {"name": "image_disabled","format": "","nullValue": "value.0","mapping": "disabled"},
+        {"name": "image_platform","format": "","nullValue": "","mapping": "type"},
+        {"name": "slider_id","format": "","nullValue": "query.sliderid","mapping": "sliderid","action":"create"},
+        {"name": "image_url","format": "","nullValue": "","mapping": "image"},
+        {"name": "image_index","format": "","nullValue": "","mapping": "index"},
+        {"name": "image_href","format": "","nullValue": "","mapping": "href"},
+        {"name": "image_json","format": "","nullValue": "","mapping": "json"},
+        {"name": "image_start","format": "","nullValue": "","mapping": "startdate"},
+        {"name": "image_end","format": "","nullValue": "","mapping": "enddate"},
+        {"name": "image_subtitle","format": "","nullValue": "","mapping": "subtitle"}
+      ]
+    }
+  },
+  "activity":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS activity_id,activity_is_free, catalog.catalog_id,catalog.catalog_name,activity_topic,DATE_FORMAT(activity_date_start,'%Y-%m-%d %H:%i') as activity_date_start,DATE_FORMAT(activity_date_end,'%Y-%m-%d %H:%i') as activity_date_end,DATE_FORMAT(activity_ticket_end,'%Y-%m-%d %H:%i') as activity_ticket_end,activity_status,activity_cover,activity_city_name,activity_desc,activity_label from act_activity activity inner join act_catalog catalog on activity.catalog_id=catalog.catalog_id where activity.rec_isdeleted=0 and catalog.rec_isdeleted=0",
+      "sort": "rec_create_date desc",
+      "search":[
+        {"pattern": " and catalog.catalog_id = '@catalogid@' "},
+        {"pattern": " and activity_topic like '%@topic@%' "}],
+      "field": [
+        {"name": "activity_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "catalogname"},
+        {"name": "activity_topic","format": "","nullValue": "","mapping": "topic"},
+        {"name": "activity_cover","format": "","nullValue": "","mapping": "cover"},
+        {"name": "activity_desc","format": "","nullValue": "","mapping": "desc"},
+        {"name": "activity_date_start","format": "","nullValue": "","mapping": "start"},
+         {"name": "activity_date_end","format": "","nullValue": "","mapping": "end"},
+         {"name": "activity_ticket_end","format": "","nullValue": "","mapping": "ticketend"},
+        {"name": "activity_status","format": "","nullValue": "","mapping": "status"},
+        {"name": "activity_city_name","format": "","nullValue": "","mapping": "city"},
+        {"name": "activity_is_free","format": "","nullValue": "0","mapping": "free"}
+        
+      ]
+    },
+    "detail": {
+       "primary":"activity_id",
+       "field": [
+        {"name": "activity_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "activity_topic","format": "","nullValue": "","mapping": "topic"},
+        {"name": "activity_cover","format": "","nullValue": "","mapping": "cover"},
+        {"name": "avtivity_share_image","format": "","nullValue": "","mapping": "share"},
+        {"name": "activity_share_title","format": "","nullValue": "","mapping": "sharetitle"},
+        {"name": "activity_gift_sharetitle","format": "","nullValue": "","mapping": "gifttitle"},
+        {"name": "activity_for_member","format": "","nullValue": "","mapping": "formember"},
+        {"name": "activity_desc","format": "","nullValue": "","mapping": "desc"},
+        {"name": "activity_date_start","format": "","nullValue": "","mapping": "start"},
+        {"name": "activity_date_end","format": "","nullValue": "","mapping": "end"},
+        {"name": "activity_ticket_end","format": "","nullValue": "","mapping": "ticketend"},
+        {"name": "activity_status","format": "","nullValue": "","mapping": "status"},
+        {"name": "activity_checkin","format": "","nullValue": "","mapping": "buttons"},
+        {"name": "label_id","format": "","nullValue": "","mapping": "labelid"},
+        {"name": "activity_label","format": "","nullValue": "","mapping": "label"},
+        {"name": "catalog_id","format": "","nullValue": "","mapping": "catalogid"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "catalogname","direction":"frontonly"},
+        {"name": "activity_city","format": "","nullValue": "","mapping": "cityid"},
+        {"name": "activity_city_name","format": "","nullValue": "","mapping": "cityname"},
+        {"name": "activity_location","format": "","nullValue": "","mapping": "location"},
+        {"name": "ext_field2","format": "","nullValue": "","mapping": "ext2"},
+        {"name": "activity_checkin","format": "","nullValue": "","mapping": "checkinjson"},
+        {"name": "rich_text","format": "","nullValue": "","mapping": "richtext","direction":"frontonly"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create","direction":"backonly"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": "","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": "","direction":"backonly"},
+        {"name": "activity_sms","format": "","nullValue": "","mapping": "shortmsg"}
+      ]
+    }
+  },
+  "activityorders":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS o.yhq,r.user_name,r.user_mobile,r.user_company,r.user_position,r.user_mail,r.enroll_json, c.channel_name,DATE_FORMAT(payment_date,'%Y-%m-%d %H:%i') as order_date,t.ticket_title,o.order_is_gift, ticket_count,o.ticket_price,order_discount,order_total,checkin.checkcount from act_orders o inner join act_ticket t on o.ticket_id=t.ticket_id left join act_enroll r on o.enroll_id=r.enroll_id left join act_channel c on o.order_channel = c.channel_id left join (select order_id,count(1) as checkcount from act_order_checkin  group by order_id,checkin_type) checkin on o.order_id=checkin.order_id where o.payment_status=1 and o.activity_id = '@params.id@'",
+      "countsql": "select ifnull(sum(ticket_count),0) as count,ifnull(sum(order_total),0) as total from act_orders o left join act_enroll r on o.enroll_id=r.enroll_id where o.payment_status=1 and o.activity_id = '@params.id@'",
+      "sort": "order_date desc",
+      "search":[
+        {"pattern": " and order_is_gift = @gift@ "},
+        {"pattern": " and (r.user_name like '%@username@%' or r.user_mobile like '%@username@%') "},
+        {"pattern": " and o.ticket_id = '@ticket@' "}],
+      "field": [
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "order_is_gift","format": "","nullValue": "","mapping": "gift"},
+         {"name": "enroll_json","format": "","nullValue": "","mapping": "enrolljson"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_company","format": "","nullValue": "","mapping": "company"},
+        {"name": "user_position","format": "","nullValue": "","mapping": "position"},
+        {"name": "channel_name","format": "","nullValue": "","mapping": "channel"},
+        {"name": "order_date","format": "","nullValue": "","mapping": "orderdate"},
+        {"name": "ticket_title","format": "","nullValue": "","mapping": "ticket"},
+        {"name": "ticket_count","format": "","nullValue": "","mapping": "count"},
+        {"name": "checkcount","format": "","nullValue": "","mapping": "checkcount"},
+        {"name": "ticket_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "order_discount","format": "","nullValue": "","mapping": "discount"},
+        {"name": "yhq","format": "","nullValue": "","mapping": "yhq"},
+        {"name": "order_total","format": "","nullValue": "","mapping": "total"}
+      ],
+      "footer":[
+        {"name": "ticket","format": "","nullValue": "合计"},
+        {"name": "total","format": "","nullValue": ""},
+        {"name": "count","format": "","nullValue": ""}
+      ]
+    }
+  },
+  "activitychannelsales":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS  channel.channel_id,channel.channel_name,t.ticket_title,ifnull(cg.ticketcount,0) as ticketcount,ifnull(cg.tickettotal,0) as tickettotal from act_channel channel join act_ticket t left join(select order_channel,ticket_id,sum(ticket_count) as ticketcount,sum(order_total) as tickettotal from act_orders where ifnull(order_channel,'')<>'' and activity_id='@params.id@' and payment_status=1 group by order_channel,ticket_id) cg on channel.channel_id=cg.order_channel and t.ticket_id=cg.ticket_id where channel.rec_isdeleted=0 and channel.activity_id='@params.id@' and t.activity_id='@params.id@' and cg.ticketcount >0",
+      "sort": "channel_name,t.ticket_index",
+      "search":[
+        {"pattern": " and channel.channel_name like '%@channelname@%' "},
+        {"pattern": " and t.ticket_id = '@ticketid@' "}],
+      "field": [
+        {"name": "channel_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "ticket_title","format": "","nullValue": "","mapping": "tickettitle"},
+        {"name": "ticketcount","format": "","nullValue": "","mapping": "count"},
+        {"name": "tickettotal","format": "","nullValue": "","mapping": "total"}
+      ]
+    }
+  },
+  "activityticket":{
+     "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS ticket_id,ticket_is_gift,ticket_bgcolor,ticket_title,ticket_price,ticket_discount_price,ticket_member_price,ticket_max,ticket_disabled from act_ticket where 1=1",
+      "sort": "ticket_index",
+      "field": [
+        {"name": "ticket_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "ticket_title","format": "","nullValue": "","mapping": "title"},
+        {"name": "ticket_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "ticket_discount_price","format": "","nullValue": "","mapping": "disprice"},
+        {"name": "ticket_member_price","format": "","nullValue": "","mapping": "memberprice"},
+        {"name": "ticket_max","format": "","nullValue": "","mapping": "max"},
+        {"name": "ticket_is_gift","format": "","nullValue": "","mapping": "gift"},
+         {"name": "ticket_bgcolor","format": "","nullValue": "","mapping": "bgcolor"},
+        {"name": "ticket_disabled","format": "","nullValue": "","mapping": "disabled"}
+      ]
+    },
+    "detail": {
+       "primary":"ticket_id",
+       "field": [
+         {"name": "ticket_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+         {"name": "activity_id","format": "","nullValue": "query.activityid","mapping": "activityid","action":"create"},
+        {"name": "ticket_title","format": "","nullValue": "","mapping": "title"},
+        {"name": "ticket_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "ticket_discount_price","format": "","nullValue": "","mapping": "disprice"},
+        {"name": "ticket_member_price","format": "","nullValue": "","mapping": "memberprice"},
+        {"name": "ticket_max","format": "","nullValue": "","mapping": "max"},
+        {"name": "ticket_disabled","format": "","nullValue": "","mapping": "disabled"},
+        {"name": "ticket_index","format": "","nullValue": "1","mapping": "index"},
+        {"name": "ticket_desc","format": "","nullValue": "","mapping": "desc"},
+        {"name": "ticket_is_gift","format": "","nullValue": "","mapping": "gift"},
+        {"name": "ticket_bgcolor","format": "","nullValue": "","mapping": "bgcolor"},
+        {"name": "ticket_data","format": "","nullValue": "","mapping": "data"}
+      ]
+    }
+  },
+  "activitychannel":{
+    "detail": {
+       "primary":"channel_id",
+       "field": [
+         {"name": "channel_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+         {"name": "activity_id","format": "","nullValue": "query.activityid","mapping": "activityid","action":"create"},
+        {"name": "channel_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "channel_max","format": "","nullValue": "","mapping": "max"},
+        {"name": "channel_memo","format": "","nullValue": "","mapping": "memo"},
+        {"name": "channel_discount","format": "","nullValue": "","mapping": "discount"},
+        {"name": "channel_disabled","format": "","nullValue": "","mapping": "disabled"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create","direction":"backonly"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": "","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": "","direction":"backonly"}
+      ]
+    }
+  },
+  "channelgift":{
+    "detail": {
+       "primary":"rec_id",
+       "field": [
+        {"name": "rec_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "channel_id","format": "","nullValue": "query.channelid","mapping": "channelid","action":"create"},
+        {"name": "ticket_id","format": "","nullValue": "","mapping": "ticketid"},
+        {"name": "ticket_title","format": "","nullValue": "","mapping": "title","direction":"frontonly"},
+        {"name": "ticket_discount_price","format": "","nullValue": "","mapping": "price","direction":"frontonly"},
+        {"name": "ticket_bgcolor","format": "","nullValue": "","mapping": "price","direction":"frontonly"},
+        {"name": "gift_count","format": "","nullValue": "","mapping": "count"},
+        {"name": "gift_memo","format": "","nullValue": "","mapping": "memo"}
+      ]
+    }
+  },
+  "consume":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS pay_id,order_no,order_type, order_desc, data_id,pay.user_id,user.user_name,user.user_mobile,user.user_image,pay_total,pay.pay_date from fw_payment pay inner join crm_user user on pay.user_id=user.user_id where pay.pay_total>0 and pay.pay_status=1",
+      "countsql":"select sum(pay_total) as total from fw_payment pay inner join crm_user user on pay.user_id=user.user_id where  pay.pay_total>0 and pay.pay_status=1",
+      "sort": "pay_date desc",
+      "search":[
+         {"pattern": " and pay.user_id = '@query.userid@' "},
+         {"pattern": " and order_no like '%@orderno@%' "},
+         {"pattern": " and (user_name like '%@username@%' or user_mobile like '%@username@%') "},
+         {"pattern": " and order_type = @type@ "},
+         {"pattern": " and pay_date >= '@start@ 00:00:00' "},
+         {"pattern": " and pay_date <= '@end@ 23:59:59' "}
+      ],
+      "field": [
+        {"name": "pay_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "order_no","format": "","nullValue": "","mapping": "orderno"},
+        {"name": "order_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "data_id","format": "","nullValue": "","mapping": "dataid"},
+        {"name": "user_id","format": "","nullValue": "","mapping": "userid"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "username"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "pay_total","format": "","nullValue": "","mapping": "total"},
+        {"name": "pay_type","format": "","nullValue": "","mapping": "paytype"},
+        {"name": "pay_date","format": "","nullValue": "","mapping": "paydate"},
+        {"name": "order_desc","format": "","nullValue": "","mapping": "memo"},
+        {"name": "pay_status","format": "","nullValue": "","mapping": "status"}
+      ],
+      "footer":[
+        {"name": "type","format": "","nullValue": "合计"},
+        {"name": "total","format": "","nullValue": "","mapping": "total"}
+      ]
+    }
+  },
+  "ymtotal":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select * from vw_income_count where income>0",
+      "countsql":"select ifnull(sum(income),0) as income from vw_income_count where income>0",
+      "sort": "describ",
+      "search":[
+         {"pattern": " and ym = '@query.ym@' "},
+         {"pattern": " and order_type = @ordertype@ "}
+      ],
+      "field": [
+        {"name": "describ","format": "","nullValue": "","mapping": "describ"},
+        {"name": "order_type","format": "","nullValue": "","mapping": "ordertype"},
+        {"name": "ym","format": "","nullValue": "","mapping": "ym"},
+        {"name": "income","format": "","nullValue": "","mapping": "income"}
+      ],
+      "footer":[
+        {"name": "describ","format": "","nullValue": "合计"},
+        {"name": "income","format": "","nullValue": "","mapping": "income"}
+      ]
+    }
+  },
+  "productcatalog":{
+    "detail": {
+       "primary":"catalog_id",
+       "field": [
+        {"name": "catalog_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "parent_id","format": "","nullValue": "","mapping": "pid"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "catalog_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "catalog_index","format": "","nullValue": "value.0","mapping": "index"}
+      ]
+    }
+  },
+  "product":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS product_id,catalog_name,product_type,product_name,product_image,product_price,product_discount_price,product_member_price,product_sale_status,product_stock_limit,product_stock_qty from ec_product where rec_isdeleted=0",
+      "sort": "product_name",
+      "search":[
+         {"pattern": " and product_name like '%@name@%' "},
+         {"pattern": " and product_type like '%@type@%' "},
+         {"pattern": " and find_in_set(catalog_id ,fun_getProductHierarchySubItems('@catalog_id@')) " }
+      ],
+      "field": [
+        {"name": "product_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "product_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "catalogname"},
+        {"name": "product_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "product_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "product_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "product_discount_price","format": "","nullValue": "","mapping": "discountprice"},
+        {"name": "product_member_price","format": "","nullValue": "","mapping": "memberprice"},
+        {"name": "product_sale_status","format": "","nullValue": "","mapping": "status"},
+        {"name": "product_stock_limit","format": "","nullValue": "","mapping": "limittype"},
+        {"name": "product_stock_qty","format": "","nullValue": "","mapping": "quantity"}
+      ]
+    },
+    "detail": {
+       "primary":"product_id",
+        "field": [
+        {"name": "product_id","format": "","nullValue": "uuid()","mapping": "id","action":"create" },
+        {"name": "catalog_id","format": "","nullValue": "","mapping": "catalogid"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "catalogname"},
+        {"name": "product_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "product_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "product_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "product_image1","format": "","nullValue": "","mapping": "image1"},
+        {"name": "product_image2","format": "","nullValue": "","mapping": "image2"},
+        {"name": "product_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "product_memo","format": "","nullValue": "","mapping": "memo"},
+        {"name": "product_discount_price","format": "","nullValue": "","mapping": "discountprice"},
+        {"name": "product_member_price","format": "","nullValue": "","mapping": "memberprice"},
+        {"name": "product_stock_limit","format": "","nullValue": "","mapping": "limittype"},
+        {"name": "product_stock_qty","format": "","nullValue": "value.0","mapping": "quantity"},
+        {"name": "product_buy_max","format": "","nullValue": "","mapping": "maxbuy"},
+        {"name": "product_member_buy_max","format": "","nullValue": "","mapping": "membermaxbuy"},
+        {"name": "rich_text","format": "","nullValue": "","mapping": "richtext","direction":"frontonly"}
+      ]
+    }
+  },
+  "productorder":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS order_id,order_no,DATE_FORMAT(order_date,'%Y-%m-%d %H:%i') as order_date,member_level,receive_info,order_total,pay_status,pay_type,pay_date,process_status,DATE_FORMAT(process_date,'%Y-%m-%d %H:%i') as process_date,process_result,order_is_refund,refund_reason,DATE_FORMAT(refund_date,'%Y-%m-%d %H:%i') as refund_date,u.user_name as processuser,cu.user_mobile,cu.user_name,cu.user_image from ec_product_order po inner join crm_user cu on po.user_id=cu.user_id left join fw_users u on  po.process_user = u.user_id where 1=1",
+      "countsql": "select ifnull(sum(order_total),0) as total from ec_product_order po inner join crm_user cu on po.user_id=cu.user_id left join fw_users u on  po.process_user = u.user_id where 1=1",
+      "sort": "order_date desc",
+      "search":[
+         {"pattern": " and cu.user_name like '%@name@%' "},
+         {"pattern": " and order_no like '%@orderno@%' "},
+         {"pattern": " and process_result = '@processresult@' "}
+      ],
+      "field": [
+        {"name": "order_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "order_no","format": "","nullValue": "","mapping": "orderno"},
+        {"name": "order_date","format": "","nullValue": "","mapping": "orderdate"},
+        {"name": "member_level","format": "","nullValue": "","mapping": "level"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "username"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "receive_info","format": "","nullValue": "","mapping": "receive"},
+        {"name": "order_total","format": "","nullValue": "","mapping": "total"},
+        {"name": "pay_status","format": "","nullValue": "","mapping": "paystatus"},
+        {"name": "pay_date","format": "","nullValue": "","mapping": "paydate"},
+        {"name": "pay_type","format": "","nullValue": "","mapping": "paytype"},
+        {"name": "process_status","format": "","nullValue": "","mapping": "processstatus"},
+        {"name": "process_date","format": "","nullValue": "","mapping": "processdate"},
+        {"name": "process_result","format": "","nullValue": "","mapping": "processresult"},
+        {"name": "processuser","format": "","nullValue": "","mapping": "processuser"},
+        {"name": "order_is_refund","format": "","nullValue": "","mapping": "refund"},
+        {"name": "refund_date","format": "","nullValue": "","mapping": "refunddate"},
+        {"name": "refund_reason","format": "","nullValue": "","mapping": "refundreason"}
+      ],
+      "footer":[
+        {"name": "receive","format": "","nullValue":"合计"},
+        {"name": "total","format": "","nullValue": ""}
+      ]
+    },
+    "detail": {
+       "primary":"order_id",
+        "field": [
+        {"name": "order_id","format": "","nullValue": "","mapping": "id","direction":"frontonly"},
+        {"name": "order_no","format": "","nullValue": "","mapping": "orderno","direction":"frontonly"},
+        {"name": "order_date","format": "","nullValue": "","mapping": "orderdate","direction":"frontonly"},
+        {"name": "member_level","format": "","nullValue": "","mapping": "level","direction":"frontonly"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "username","direction":"frontonly"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile","direction":"frontonly"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image","direction":"frontonly"},
+        {"name": "receive_info","format": "","nullValue": "","mapping": "receive","direction":"frontonly"},
+        {"name": "order_total","format": "","nullValue": "","mapping": "total","direction":"frontonly"},
+        {"name": "pay_status","format": "","nullValue": "","mapping": "paystatus","direction":"frontonly"},
+        {"name": "pay_date","format": "","nullValue": "","mapping": "paydate","direction":"frontonly"},
+        {"name": "pay_type","format": "","nullValue": "","mapping": "paytype","direction":"frontonly"},
+        {"name": "process_status","format": "","nullValue": "","mapping": "processstatus","direction":"frontonly"},
+        {"name": "process_date","format": "","nullValue": "","mapping": "processdate","direction":"frontonly"},
+        {"name": "process_result","format": "","nullValue": "","mapping": "processresult","direction":"frontonly"},
+        {"name": "process_opinion","format": "","nullValue": "","mapping": "processopinion","direction":"frontonly"},
+        {"name": "processuser","format": "","nullValue": "","mapping": "processuser","direction":"frontonly"},
+        {"name": "order_is_refund","format": "","nullValue": "","mapping": "refund","direction":"frontonly"},
+        {"name": "refund_date","format": "","nullValue": "","mapping": "refunddate","direction":"frontonly"},
+        {"name": "refund_reason","format": "","nullValue": "","mapping": "refundreason","direction":"frontonly"}
+      ]
+    }
+  },
+  "memberactivity":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS activity_id,activity.catalog_id,activity.catalog_name,activity_topic,DATE_FORMAT(activity_date_start,'%Y-%m-%d %H:%i') as activity_date_start,DATE_FORMAT(activity_date_end,'%Y-%m-%d %H:%i') as activity_date_end,DATE_FORMAT(activity_ticket_end,'%Y-%m-%d %H:%i') as activity_ticket_end,activity_price,activity_member_price,activity_status,activity_cover,activity_city_name,activity_desc,activity_label from crm_activity activity inner join act_catalog catalog on activity.catalog_id=catalog.catalog_id where activity.rec_isdeleted=0 and catalog.rec_isdeleted=0",
+      "sort": "rec_create_date desc",
+      "search":[
+        {"pattern": " and activity.catalog_id = '@catalogid@' "},
+        {"pattern": " and activity_topic like '%@topic@%' "}],
+      "field": [
+        {"name": "activity_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "catalogname"},
+        {"name": "activity_topic","format": "","nullValue": "","mapping": "topic"},
+        {"name": "activity_cover","format": "","nullValue": "","mapping": "cover"},
+        {"name": "activity_desc","format": "","nullValue": "","mapping": "desc"},
+        {"name": "activity_date_start","format": "","nullValue": "","mapping": "start"},
+        {"name": "activity_date_end","format": "","nullValue": "","mapping": "end"},
+        {"name": "activity_ticket_end","format": "","nullValue": "","mapping": "ticketend"},
+        {"name": "activity_status","format": "","nullValue": "","mapping": "status"},
+        {"name": "activity_city_name","format": "","nullValue": "","mapping": "city"},
+        {"name": "activity_member_price","format": "","nullValue": "","mapping": "memberprice"},
+        {"name": "activity_price","format": "","nullValue": "","mapping": "price"}
+      ]
+    },
+    "detail": {
+       "primary":"activity_id",
+       "field": [
+        {"name": "activity_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "activity_topic","format": "","nullValue": "","mapping": "topic"},
+        {"name": "activity_cover","format": "","nullValue": "","mapping": "cover"},
+        {"name": "avtivity_share_image","format": "","nullValue": "","mapping": "share"},
+        {"name": "activity_desc","format": "","nullValue": "","mapping": "desc"},
+        {"name": "activity_date_start","format": "","nullValue": "","mapping": "start"},
+        {"name": "activity_date_end","format": "","nullValue": "","mapping": "end"},
+        {"name": "activity_ticket_end","format": "","nullValue": "","mapping": "ticketend"},
+        {"name": "activity_status","format": "","nullValue": "","mapping": "status"},
+        {"name": "activity_label","format": "","nullValue": "","mapping": "label"},
+        {"name": "catalog_id","format": "","nullValue": "","mapping": "catalogid"},
+        {"name": "catalog_name","format": "","nullValue": "","mapping": "catalogname"},
+        {"name": "activity_city","format": "","nullValue": "","mapping": "cityid"},
+        {"name": "activity_city_name","format": "","nullValue": "","mapping": "cityname"},
+        {"name": "activity_location","format": "","nullValue": "","mapping": "location"},
+        {"name": "activity_member_price","format": "","nullValue": "","mapping": "memberprice"},
+        {"name": "activity_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "rich_text","format": "","nullValue": "","mapping": "richtext","direction":"frontonly"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","mapping": "","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","mapping": "","action":"create","direction":"backonly"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","mapping": "","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","mapping": "","direction":"backonly"}
+      ]
+    }
+  },
+  "crmactivityorders":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS DATE_FORMAT(order_date,'%Y-%m-%d %H:%i') as order_date,ticket_count,ticket_price,order_total,user_name,user_real_name,user_mobile,user_corp_name,user_image from crm_activity_orders o inner join crm_user on o.user_id=crm_user.user_id where o.payment_status=1 and o.activity_id = '@params.id@'",
+      "sort": "order_date desc",
+      "search":[
+        {"pattern": " and (r.user_name like '%@username@%' or r.user_mobile like '%@username@%') "},
+        {"pattern": " and o.ticket_id = '@ticket@' "}],
+      "field": [
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "user_real_name","format": "","nullValue": "","mapping": "realname"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "order_date","format": "","nullValue": "","mapping": "orderdate"},
+        {"name": "ticket_count","format": "","nullValue": "","mapping": "count"},
+        {"name": "ticket_price","format": "","nullValue": "","mapping": "price"},
+        {"name": "order_total","format": "","nullValue": "","mapping": "total"}
+      ]
+    }
+  },
+  "media":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS *,DATE(media_quotation_valid) as vdate from bas_media where rec_isdeleted=0",
+      "sort": "media_index desc",
+      "search":[
+        {"pattern": " and (media_name like '%@name@%' or media_no like '%@name@%')"},
+        {"pattern": " and media_level=@level@" },
+        {"pattern": " and media_type = @type@ "},
+        {"pattern": " and media_platform like '%@platform@%' "},
+        {"pattern": " and media_showtype = @showtype@ "},
+        {"pattern": " and media_fans>=@fans_low@" },
+        {"pattern": " and media_fans<=@fans_up@" },
+        {"pattern": " and media_head_price>=@head_low@" },
+        {"pattern": " and media_head_price<=@head_up@" },
+        {"pattern": " and media_second_price>=@second_low@" },
+        {"pattern": " and media_second_price<=@second_up@" },
+        {"pattern": " and media_content_type = '@typeid@' "}],
+      "field": [
+        {"name": "media_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "media_logo","format": "","nullValue": "","mapping": "logo"},
+        {"name": "media_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "media_content_name","format": "","nullValue": "","mapping": "cname"},
+        {"name": "media_no","format": "","nullValue": "","mapping": "mediano"},
+        {"name": "media_showtype","format": "","nullValue": "","mapping": "showtype"},
+        {"name": "media_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "media_platform","format": "","nullValue": "","mapping": "platform"},
+        {"name": "media_is_top","format": "","nullValue": "","mapping": "istop"},
+        {"name": "media_host_type","format": "","nullValue": "","mapping": "hosttype"},
+        {"name": "media_host_name","format": "","nullValue": "","mapping": "hostname"},
+        {"name": "media_city_name","format": "","nullValue": "","mapping": "city"},
+        {"name": "media_fans","format": "","nullValue": "","mapping": "fans"},
+        {"name": "media_avg_read","format": "","nullValue": "","mapping": "avgread"},
+        {"name": "media_head_read","format": "","nullValue": "","mapping": "headread"},
+        {"name": "media_operation_id","format": "","nullValue": "","mapping": "operator"},
+        {"name": "media_telephone","format": "","nullValue": "","mapping": "telephone"},
+        {"name": "media_rank","format": "","nullValue": "","mapping": "rank"},
+        {"name": "media_head_price","format": "","nullValue": "","mapping": "headprice"},
+        {"name": "media_second_price","format": "","nullValue": "","mapping": "secondprice"},
+        {"name": "media_head_price_cost","format": "","nullValue": "","mapping": "headpricecost"},
+        {"name": "media_second_price_cost","format": "","nullValue": "","mapping": "secondpricecost"},
+        {"name": "vdate","format": "","nullValue": "","mapping": "valid"},
+        {"name": "media_head_price_cost","format": "","nullValue": "","mapping": "headpricecost"},
+        {"name": "media_has_contribution","format": "","nullValue": "","mapping": "contribution"},
+        {"name": "media_level","format": "","nullValue": "","mapping": "level"}
+      ]
+    },
+    "detail": {
+       "primary":"media_id",
+       "field": [
+        {"name": "media_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "media_logo","format": "","nullValue": "","mapping": "logo"},
+        {"name": "media_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "media_platform","format": "","nullValue": "","mapping": "platform"},
+        {"name": "media_showtype","format": "","nullValue": "","mapping": "showtype"},
+        {"name": "media_is_top","format": "","nullValue": "","mapping": "istop"},
+        {"name": "media_url","format": "","nullValue": "","mapping": "url"},
+        {"name": "media_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "media_content_name","format": "","nullValue": "","mapping": "contentname"},
+        {"name": "media_content_type","format": "","nullValue": "","mapping": "contenttype"},
+        {"name": "media_describ","format": "","nullValue": "","mapping": "describ"},
+        {"name": "media_no","format": "","nullValue": "","mapping": "mediano"},
+        {"name": "media_host_type","format": "","nullValue": "","mapping": "hosttype"},
+        {"name": "media_host_name","format": "","nullValue": "","mapping": "hostname"},
+        {"name": "media_city","format": "","nullValue": "","mapping": "cityid"},
+        {"name": "media_city_name","format": "","nullValue": "","mapping": "city"},
+        {"name": "media_fans","format": "","nullValue": "","mapping": "fans"},
+        {"name": "media_avg_read","format": "","nullValue": "","mapping": "avgread"},
+        {"name": "media_head_read","format": "","nullValue": "","mapping": "headread"},
+        {"name": "media_user_translate","format": "","nullValue": "","mapping": "translate"},
+        {"name": "media_user_cost","format": "","nullValue": "","mapping": "usercost"},
+        {"name": "media_operation_id","format": "","nullValue": "","mapping": "operator"},
+        {"name": "media_telephone","format": "","nullValue": "","mapping": "telephone"},
+        {"name": "media_rank","format": "","nullValue": "","mapping": "rank"},
+        {"name": "media_label","format": "","nullValue": "","mapping": "label"},
+        {"name": "media_head_price","format": "","nullValue": "","mapping": "headprice"},
+        {"name": "media_second_price","format": "","nullValue": "","mapping": "secondprice"},
+        {"name": "media_head_price_cost","format": "","nullValue": "","mapping": "headpricecost"},
+        {"name": "media_second_price_cost","format": "","nullValue": "","mapping": "secondpricecost"},
+        {"name": "media_quotation_valid","format": "","nullValue": "","mapping": "vdate"},
+        {"name": "media_head_price_cost","format": "","nullValue": "","mapping": "headpricecost"},
+        {"name": "media_has_contribution","format": "","nullValue": "","mapping": "contribution"},
+        {"name": "media_contribution_price","format": "","nullValue": "","mapping": "contributionprice"},
+        {"name": "media_except_content","format": "","nullValue": "","mapping": "except"},
+        {"name": "media_level","format": "","nullValue": "","mapping": "level"}
+      ]
+    }
+  },
+  "enterprise":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS enterprise_id,enterprise_name,enterprise_account,item.item_name,enterprise_eng_name,enterprise_logo,enterprise_level,enterprise_type,enterprise_contact,enterprise_contact_mobile,DATE_FORMAT(enterprise_join_date,'%Y-%m-%d') as enterprise_join_date,DATE_FORMAT(enterprise_end_date,'%Y-%m-%d') as enterprise_end_date,(case when enterprise_end_date<now() then 1 else 0 end) as expired,(select count(1) from  brh_service_application where enterprise_id=brh_enterprise.enterprise_id and app_status=0) as appservice from brh_enterprise left join fw_dict_item item on brh_enterprise.enterprise_business=item.rec_id where rec_isdeleted=0",
+      "sort": "enterprise_join_date desc",
+      "search":[
+        {"pattern": " and (enterprise_name like '%@name@%' or enterprise_eng_name like '%@name@%') "},
+        {"pattern": " and enterprise_level =@level@ "},
+        {"pattern": " and enterprise_business ='@business@' "}
+      ],
+      "field": [
+        {"name": "enterprise_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "enterprise_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "enterprise_eng_name","format": "","nullValue": "","mapping": "ename"},
+        {"name": "enterprise_account","format": "","nullValue": "","mapping": "account"},
+        {"name": "item_name","format": "","nullValue": "","mapping": "business"},
+        {"name": "enterprise_logo","format": "","nullValue": "","mapping": "image"},
+        {"name": "enterprise_level","format": "","nullValue": "","mapping": "level"},
+        {"name": "enterprise_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "enterprise_contact","format": "","nullValue": "","mapping": "contact"},
+        {"name": "enterprise_contact_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "enterprise_join_date","format": "","nullValue": "","mapping": "startdate"},
+        {"name": "enterprise_end_date","format": "","nullValue": "","mapping": "enddate"},
+        {"name": "expired","format": "","nullValue": "","mapping": "expired"},
+        {"name": "appservice","format": "","nullValue": "","mapping": "appservice"}
+      ]
+    },
+    "detail": {
+       "primary":"enterprise_id",
+        "field": [
+          {"name": "enterprise_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+          {"name": "enterprise_name","format": "","nullValue": "","mapping": "name"},
+          {"name": "enterprise_eng_name","format": "","nullValue": "","mapping": "ename"},
+          {"name": "enterprise_logo","format": "","nullValue": "","mapping": "image"},
+          {"name": "enterprise_level","format": "","nullValue": "","mapping": "level"},
+          {"name": "enterprise_contact","format": "","nullValue": "","mapping": "contact"},
+          {"name": "enterprise_contact_mobile","format": "","nullValue": "","mapping": "mobile"},
+          {"name": "enterprise_join_date","format": "","nullValue": "","mapping": "startdate"},
+          {"name": "enterprise_end_date","format": "","nullValue": "","mapping": "enddate"},
+          {"name": "enterprise_memo","format": "","nullValue": "","mapping": "memo"},
+          {"name": "enterprise_account","format": "","nullValue": "","mapping": "account"},
+          {"name": "enterprise_scale","format": "","nullValue": "","mapping": "scale"},
+          {"name": "enterprise_marketing","format": "","nullValue": "","mapping": "marketing"},
+          {"name": "enterprise_business","format": "","nullValue": "","mapping": "business"},
+          {"name": "enterprise_website","format": "","nullValue": "","mapping": "website"},
+          {"name": "enterprise_wx_account","format": "","nullValue": "","mapping": "wechat"},
+          {"name": "enterprise_wb_account","format": "","nullValue": "","mapping": "weblog"},
+          {"name": "rec_creator","format": "","nullValue": "userid()","direction":"backonly","action":"create"},
+          {"name": "rec_create_date", "format": "", "nullValue": "now()","direction":"backonly","action":"create"},
+          {"name": "rec_updator","format": "","nullValue": "userid()","direction":"backonly"},
+          {"name": "rec_update_date","format": "","nullValue": "now()","direction":"backonly"}
+      ]
+    }
+  },
+  "enterpriseappservice":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS  app_id,DATE_FORMAT(app_date,'%Y-%m-%d %H:%i') as app_date,app.enterprise_id,enterprise_name,bas.service_name,app_type,app_data_id,app_status,target.name as targetname from brh_service_application app inner join brh_enterprise ent on app.enterprise_id=ent.enterprise_id inner join brh_bas_service bas on app.service_id=bas.service_id inner join vw_brh_servicetarget target on app.app_type=target.type and app.app_data_id=target.dataid where 1=1",
+      "sort": "app_date desc",
+      "search":[
+        {"pattern": " and app.enterprise_id ='@params.id@' "},
+        {"pattern": " and (enterprise_name like '%@name@%' or enterprise_eng_name like '%@name@%') "},
+        {"pattern": " and app_type =@type@ "},
+        {"pattern": " and app_status =@status@ "}
+      ],
+      "field": [
+        {"name": "app_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "app_date","format": "","nullValue": "","mapping": "date"},
+        {"name": "enterprise_id","format": "","nullValue": "","mapping": "entid"},
+        {"name": "enterprise_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "service_name","format": "","nullValue": "","mapping": "servicename"},
+        {"name": "targetname","format": "","nullValue": "","mapping": "targetname"},
+        {"name": "app_type","format": "","nullValue": "","mapping": "type"},
+        {"name": "app_data_id","format": "","nullValue": "","mapping": "dataid"},
+        {"name": "app_status","format": "","nullValue": "","mapping": "status"}
+      ]
+    }
+  },
+  "kol":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS kol_id,kol_name,kol_cover,kol_company,kol_title,kol_value,kol_contact,kol_disabled from brh_kol where rec_isdeleted=0",
+      "sort": "kol_name",
+      "search":[
+        {"pattern": " and kol_name like '%@name@%' "},
+        {"pattern": " and kol_disabled =@status@ "}
+      ],
+      "field": [
+        {"name": "kol_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "kol_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "kol_company","format": "","nullValue": "","mapping": "company"},
+        {"name": "kol_title","format": "","nullValue": "","mapping": "title"},
+        {"name": "kol_value","format": "","nullValue": "","mapping": "value"},
+        {"name": "kol_cover","format": "","nullValue": "","mapping": "image"},
+        {"name": "kol_contact","format": "","nullValue": "","mapping": "contact"},
+        {"name": "kol_disabled","format": "","nullValue": "","mapping": "status"}
+      ]
+    },
+    "detail": {
+       "primary":"kol_id",
+        "field": [
+        {"name": "kol_id","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "kol_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "kol_company","format": "","nullValue": "","mapping": "company"},
+        {"name": "kol_title","format": "","nullValue": "","mapping": "title"},
+        {"name": "kol_value","format": "","nullValue": "","mapping": "value"},
+        {"name": "kol_cover","format": "","nullValue": "","mapping": "image"},
+        {"name": "kol_contact","format": "","nullValue": "","mapping": "contact"},
+        {"name": "kol_describ","format": "","nullValue": "","mapping": "desc"},
+        {"name": "kol_disabled","format": "","nullValue": "","mapping": "status"},
+        {"name": "rec_creator","format": "","nullValue": "userid()","direction":"backonly","action":"create"},
+        {"name": "rec_create_date", "format": "", "nullValue": "now()","direction":"backonly","action":"create"},
+        {"name": "rec_updator","format": "","nullValue": "userid()","direction":"backonly"},
+        {"name": "rec_update_date","format": "","nullValue": "now()","direction":"backonly"}
+      ]
+    }
+  },
+
+  "member2":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS *,(case user_sex when 0 then '女' else '男' end) as sexname from crm_user",
+      "sort": "user_create_date desc",
+      "search":[
+        {"pattern": "where (user_name like '%@name@%' or user_real_name like '%@name@%') "},
+        {"pattern": " and user_mobile like '%@mobile@%' "}
+      ],
+      "field": [
+        {"name": "user_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_real_name","format": "","nullValue": "","mapping": "real_name"},
+        {"name": "user_corp_name","format": "","nullValue": "","mapping": "corp"},
+        {"name": "user_corp_department","format": "","nullValue": "","mapping": "department"},
+        {"name": "user_corp_position","format": "","nullValue": "","mapping": "position"},
+        {"name": "user_birthday","format": "","nullValue": "","mapping": "birthday"},
+        {"name": "user_age","format": "","nullValue": "","mapping": "age"},
+        {"name": "user_create_date","format": "","nullValue": "","mapping": "createdate"},
+        {"name": "user_city","format": "","nullValue": "","mapping": "city"},
+        {"name": "user_sex","format": "","nullValue": "","mapping": "sex"},
+        {"name": "sexname","format": "","nullValue": "","mapping": "sexname"},
+        {"name": "user_serial","format": "","nullValue": "","mapping": "serial"},
+        {"name": "yhq","format": "","nullValue": "","mapping": "yhq"}
+      ]
+    },
+    "detail": {
+      "primary":"user_id",
+      "field": [
+        {"name": "user_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name","direction":"frontonly"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image","direction":"frontonly"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_birthday","format": "","nullValue": "","mapping": "birthday"},
+        {"name": "user_age","format": "","nullValue": "","mapping": "age"},
+        {"name": "user_real_name","format": "","nullValue": "","mapping": "realname","direction":"frontonly"},
+        {"name": "user_corp_name","format": "","nullValue": "","mapping": "corp"},
+        {"name": "user_corp_department","format": "","nullValue": "","mapping": "department"},
+        {"name": "user_corp_position","format": "","nullValue": "","mapping": "position"},
+        {"name": "user_serial","format": "","nullValue": "","mapping": "serial","direction":"frontonly"},
+        {"name": "user_city","format": "","nullValue": "","mapping": "city"},
+        {"name": "user_sex","format": "","nullValue": "","mapping": "sex"},
+        {"name": "user_memo","format": "","nullValue": "","mapping": "memo"},
+        {"name": "yhq","format": "","nullValue": "","mapping": "yhq"}
+      ]
+    }
+  },
+
+  "member2":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS *,(case user_sex when 0 then '女' else '男' end) as sexname from crm_user",
+      "sort": "user_create_date desc",
+      "search":[
+        {"pattern": "where (user_name like '%@name@%' or user_real_name like '%@name@%') "},
+        {"pattern": " and user_mobile like '%@mobile@%' "}
+        
+      ],
+      "field": [
+        {"name": "user_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "user_image","format": "","nullValue": "","mapping": "image"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"},
+        {"name": "user_real_name","format": "","nullValue": "","mapping": "real_name"},
+        {"name": "user_corp_name","format": "","nullValue": "","mapping": "corp"},
+        {"name": "user_corp_department","format": "","nullValue": "","mapping": "department"},
+        {"name": "user_corp_position","format": "","nullValue": "","mapping": "position"},
+        {"name": "user_birthday","format": "","nullValue": "","mapping": "birthday"},
+        {"name": "user_age","format": "","nullValue": "","mapping": "age"},
+        {"name": "user_create_date","format": "","nullValue": "","mapping": "createdate"},
+        {"name": "user_city","format": "","nullValue": "","mapping": "city"},
+        {"name": "user_sex","format": "","nullValue": "","mapping": "sex"},
+        {"name": "sexname","format": "","nullValue": "","mapping": "sexname"},
+        {"name": "user_serial","format": "","nullValue": "","mapping": "serial"},
+        {"name": "yhq","format": "","nullValue": "","mapping": "yhq"}
+      ]
+    },
+    "detail": {
+      "primary":"user_id",
+      "field": [
+        {"name": "user_id","format": "","nullValue": "uuid()","mapping": "id","action":"create"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name","direction":"frontonly"},
+        {"name": "yhq","format": "","nullValue": "0","mapping": "yhq"}
+      ]
+    }
+  },
+
+  "crm_user_yhq":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select * from  crm_user left join crm_user_yhq on crm_user.user_id=crm_user_yhq.uid",
+      "sort": "user_create_date desc",
+      "search":[
+        {"pattern": " and used=0 "},
+        {"pattern": "where user_id = '@key@'"}
+      ],
+      "field": [
+        {"name":"id","format":"","nullValue":"","mapping":"id"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name","direction":" "},
+        {"name": "yhq","format": "","nullValue": "0","mapping": "yhq"},
+        {"name":"used","format":"","nullValue":"","mapping":"used"},
+        {"name":"selected","format":"","nullValue":"","mapping":"selected"}
+      ]
+    }
+  },
+
+  "yhq2uid":{
+    "detail": {
+      "primary":"id",
+      "field": [
+        {"name":"id","format":"","nullValue":"","mapping":"id"},
+        {"name":"uid","format":"","nullValue":"","mapping":"uid"},
+        {"name":"yhq","format":"","nullValue":"","mapping":"yhq"}
+      ]
+    }
+  },
+
+  "crm_user":{
+    "detail": {
+      "primary":"id",
+      "field": [
+        {"name":"yhq","format":"","nullValue":"","mapping":"yhq"}
+      ]
+    }
+  },
+
+  "question":{
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS * from  crm_user_yhq_qa ",
+      "sort": "id desc",
+      "search":[
+        {"pattern": " where que like '%@name@%' "}
+      ],
+      "field": [
+        {"name":"id","format":"","nullValue":"","mapping":"id"},
+        {"name": "que","format": "","nullValue": "","mapping": "que","direction":" "},
+        {"name": "ans","format": "","nullValue": "0","mapping": "ans"},
+        {"name":"hard","format":"","nullValue":"","mapping":"hard"},
+        {"name":"opt1","format":"","nullValue":"","mapping":"opt1"},
+        {"name":"opt2","format":"","nullValue":"","mapping":"opt2"},
+        {"name":"opt3","format":"","nullValue":"","mapping":"opt3"},
+        {"name":"opt4","format":"","nullValue":"","mapping":"opt4"},
+        {"name":"cat_id","format":"","nullValue":"","mapping":"cat_id"},
+        {"name":"del","format":"","nullValue":"","mapping":"del"},
+        {"name":"img","format":"","nullValue":"","mapping":"img"}
+      ]
+    },
+    "detail": {
+      "sqltype":"sql",
+      "sql": "select  * from  crm_user_yhq_qa where id=?",
+      "field": [
+        {"name":"id","format":"","nullValue":"","mapping":"id"},
+        {"name": "que","format": "","nullValue": "","mapping": "que","direction":" "},
+        {"name": "ans","format": "","nullValue": "0","mapping": "ans"},
+        {"name":"hard","format":"","nullValue":"","mapping":"hard"},
+        {"name":"opt1","format":"","nullValue":"","mapping":"opt1"},
+        {"name":"opt2","format":"","nullValue":"","mapping":"opt2"},
+        {"name":"opt3","format":"","nullValue":"","mapping":"opt3"},
+        {"name":"opt4","format":"","nullValue":"","mapping":"opt4"},
+        {"name":"cat_id","format":"","nullValue":"","mapping":"cat_id"},
+        {"name":"del","format":"","nullValue":"","mapping":"del"},
+        {"name":"img","format":"","nullValue":"","mapping":"img"}
+
+      ]
+    }
+  },
+
+  "add_question":{
+    "detail": {
+      "primary":"id",
+      "sqltype":"sql",
+      "field": [
+        {"name": "que","format": "","nullValue": "","mapping": "que","direction":" "},
+        {"name": "ans","format": "","nullValue": "0","mapping": "ans"},
+        {"name":"hard","format":"","nullValue":"","mapping":"hard"},
+        {"name":"opt1","format":"","nullValue":"","mapping":"opt1"},
+        {"name":"opt2","format":"","nullValue":"","mapping":"opt2"},
+        {"name":"opt3","format":"","nullValue":"","mapping":"opt3"},
+        {"name":"opt4","format":"","nullValue":"","mapping":"opt4"},
+        {"name":"cat_id","format":"","nullValue":"","mapping":"cat_id"},
+        {"name":"img","format":"","nullValue":"","mapping":"image"}
+
+      ]
+    }
+  },
+
+  "socre":{
+    "list": {
+      "sqltype":"sql",
+      "sql":"select SQL_CALC_FOUND_ROWS *  from (SELECT tem.id,tem.user_name,tem.createTime,tem.endTime,tem.hard,tem.rightlist,tem.wronglist,tem.score,tem.activity_id from (select crm_user.user_id,crm_user_yhq_result.id,crm_user.user_name,crm_user_yhq_result.createTime,crm_user_yhq_result.endTime,hard,rightlist,wronglist, score, activity_id from crm_user_yhq_result LEFT JOIN crm_user on crm_user_yhq_result.uid=crm_user.user_id where crm_user_yhq_result.endTime !=' ' ORDER BY score DESC,hard ) as tem group by tem.user_id) as temp where  temp.score",
+      "search":[
+        {"pattern": " where crm_user.user_name like '%@name@%' "}
+      ],
+      "field": [
+        {"name": "id","format": "","nullValue": "0","mapping": "id"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name","direction":" "},
+        {"name":"hard","format":"","nullValue":"","mapping":"hard"},
+        {"name":"score","format":"","nullValue":"","mapping":"score"},
+        {"name":"rightlist","format":"","nullValue":"","mapping":"rightlist"},
+        {"name":"wronglist","format":"","nullValue":"","mapping":"wronglist"},
+        {"name":"createTime","format":"","nullValue":"","mapping":"createTime"},
+        {"name":"endTime","format":"","nullValue":"","mapping":"endTime"},
+        {"name":"activity_id","format":"","nullValue":"","mapping":"activity_id"}
+
+      ]
+    },
+    "detail": {
+      "sqltype":"sql",
+      "sql": "SELECT SQL_CALC_FOUND_ROWS crm_user.user_name,result.id,result.hard,result.score,result.rightlist,result.wronglist,result.createTime,result.endTime,result.activity_id from crm_user_yhq_result as result LEFT JOIN crm_user  on crm_user.user_id=result.uid ",
+      "field": [
+        {"name": "id","format": "","nullValue": "0","mapping": "id"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name","direction":" "},
+        {"name":"hard","format":"","nullValue":"","mapping":"hard"},
+        {"name":"score","format":"","nullValue":"","mapping":"score"},
+        {"name":"rightlist","format":"","nullValue":"","mapping":"rightlist"},
+        {"name":"wronglist","format":"","nullValue":"","mapping":"wronglist"},
+        {"name":"createTime","format":"","nullValue":"","mapping":"createTime"},
+        {"name":"endTime","format":"","nullValue":"","mapping":"endTime"},
+        {"name":"activity_id","format":"","nullValue":"","mapping":"activity_id"}
+
+      ]
+    }
+  }
+}

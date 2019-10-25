@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+   <meta http-equiv="X-UA-Compatible" content="IE=11,chrome=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-cache">
+    
+    <!--以下这几个js你要换成你自己的-->
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/urlconfig.js'></script>
+    <script type="text/javascript" src='../Scripts/Framework/Framework_Common.js'></script>
+    <script type="text/javascript" src='../Scripts/Framework/Framework_ApiCaller.js'></script>
+    <title>活动签到</title>
+    <style>
+        body {margin: 0;text-align: center;background-color: #777;}
+        .checkinSuccess{
+            margin:0 auto;
+            border: 1px solid #fff;
+            width: 70%;
+            background-color: #ff00f1;
+            text-align: center;
+
+        }
+        .checkinFailed{
+            margin:0 auto;
+             border: 1px solid #fff;
+            width: 70%;
+            background-color: #666;
+             text-align: center;
+        }
+        .btnArea {
+            margin-top: 20px;
+            text-align: center;
+
+        }
+    </style>
+</head>
+
+<body>
+        <div style="text-align: center;color: #fff"><h1>活动签到</h1></div>
+        <div class="checkinSuccess" style="display: none">
+            <div id="ticketInfo"></div>
+            <span id="welcome"></span>
+            <div class="btnArea">
+                <a href="#" onclick="checkinTicket();">签&nbsp;&nbsp;到</a>
+            </div>
+        </div>
+        <div class="checkinFailed" style="text-align: center;display: none">
+            <h3><span id="failedText"></span></h3>
+            <div class="btnArea">
+                <a href="#">返回验票</a>
+            </div>
+        </div>
+
+    <script language="JavaScript">
+        var failedText=["参数错误","票据订单不存在","票根不符合当前类型","该二维码已验过"]
+        $(function () {
+            ///获取到页面url里面的参数
+            ///订单id,二维码中的信息
+            var orderid= $.getUrlParam('orderid');
+            ///购买订单的用户的openid,二维码中的信息
+            var openid= $.getUrlParam('openid');
+            ///当前要验票的类型（如门票，午餐，根据扫码按钮类型)
+            var checktype= $.getUrlParam('type');
+            ///参数必须齐全，验证参数是否合法
+            if ($.isNullOrEmpty(orderid) || $.isNullOrEmpty(openid) || $.isNullOrEmpty(checktype)){
+                $('#failedText').text(failedText[0]);
+                $('.checkinFailed').show(); 
+                return;
+            }
+            ///获取扫描的二维码票的信息，并显示出来
+            ApiCaller.Get({url:'/activityorder/'+orderid+'?openid='+openid+'checktype='+checktype,
+                        withToken:false,
+                        waitingMask:false,
+                        successFunc:function(result){
+                            ///成功后显示票务信息
+                            $('#ticketInfo').html('类型:'+result.rows.ticket);
+                            $('#welcome').text('姓名 ：'+result.rows.name);
+                            $('.checkinSuccess').show(); 
+                        },
+                        failFunc:function(result){
+                            ///失败则显示失败的信息
+                            $('#failedText').text(failedText[result.errorcode]);
+                            $('.checkinFailed').show(); 
+                        },
+                    })
+            
+            })
+            ///执行验票
+            function checkinTicket(){
+                ///获取到页面url里面的参数
+                ///订单id,二维码中的信息
+                var orderid= $.getUrlParam('orderid');
+                ////当前登录的扫码人员的id
+                var userid= $.getUrlParam('userid');
+                ///当前要验票的类型（如门票，午餐，根据扫码按钮类型)
+                var checktype= $.getUrlParam('type');
+                ///执行签到
+                ApiCaller.Post({url:'/activityorder/'+orderid+'/checkin',
+                        withToken:false,
+                        waitingMask:false,
+                        data:{
+                            userid:userid,
+                            type:checktype
+                        },
+                        successFunc:function(result){
+                           ////成功，调用微信关闭窗口，继续扫码
+                           ////wx.closeWindow();
+                           alert('成功，关闭窗口继续扫码')
+                        },
+                        failFunc:function(result){
+                            ///失败，
+                            $('.checkinSuccess').hide(); 
+                            $('#failedText').text(failedText[result.errorcode]);
+                            $('.checkinFailed').show(); 
+                        },
+                })
+            }
+
+    </script>
+</body>
+</html>

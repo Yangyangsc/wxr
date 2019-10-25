@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>票务设置</title>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+   
+
+    <!--ColorPicker resource declare-->    
+	<script src="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.js"></script>
+	<link rel="stylesheet" href="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.css">
+    <!--<link rel="stylesheet" media="screen" type="text/css" href="../App_Themes/layout.css" />-->
+    <!--ColorPicker resource declare end-->
+
+     <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+        <script>
+        var detailForm;
+        $(document).ready(function () {
+            //$('#selGift').combobox({onChange: displayPrice});
+            $("input",$("#priceOriginal").next("span")).blur(function(){
+                var price = $('#priceOriginal').val();
+                if ($("#priceDiscount").val()=='') $("#priceDiscount").textbox('setValue',price);
+                if ($("#priceMember").val()=='') $("#priceMember").textbox('setValue',price);
+            });
+            $("input",$("#priceDiscount").next("span")).blur(function(){
+                var price = $('#priceDiscount').val();
+                if ($("#priceMember").val()=='') $("#priceMember").textbox('setValue',price);
+            });
+            detailForm = new detailForm('formTicket', {
+                initForm:function(){
+                    initColorPicker('#000000');
+                },
+                bindOption: { url: '/activityticket',successFunc:function(result){
+                        displayPrice(result.gift);
+                        if (!$.isNullOrEmpty(result.bgcolor)){
+                            $('#ticketColor').val(result.bgcolor);
+                            initColorPicker(result.bgcolor);
+                        }
+                        else
+                            initColorPicker('#000000');
+                } },
+                saveOption: {
+                    button: '#lnkSave', url:'/activityticket',
+                    successFunc: function (result) {
+                        dialogHelper.closeModal(result);
+                    }
+                }
+            });
+            detailForm.bindForm();
+        });
+        function initColorPicker(defColor){
+            $('#ticketColor').minicolors({
+                control: $(this).attr('data-control') || 'hue',
+                defaultValue:defColor,
+                inline: $(this).attr('data-inline') === 'true',
+                letterCase: $(this).attr('data-letterCase') || 'lowercase',
+                opacity: $(this).attr('data-opacity'),
+                position: $(this).attr('data-position') || 'bottom left',
+                change: function(hex, opacity) {
+                    var log;
+                    try {
+                        log = hex ? hex : 'transparent';
+                        if( opacity ) log += ', ' + opacity;
+                        console.log(log);
+                    } catch(e) {}
+                },
+                theme: 'default'
+            });
+        }
+        function displayPrice(giftValue){
+            if (giftValue==0)
+                $('.priceItem').show();
+            else 
+                $('.priceItem').hide();
+        }
+    </script>
+</head>
+
+<form id="formTicket" runat="server">
+ <div id="main-layout" class="easyui-layout" style="height: 500px;">
+    <div data-options="region:'north'" style="border: none;">
+        <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+            <a href="#" class="easyui-linkbutton"  iconcls="icon-save" id="lnkSave">保存</a>
+            <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+        </div>
+    </div>
+    <div data-options="region:'center',title:''">
+           <table class="form_table" style="padding-top: 10px;width:90%" data-options="fit:true">
+                    <tr>
+                        <th style="width: 140px">票面名称: <font color='red'>*</font></th>
+                        <td>
+                            <input placeholder="票种名称，如 VIP 票"  class="easyui-textbox theme-textbox-radius" style="width: 140px;" name="title" data-options="missingMessage:'请输入票种名称',required:true,validType:'length[1,128]'" />
+                        </td>
+                        <th>票面颜色: </th>
+                        <td>
+                            <input type="text" name="bgcolor" id="ticketColor" class=" theme-textbox-radius" style="width: 140px;height:30px;cursor: pointer" data-position="bottom left" value="#000000">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>说明:</th>
+                        <td colspan="3">
+                            <input class="easyui-textbox theme-textbox-radius" style="width:95%" name="desc" data-options="validType:'length[1,255]'" />
+                         </td>
+                    </tr>
+                    <tr>
+                        <th>销售方式:</th>
+                        <td>
+                            <select name="gift" id="selGift"  class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight:'auto'" style="width: 140px; height: 28px;" data-options="missingMessage:'请选择是否增票类型',required:true">
+                                <option selected value="0">销售票</option>
+                                <option value="1">赠票</option>
+                            </select>
+                         </td>
+                        <td colspan="2">
+                            <div class="alert-warning" style="line-height: 20px;">赠票类型的票面在报名购买通道中不显示</div>
+                         </td>
+                    </tr>
+                    <tr>
+                         <th>可选状态:</th>
+                        <td>
+                            <select name="disabled"  class="easyui-combobox theme-textbox-radius" data-options="editable:false" style="width: 140px; height: 28px;" data-options="missingMessage:'请选择票种级别',required:true">
+                                <option selected value="0">可选</option>
+                                <option value="1">不可选</option>
+                            </select>
+                         </td>
+                         <td colspan="2">
+                            <div class="alert-warning" style="line-height: 20px;">不可选将不会显示在报名入口的票种列表中</div>                 
+                         </td>
+                    </tr>
+
+                    <tr class="priceItem">
+                        <th>票面原价:</th>
+                        <td>
+                            <input id="priceOriginal" class="easyui-numberbox theme-textbox-radius" style="width: 140px; height: 28px;" name="price" data-options="missingMessage:'请输入价格',required:true,min:0,max:999999,precision:2,prefix:'￥'"/>
+                         </td>
+                    </tr>
+                    <tr class="priceItem">
+                        <th>折扣价:</th>
+                        <td>
+                            <input id="priceDiscount" class="easyui-numberbox theme-textbox-radius" style="width: 140px; height: 28px;"  name="disprice" data-options="missingMessage:'请输入价格',required:true,min:0,max:999999,precision:2,prefix:'￥'"/>
+                         </td>
+                        <th>会员价:</th>
+                        <td>
+                            <input id="priceMember" class="easyui-numberbox theme-textbox-radius" style="width: 140px; height: 28px;"  name="memberprice" data-options="missingMessage:'请输入价格',required:true,min:0,max:999999,precision:2,prefix:'￥'"/>
+                         </td>
+                    </tr>
+                    <tr>
+                        <th>数量:</th>
+                        <td>
+                            <input class="easyui-numberbox theme-textbox-radius" style="width: 140px; height: 28px;" value="0"  name="max" data-options="missingMessage:'请输入数量（1~999999）',required:true,min:1,max:999999,precision:0"/>
+                         </td>
+                        <td colspan="2">
+                            <!--<font color="red">注：0代表不限制数量</font>-->
+                         </td>
+                    </tr>
+                    <tr style="display:none">
+                        <th>票种级别:</th>
+                        <td>
+                            <input class="input-text easyui-numberbox easyui-validatebox" style="width: 140px; height: 28px;" value="1"  name="data" data-options="missingMessage:'请输入票务数据码位',required:true,min:0,max:255,precision:0"/>
+                            <!--<select name="data"  class="select"  class="select  easyui-validatebox" style="width: 140px; height: 28px;" data-options="missingMessage:'请选择票种级别',required:true">
+                                <option selected value="">请选择</option>
+                                <option value="1">一级票</option>
+                                <option value="3">二级票</option>
+                                <option value="7">三级票</option>
+                                <option value="15">四级票</option>
+                                <option value="31">五级票</option>
+                            </select>-->
+                         </td>
+                        <td colspan="2">
+                            <font color="red"><ul><li>该码位数据用于签到扫码识别</li><li>请不要在同一活动下设置两种同码位票</li></ul></font>
+                         </td>
+                    </tr>
+                    <tr>
+                         <th>显示排序:</th>
+                        <td>
+                            <input class="easyui-numberbox theme-textbox-radius" style="width: 140px;" value="1"  name="index" data-options="missingMessage:'请输入排序',required:true,min:0,precision:0"/>
+                         </td>
+                         <td colspan="2">
+                             <div class="alert-warning" style="line-height: 20px;">数字越小显示越靠前</div>  
+                         </td>
+                    </tr>
+                </table>
+    </div>
+ </div>
+</form>

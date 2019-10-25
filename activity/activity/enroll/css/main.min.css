@@ -1,0 +1,160 @@
+.page-header {
+	height: 3em;
+	background-color: rgba(0, 0, 0, .75);
+	margin: 0;
+	padding: 0
+}
+
+.container {
+	border: 0px;
+	padding: 0
+}
+
+.acquisition-container .acquisitionForm,
+.acquisition-container .title {
+	padding: 15px
+}
+
+.acquisition-container .title {
+	font-family: inherit;
+	margin: 0;
+	text-align: center
+}
+
+.acquisition-container .main-content {
+	min-height: 568px;
+	height: 100%;
+	line-height: 50%;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 auto;
+	padding-top: 40px
+}
+
+.acquisition-container .main-content .success {
+	width: 60px
+}
+
+.acquisition-container .main-content .success:before {
+	line-height: 50px
+}
+
+.acquisition-container .main-content .title {
+	font-size: 2em
+}
+
+.acquisition-container .main-content .tootip {
+	margin-top: 40px;
+	font-size: 1.5em
+}
+
+.acquisition-container .article-main {
+	margin-top: 20px;
+	margin-bottom: 20px;
+	padding-bottom: 20px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+.acquisition-container .article-main .cover {
+	margin-bottom: 20px
+}
+
+.acquisition-container .article-main img {
+	max-width: 100%
+}
+
+.acquisition-container .acquisitionForm {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background-color: hsla(0, 0%, 100%, .8);
+	margin: 15px auto;
+	margin-bottom: 30px;
+}
+
+.acquisitionForm .form_item {
+	width: 100%;
+	height: 32px;
+	font-size: 16px;
+}
+
+.acquisitionForm input,
+.acquisitionForm input:disabled {
+	margin-top: 5px;
+	width: 100%;
+	height: 34px;
+	padding-left: 6px;
+	background-color: #fff;
+	background-image: none;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	color: #000000;
+	opacity: 1
+}
+
+.acquisitionForm input::-webkit-input-placeholder,
+.acquisitionForm input:disabled::-webkit-input-placeholder {
+	color: #999999;
+}
+
+.acquisitionForm .header {
+	border-bottom: 1px solid;
+}
+
+.acquisitionForm .header .title,
+.acquisitionForm .header .subtitle {
+	text-align: center;
+}
+
+.title {
+	color: rgb(225, 17, 79);
+	font-size: 22px;
+	font-weight: sold;
+}
+
+.subtitle {
+	font-size: 12px;
+	color: #000000;
+	margin-bottom: 10px;
+}
+
+.weui_cell {
+	margin: 15px 0px;
+}
+
+.weui_cell_primary {
+	font-size: 1.167em font-weight: bold;
+	color: rgb(225, 17, 79);
+}
+
+.form_item:after {
+	display: block;
+	content: ' ';
+	border-bottom: 1px solid #E6E6E6;
+}
+
+.acquisition-container .btn-group-vertical {
+	padding-bottom: 30px
+}
+
+.acquisition-container .btn-group-vertical button {
+	font-size: 1em;
+	height: 2.5em
+}
+
+.btn-enroll {
+	text-align: center;
+	vertical-align: middle;
+	position: fixed;
+	bottom: 0px;
+	margin: 0px;
+	color: #fff;
+	width: 100%;
+	height: 45px;
+	line-height: 45px;
+	max-width: 100%;
+	font-size: 18px;
+	background-color: #5cb85c;
+	border-color: #4cae4c;
+}

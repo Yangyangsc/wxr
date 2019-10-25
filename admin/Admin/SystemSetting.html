@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>系统设置</title>
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/systemsetting.js"></script>
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+</head>
+
+<form id="formSetting" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+
+    <div class="main" id="bt_index_layout_center" data-options="region:'center',title:'',iconCls:'icon-file',border:false" style="border: none;">
+        <div id="tabSystem" class="easyui-tabs" data-options="tabWidth:130,tabHeight:40,fit:true">
+            <div title="<span class='tt-inner'><img src='../images/property.png' width='24'/>系统设置</span>" style="padding: 10px;" data-options="fit:true">
+                <div id="tools_1" style="background-color: #fff; border: none;">
+                    <div class="easyui-panel" style="padding: 5px; border: none;">
+                        <a href="#" id="lnkSave" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'">保存设置</a>
+                        <a href="#" id="lnkSend" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-sendfile'" onclick="SendIM();">推送配置至终端</a>
+
+                         <a href="#" id="lnkPcrJson" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'" onclick="writePcrJson();">导出省市区Json</a>
+                        <a href="#" id="lnkProvinceJson" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'" onclick="writeCityJson();">导出城市拼音Json</a>
+                        <a href="#" id="lnkDutyJson" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'" onclick="writeHierarchialJson(0);">导出职责岗位数据JSON</a>
+
+                        <a href="#" id="lnkInformationJson" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'" onclick="writeInformation();">导出新闻类型JSON</a>
+                        <a href="#" id="lnkOrganizationJson" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'" onclick="writeOrganization();">导出机构类型JSON</a>
+                        <a href="#" id="lnkGoodsCatelogJson" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'" onclick="writeGoodsCategory();">导出商品类型JSON</a>
+                    </div>
+                </div>
+                <hr />
+                <table class="form_table" style="padding-top: 10px;">
+                    <tr>
+                        <th>邀请码注册 :
+                        </th>
+                        <td>
+                            <select class="select" id="invite" name="invite">
+                                <option value="true">开启</option>
+                                <option value="false">关闭</option>
+                            </select>
+                        </td>
+                        <th>蓝莓商城 :
+                        </th>
+                        <td>
+                            <select class="select" id="openmall" name="openmall">
+                                <option value="true">开启</option>
+                                <option value="false">关闭</option>
+                            </select>
+                        </td>
+                       
+                    </tr>
+                     <tr>
+                        <th>资源电话消耗莓果 :
+                        </th>
+                        <td>
+                          <input class="input-text easyui-numberbox" value="20" name="callberrys" data-options="min:0,max:1000" />
+                        </td>
+                        <th>资源短信消耗莓果 :
+                        </th>
+                        <td>
+                            <input class="input-text easyui-numberbox" value="20" name="msgberrys" data-options="min:0,max:1000" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>资源电话时长 :
+                        </th>
+                        <td>
+                          <input class="input-text easyui-numberbox" value="10" name="calltime" data-options="min:0,max:1000" />
+                        </td>
+                        <th>关闭支付的账号 :
+                        </th>
+                        <td>
+                           <input class="input-text"  name="closePayAccount"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>应用启动宣传 :
+                        </th>
+                        <td>
+                            <select class="select" id="guideenable" onchange="switchGuide();" name="guideenable">
+                                <option value="true">开启</option>
+                                <option value="false">关闭</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr id="trGuide">
+                        <td colspan="4">
+                            <table style="margin-left:50px">
+                                <tr>
+                                    <th>宣传图片 :
+                                    </th>
+                                    <td colspan="3">
+                                        <input name="guidepictures" class="input-text" style="width: 95%;">
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>JSON参数 :
+                                    </th>
+                                    <td colspan="3">
+                                        <input name="guidejson" style="width: 95%;" class="input-text">
+                                    </td>
+                                </tr>
+                                
+                                <tr>
+                                    <th>广告停留时间 :
+                                    </th>
+                                    <td>
+                                         <select class="select" id="guidedelay" name="guidedelay">
+                                            <option value="0">用户点击关闭</option>
+                                            <option value="3">3秒自动消失</option>
+                                             <option value="5">5秒自动消失</option>
+                                        </select>
+                                    </td>
+                                    <th>广告显示间隔时间 :<br />
+                                            (秒:默认3600秒)
+                                    </th>
+                                    <td>
+                                         <input class="input-text easyui-numberbox  easyui-validatebox" value="3600" name="guideinterval" data-options="min:120,max:100000000" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <th>客服电话号码 :
+                        </th>
+                        <td>
+                            <input name="customservice" class="input-text" style="width: 180px;">
+                        </td>
+                         <th>网络电话号码 :<br /><font color="red">写入用户通讯录</font>
+                        </th>
+                        <td>
+                            <input name="iptelephone" class="input-text" style="width: 180px;">
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <th>手机应用最新版本号 :
+                        </th>
+                        <td>
+                            <input name="appversion" class="input-text" style="width: 100px;">
+                        </td>
+
+                        <th>手机应用包:</th>
+                        <td colspan="3">
+                            
+                            <div class="fl" style=""><span id="spanButtonPlaceholder"></span></div>
+                            <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-uploadfile'" onclick="startUpload();">上传</a>
+                            <input type="hidden" id="hidappurl" name="appurl" />
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <th>强制更新设置 :
+                        </th>
+                        <td>
+                            <select class="select" name="force" id="force">
+                                <option value="false" selected="selected">非强制更新</option>
+                                <option value="true">强制更新</option>
+                            </select>
+                        </td>
+                        <th>强制更新版本 :
+                        </th>
+                        <td>
+                            <input name="version" class="input-text" style="width: 50px;">
+                        </td>
+                    </tr>
+                    <tr style="display:none">
+                        <th>强制更新版本路径 :
+                        </th>
+                        <td colspan="3">
+                            <input name="forceUrl" class="input-text" style="width: 180px;">
+                        </td>
+                    </tr>
+                   <tr style="display:none">
+                        <th>是否允许客户端更新 :
+                        </th>
+                        <td>
+                            <select class="select" id="update" name="update">
+                                <option value="true">允许</option>
+                                <option value="false">拒绝</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>

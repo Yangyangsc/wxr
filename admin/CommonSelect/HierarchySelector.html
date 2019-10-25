@@ -1,0 +1,60 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>选择</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+     <script type="text/javascript" src="../Scripts/Framework/Framework_treeForm.js"></script>
+   
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <!--<script type="text/javascript" src="../Scripts/float.js"></script>-->
+    <script type="text/javascript" src="js/HierarchySelector.js"></script>
+    <style>
+        #tools_1.one
+        {
+            text-align: right;
+            width: 100%;
+            padding: 5px;
+        }
+    </style>
+    <script>
+        
+    </script>
+
+</head>
+
+
+<form id="formTree" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div data-options="region:'north'" style="border: none;">
+            <div id="tools_1" class="dialog-button" style="padding: 5px; text-align: right">
+                <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'" onclick="ConfirmSelected()">确定</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'">取消</a>
+            </div>
+        </div>
+        <div data-options="region:'center',title:''">
+            <ul id="ulDirTree"></ul>
+        </div>
+    </div>
+</form>
+</html>

@@ -1,0 +1,52 @@
+﻿[
+  {
+    "controller": "./commoncontroller.js",
+    "baseUrl": "/common",
+    "authorize": true
+  },
+  {
+    "controller": "../controller/act/activitycontroller.js",
+    "baseUrl": "/activity",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/act/ticketcontroller.js",
+    "baseUrl": "/ticket",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/act/channelcontroller.js",
+    "baseUrl": "/channel",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/act/ordercontroller.js",
+    "baseUrl": "/order",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/member/membercontroller.js",
+    "baseUrl": "/member",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/commoncontroller.js",
+    "baseUrl": "/common",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/ecommerce/ecommercecontroller.js",
+    "baseUrl": "/ecommerce",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/brh/kolcontroller.js",
+    "baseUrl": "/brh",
+    "authorize": false
+  },
+  {
+    "controller": "../controller/login/logincontroller.js",
+    "baseUrl": "/login",
+    "authorize": false
+  }
+]

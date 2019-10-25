@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>商战●攻心之战——商界“孙子兵法”</title>
+
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" type="text/css" href="../../css/main.min.css">
+		<link rel="stylesheet" type="text/css" href="../../css/weui.min.css">
+		<!-- endbuild -->
+
+		<!-- build:js js/main.js -->
+		<script src="../../scripts/main.js"></script>
+		<!-- endbuild -->
+		<script src="../../scripts/weui.min.js"></script>
+		<script src="../../scripts/zepto.min.js"></script>
+		<script src="../../scripts/doT.js"></script>
+		<script src="../../scripts/message.js"></script>
+		<script src="../../scripts/query.js"></script>
+		<script src="../../scripts/common.js"></script>
+		<script src="../../scripts/apiCaller.js"></script>
+		<script src="../../scripts/wechatHelper.js"></script>
+		<script src="../../api/activityApi.js"></script>
+		<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+		<script>
+			var initPicker = function(items, controlClass, options) {
+				options = options || {}
+				// 单列picker
+				weui.picker(items, {
+					container: options.container || 'business',
+					defaultValue: items[0].value,
+					onChange: function(result) {
+						$(controlClass).text(result[0]);
+						$(controlClass).val(result[0]);
+					},
+					onConfirm: function(result) {
+						$(controlClass).text(result[0]);
+						$(controlClass).val(result[0]);
+					},
+					id: options.id || 'annualsalesPicker'
+				});
+			}
+			var initBusiness = function() {
+				var items = [{
+						label: '快消品（食品/饮料/化妆品）',
+						value: "快消品（食品/饮料/化妆品）",
+					},
+					{
+						label: '批发/零售',
+						value: '批发/零售',
+					},
+					{
+						label: '教育/培训/科研/院校',
+						value: '教育/培训/科研/院校',
+					},
+					{
+						label: '餐饮/娱乐/旅游/酒店/生活服务',
+						value: '餐饮/娱乐/旅游/酒店/生活服务',
+					},
+					{
+						label: '法律',
+						value: '法律',
+					},
+					{
+						label: '银行/保险/证券/投资银行/风险基金',
+						value: '银行/保险/证券/投资银行/风险基金',
+					},
+					{
+						label: '贸易/进出口',
+						value: '贸易/进出口',
+					},
+					{
+						label: '制药/生物工程/医疗设备/器械',
+						value: '制药/生物工程/医疗设备/器械',
+					},
+					{
+						label: '广告/公关/媒体/艺术',
+						value: '广告/公关/媒体/艺术',
+					},
+					{
+						label: '房地产开发/建筑工程/装潢/设计',
+						value: '房地产开发/建筑工程/装潢/设计',
+					},
+					{
+						label: '其他行业',
+						value: '其他行业',
+					}
+				];
+				initPicker(items, ".business");
+
+			}
+			var initAnnualsales = function() {
+				var items = [{
+						label: '5000万以下',
+						value: "5000万以下",
+					},
+					{
+						label: '5000万-1亿',
+						value: '5000万-1亿',
+					},
+					{
+						label: '1亿-10亿',
+						value: '1亿-10亿',
+					},
+					{
+						label: '10亿以上',
+						value: '10亿以上',
+					}
+				]
+				initPicker(items, ".annualsales");
+			}
+			var initIpo = function() {
+				var items = [{
+						label: '已上市（主板）',
+						value: "已上市（主板）",
+					},
+					{
+						label: '已上市（中小板）',
+						value: '已上市（中小板）',
+					},
+					{
+						label: '已上市（创业板）',
+						value: '已上市（创业板）',
+					},
+					{
+						label: '已上市（新三板）',
+						value: '已上市（新三板）',
+					},
+					{
+						label: '已上市（港股）',
+						value: '已上市（港股）',
+					},
+					{
+						label: '已上市（美股）',
+						value: '已上市（美股）',
+					},
+					{
+						label: '准备2年内上市',
+						value: '准备2年内上市',
+					},
+					{
+						label: '暂无计划',
+						value: '暂无计划',
+					}
+				]
+				initPicker(items, ".ipo");
+
+			}
+			var initInvestment = function() {
+				var items = [{
+						label: '1000万以下',
+						value: "1000万以下",
+					},
+					{
+						label: '1000万',
+						value: '1000万',
+					},
+					{
+						label: '5000万',
+						value: '5000万',
+					}, {
+						label: '5000万以上',
+						value: '5000万以上',
+					},
+				]
+				initPicker(items, ".investment");
+
+			}
+			var initCompanySize = function() {
+				var items = [{
+						label: '0-50',
+						value: "0-50",
+					},
+					{
+						label: '50-100',
+						value: '50-100',
+					},
+					{
+						label: '100-200',
+						value: '100-200',
+					},
+					{
+						label: '200以上',
+						value: '200以上',
+					}
+				]
+				initPicker(items, ".companysize");
+			}
+			var clearValue = function() {
+				$(this).val('');
+			}
+			$(function() {
+				if(common.isEmpty(common.query().activityid)) {
+					$(document.body).html('');
+					weui.topTips('请从系统链接进入');
+					return;
+				}
+				if(common.isEmpty(common.query().userid))
+					wechatOAuth();
+
+				var activity_id = common.query().activityid;
+				get_activity(activity_id, {
+					onSuccess: function(data) {
+
+						var activity_data = data.rows.length > 0 ? data.rows[0] : {};
+
+						sessionStorage.setItem("userid", common.query().userid);
+						sessionStorage.setItem("channelid", activity_data.channel_id);
+						sessionStorage.setItem("ticketid", activity_data.ticket[0].ticket_id);
+
+						$(".title").html(activity_data.catalog_name);
+						$(".article-main").html(activity_data.rich_text);
+					}
+				});
+				$("#btnCreate").on('click', function() {
+					weui.form.validate('.acquisitionForm', function(error) {
+						if(!error) {
+							var loading = weui.loading('提交中...');
+							var arrayData = $(".acquisitionForm").serializeArray();
+							var objectData = common.serializeArray2Object(arrayData);
+							activity_enroll(objectData, {
+								onSuccess: function(res) {
+									window.location.href = "./success.html";
+								}
+							});
+						}
+						// return true; // 当return true时，不会显示错误
+					});
+				})
+			})
+		</script>
+	</head>
+
+	<body>
+		<div class="container">
+			<div class="acquisition-container">
+				<div class="page-header">
+					<h1></h1>
+				</div>
+				<h1 class="title"></h1>
+				<article class="article-main">
+				</article>
+				<form class="acquisitionForm form-horizontal">
+					<input type="text" required name="name" type="text" class="form_item" placeholder="请输入您的姓名" emptyTips="请输入您的姓名" notMatchTips="请输入您的姓名" />
+					<input type="text" required name="mobile" type="text" class="form_item" placeholder="请输入您的联系电话" emptyTips="请输入您的联系电话" notMatchTips="请输入您的联系电话" />
+					<input type="text" required name="wechat" type="text" class="form_item" placeholder="请输入您的微信号" emptyTips="请输入您的微信号" notMatchTips="请输入您的微信号" />
+
+					<input type="text" required name="position" type="text" class="form_item" placeholder="请输入您的职位" emptyTips="请输入您的职位" notMatchTips="请输入您的职位" />
+					<input type="text" required name="company" type="text" class="form_item" placeholder="请输入您的所在公司" emptyTips="请输入您的所在公司" notMatchTips="请输入您的所在公司" />
+					<input type="text" required name="city" type="text" class="form_item" placeholder="请输入您的所在城市" emptyTips="请输入您的所在城市" notMatchTips="请输入您的所在城市" />
+
+					<input type="hidden" class="business" name="business" />
+					<input type="hidden" class="annualsales" name="annualsales" />
+					<input type="hidden" class="ipo" name="ipo" />
+					<input type="hidden" class="investment" name="investment" />
+					<input type="hidden" class="companysize" name="companysize" />
+					
+					<div onclick="initCompanySize()">
+						<input type="text" disabled="disabled" onchange="clearValue()" required type="text" class="form_item companysize" placeholder="请选择公司规模" emptyTips="请选择公司规模" notMatchTips="请选择公司规模" />
+					</div>
+					<input type="text" onchange="clearValue()" required onclick="initBusiness()" type="text" class="form_item business" placeholder="请选择公司所属行业" emptyTips="请选择公司所属行业" notMatchTips="请选择公司所属行业" />
+					<input type="text" onchange="clearValue()" required onclick="initAnnualsales()" type="text" class="form_item annualsales" placeholder="请输入您的所公司的年营业额" emptyTips="请输入您的所公司的年营业额" notMatchTips="请输入您的所公司的年营业额" />
+					<input type="text" onchange="clearValue()" required onclick="initIpo()" type="text" class="form_item ipo" placeholder="请输入您的所公司的上市计划" emptyTips="请输入您的所公司的上市计划" notMatchTips="请输入您的所公司的上市计划" />
+					<input type="text" onchange="clearValue()" required onclick="initInvestment()" type="text" class="form_item investment" placeholder="请输入投资现状" emptyTips="请输入投资现状" notMatchTips="请输入投资现状" />
+
+				</form>
+
+			</div>
+
+		</div>
+		<div id="btnCreate" class="btn-enroll">我要报名</div>
+	</body>
+
+</html>

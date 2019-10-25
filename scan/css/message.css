@@ -1,0 +1,15 @@
+.wx-toast__container .wx-icon-warn {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    height: 40px;
+    background: url(../images/icon-warn.png) no-repeat center center;
+}
+
+.wx-toast__container .wx-icon-close {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40px;
+    height: 40px;
+    background: url(../images/icon-close.png) no-repeat center center;
+}

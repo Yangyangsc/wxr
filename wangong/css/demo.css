@@ -1,0 +1,9 @@
+@media screen and (max-width: 34em) {
+	.overlay {
+		font-size: 90%;
+	}
+	.overlay .overlay-close {
+		-webkit-transform: scale(0.5);
+		transform: scale(0.5);
+	}
+}

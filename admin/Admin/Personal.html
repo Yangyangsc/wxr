@@ -1,0 +1,133 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>用户管理</title>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    <script type="text/javascript" src='../Scripts/jquery.md5.js'></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/personal.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+</head>
+
+<form id="formUser" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div data-options="region:'north'" style="border: none;">
+            <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+            </div>
+        </div>
+        <div data-options="region:'center',title:''">
+            <div id="tabPersonal" class="easyui-tabs" data-options="fit:true">
+                <div title="基本信息" style="padding: 10px;" data-options="fit:true">
+                    <table class="form_table" style="padding-top: 10px;width:95%" data-options="fit:true">
+                        <tr>
+                            <th style="width:110px">姓名:<font color='red'>*</font>
+                            </th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius" id="name" name="name" data-options="missingMessage:'请输入姓名',required:true,invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                            </td>
+                            <th>登录账号:
+                            </th>
+                            <td>
+                                <input readonly="readonly" class="easyui-textbox theme-textbox-radius" name="account" data-options="missingMessage:'请输入登录账号',required:true,validType:'length[1,50]'" />
+                            </td>
+                            <td width="80px" rowspan="3" valign="top" align="center">
+                                <img id="imgHead" src=" ../images/userhead/userheader.png" style="width:96px;height:96px;cursor: pointer;border: 1px solid #ccc;border-radius: 50%"/>
+                                <input type="hidden" name="image" id="userHead" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>所属部门:
+                            </th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius" readonly="readonly" name="deptname" />
+                                <input type="hidden" id="deptid" name="deptid" />
+                            </td>
+                            <th></th>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>手机号码:</th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius"  name="mobile" data-options="invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                            </td>
+                            <th>微信账号:</th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius"  name="im" data-options="invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            
+                            <th>电子邮箱:</th>
+                            <td colspan="3">
+                                <input class="easyui-textbox theme-textbox-radius" style="width: 90%" name="email" data-options="invalidMessage:'请输入合法的电子邮箱',validType:'email'" />
+                            </td>
+                            
+                        </tr>
+                    </table>
+                </div>
+                <div title="密码修改" style="padding: 30px" data-options="fit:true">
+                    <table class="form_table" style="padding-top: 10px;margin-left: 30px" align="center" data-options="fit:true">
+                        <tr>
+                            <th style="width:140px" >旧密码:<font color='red'>*</font></th>
+                            <td>
+                                <input class="easyui-passwordbox theme-textbox-radius" prompt="旧密码" iconWidth="28" style="width: 200px" id="oldpassword" name="oldpassword" data-options="validType:'length[1,20]'" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th>新密码:<font color='red'>*</font></th>
+                            <td>
+                                <input class="easyui-passwordbox theme-textbox-radius" prompt="新密码" iconWidth="28" name="newpassword" id="newpassword" style="width: 200px; height: 28px;" data-options="validType:'length[1,20]'" />
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <th/>
+                            <td colspan="2"><div class="alert-warning" style="line-height: 20px;">密码长度6~20,且必须包含字母和数字</div>  </td>
+                        </tr>
+                        <tr>
+                            <th>密码确认:<font color='red'>*</font></th>
+                            <td>
+                                <input class="easyui-passwordbox theme-textbox-radius" prompt="密码确认" iconWidth="28" id="passwordconfirm" name="passwordconfirm" style="width: 200px; height: 28px;" data-options="validType:'length[1,20]'" /></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                            <th/>
+                            <td colspan="2">
+                                <a href="#" class="easyui-linkbutton" onclick="ChangePassword()" iconCls="icon-ok" style="width:150px;height:40px">修改密码</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

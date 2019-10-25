@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>媒体详情</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../../bower_components/weui/dist/style/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+
+	</head>
+
+	<body style="padding-bottom: 66px;">
+		<script id="media_temp" type="text/x-dot-template">
+			<div class="userdetails-container">
+				<div class="weui-panel weui-panel_access weui-panel__userinfos">
+					<div class="weui-panel__bd">
+						<div class="weui-media-box weui-media-box_appmsg">
+							<div class="weui-media-box__hd">
+								<img class="weui-media-box__thumb" src="{{? it.media_logo}} {{= imageServer + common.replace(it.media_logo, '\\\\', '\/') }} {{??}}../images/media_default.jpg {{?}}" alt="">
+							</div>
+							<div class="weui-media-box__bd">
+								<h4 class="weui-media-box__title">{{=it.media_name}}
+								{{~it.labels:label:lindex}}
+                        			<span class="weui-badge">{{=label}}</span>
+                        		{{~}}
+				            </h4>
+								<p class="wechat">
+									<span>微信号：</span>{{=it.media_no}}</p>
+								{{? it.media_host_name}}
+								<p class="wechat">
+									<span>认证信息：</span> {{=it.media_host_name}}
+								</p>
+								{{?}}
+							</div>
+						</div>
+						<p class="infos">{{=it.media_describ}}</p>
+					</div>
+				</div>
+				<div class="weui-panel weui-panel_access article-data">
+					<div class="weui-panel__bd">
+						<h3 class="weui-panel__title">{{=it.ranks[it.ranks.length-1].date.replace("/","月")}}日文章及账号数据</h3>
+						<div class="weui-flex">
+							<div class="weui-flex__item">
+								<p class="number">{{=it.ranks[it.ranks.length-1].readnum_all}}</p>
+								<p class="title">总阅读量</p>
+							</div>
+							<div class="weui-flex__item">
+								<p class="number">{{=it.ranks[it.ranks.length-1].likenum_all}}</p>
+								<p class="title">点赞数</p>
+							</div>
+							<div class="weui-flex__item">
+								<p class="number">{{=it.ranks[it.ranks.length-1].url_times_readnum}}</p>
+								<p class="title">头条总阅读数</p>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="weui-panel weui-panel_access chart-data">
+					<div class="weui-panel__bd">
+						<h3 class="weui-panel__title">近7天账号数据趋势图</h3>
+
+						<div class="weui-tab">
+							<div class="weui-panel__navbar">
+								<div class="weui-navbar">
+									<div class="weui-navbar__item weui-bar__item_on">
+										总阅读数
+									</div>
+									<div class="weui-navbar__item">
+										头条阅读数
+									</div>
+									<div class="weui-navbar__item">
+										平均阅读数
+									</div>
+									<div class="weui-navbar__item">
+										点赞数
+									</div>
+								</div>
+							</div>
+							<div class="weui-tab__panel">
+								<div class="weui-tab__panel_container show">
+									<div style="width: 100%;height:238px;" id="allChart"></div>
+								</div>
+								<div class="weui-tab__panel_container show">
+									<div style="width: 100%;height:238px;" id="ttChart"></div>
+								</div>
+								<div class="weui-tab__panel_container show">
+									<div style="width: 100%;height:238px;" id="pjChart"></div>
+								</div>
+								<div class="weui-tab__panel_container show">
+									<div style="width: 100%;height:238px;" id="dzChart"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="btnYY" class="btn-date-now pos-bottom">马上预约</div>
+		</script>
+	</body>
+	<script src="../../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/api/brh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/jExtension.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/lib/echarts.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/detail.js?rnd=v1" type="text/javascript" charset="utf-8"></script>
+
+</html>

@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>会员管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+     
+    
+    <!--以下三个是用于上传的-->
+  
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+      <script type="text/javascript" src="../Scripts/Framework/Framework_Charts.js"></script>
+    <script type="text/javascript" src="Scripts/memberdetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+     <style type="text/css">
+        .input_label {font-size:14px;color:#333}
+         .redfont {font-weight:bold;color:red}
+         .datagrid-footer{background-color: #1b8cf2;}
+        .datagrid-footer .datagrid-ftable{color: #fff}
+    </style>
+     
+</head>
+
+
+
+<form id="formMember" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+
+    <div data-options="region:'north'" style="border: none;">
+        <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+            <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+        </div>
+    </div>
+
+    <div data-options="region:'center',title:''">
+        <div id="tabmember" class="easyui-tabs" data-options="fit:true">
+            <div title="<span class='tt-inner'>基本资料</span>" style="padding: 10px;" data-options="fit:true">
+                <table class="form_table" style="padding-top: 10px;width:95%" data-options="fit:true">
+                    <tr>
+                        <th>尊享号:
+                        </th>
+                        <td>
+                            <input class="input_label redfont" name="serial"  />
+                        </td>
+                         <td colspan="2" align="center" rowspan="3">
+                            <img src=" ../images/member/default.png" id="imgHead" width="80px" style="cursor: pointer;border-radius: 50%;border:1px solid #CCC" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th style="width:90px">昵称:
+                        </th>
+                        <td>
+                            <input class="input_label" name="name"  />
+                        </td>
+                       
+                    </tr>
+                    <tr>
+                        <th>真实姓名:</th>
+                        <td>
+                            <input  class="input_label"  name="realname" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>出生日期:</th>
+                        <td>
+                           <input class="easyui-datebox theme-textbox-radius" style="width: 170px" name="birthday"/>
+
+                        </td>
+                        <th>年龄:</th>
+                        <td>
+                            <input class="easyui-numberbox theme-textbox-radius"  name="age" style="width: 170px" data-options="min:18,max:100,precision:0" />
+                        </td>
+                    </tr>
+                    <tr>
+                         <th>性别:</th>
+                        <td>
+                            <select name="sex" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'"  style="width:170px">
+                                        <option value="0">女</option>
+                                        <option value="1" selected>男</option>
+                             </select>
+                        </td>
+                        <th>所在城市:</th>
+                        <td>
+                            <input placeholder="城市" class="easyui-textbox theme-textbox-radius"  style="width: 170px" name="city" data-options="invalidMessage:'城市输入不能超过30个字符!',validType:'length[1,30]'" />
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                         <th>联系电话:</th>
+                        <td>
+                            <input class="easyui-textbox theme-textbox-radius"  style="width: 170px" name="mobile" data-options="invalidMessage:'输入内容不能超过20个字符!',validType:'length[1,20]'" />
+                        </td>
+                        <th>联系邮箱:</th>
+                        <td>
+                            <input class="easyui-textbox theme-textbox-radius"   style="width: 170px" name="email" data-options="invalidMessage:'请输入合法的电子邮箱',validType:'email'" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>所在企业:</th>
+                        <td colspan="3">
+                            <input class="easyui-textbox theme-textbox-radius" style="width: 87%" name="corp" data-options="invalidMessage:'输入内容不能超过64个字符!',validType:'length[1,64]'" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>任职部门:</th>
+                        <td>
+                            <input class="easyui-textbox theme-textbox-radius"  style="width: 170px" name="department" data-options="invalidMessage:'输入内容不能超过64个字符!',validType:'length[1,64]'" />
+                        </td>
+                        <th>职务:</th>
+                        <td>
+                            <input class="easyui-textbox theme-textbox-radius"  style="width: 170px" name="position" data-options="invalidMessage:'输入内容不能超过64个字符!',validType:'length[1,64]'" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>备注:</th>
+                        <td colspan="3">
+                            <input  class="easyui-textbox  theme-textbox-radius" style="width: 87%;height:70px" name="memo" data-options="multiline:true,invalidMessage:'内容不能超过255个字符!',validType:'length[1,255]'">
+                        </td>
+                    </tr>
+                </table>
+            </div>
+             <div title="用户标签" data-options="fit:true">
+                <div class="easyui-layout" data-options="border:false,fit:true"> 
+                    <div data-options="region:'west',border:false" style="width:200px; height:100%;">
+                       <div id="tools_Label" style="width: 100%; border: none;">
+                            <div class="easyui-panel" style="padding: 5px; border: none">
+                                <a id="lnkAddLabel" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加</a>
+                                <a id="lnkRemoveLabel" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                            </div>
+                        </div>
+                        <table id="dgLabel" class="form_table" style="padding-top: 10px;" align="center">
+                        </table>
+                    </div> 
+                     <div data-options="region:'center',border:false">
+                        <div class="easyui-panel" style="padding: 5px; border: none">
+                            <a id="lnkRefreshLabel" onclick="paintUserLabelChart()" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-refresh'">刷新</a>
+                        </div>
+                        <div id="chartContainer"   data-options="fit:true" style="padding: 15px;border:1px solid #ccc;">
+                        </div>
+                    </div>
+                </div>
+               
+            </div>
+            <div title="入会记录" style="padding: 5px" data-options="fit:true">
+                <div id="tools_Member" style="width: 100%; border: none;">
+                    <div class="easyui-panel" style="padding: 5px; border: none">
+                        <a id="lnkAddMember" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加会员</a>
+                        <a id="lnkRemoveMember" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除会员</a>
+                    </div>
+                </div>
+                <table id="dgMembers" class="form_table" style="padding-top: 10px;" align="center">
+                </table>
+            </div>
+            <div title="工作经历" style="padding: 5px" data-options="fit:true">
+                <div id="tools_we" style="width: 100%; border: none;">
+                    <div class="easyui-panel" style="padding: 5px; border: none">
+                        <a id="lnkAddWE" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">添加工作经历</a>
+                        <a id="lnkRemoveWE" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                    </div>
+                </div>
+                <table id="dgWE" class="form_table" style="padding-top: 10px;" align="center">
+                </table>
+            </div>
+            <div title="<span class='tt-inner'>所在群</span>" style="padding: 10px" data-options="fit:true">
+                <div id="tools_Group" style="width: 100%; border: none;">
+                    <div class="easyui-panel" style="padding: 5px; border: none">
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="joinGroup()">加入群</a>
+                        <a id="lnkRemoveGroup" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'" onclick="removeGroup();">移出群</a>
+                    </div>
+                </div>
+                <table id="dgGroups" class="form_table" style="padding-top: 10px;" align="center">
+                </table>
+            </div>
+            <div title="<span class='tt-inner'>消费记录</span>" style="padding: 10px" data-options="fit:true">
+                <div id="tools_Consume" style="width: 100%; border: none;">
+                   <table class="form_table" style="padding-top: 10px;">
+                        <tr>
+                            <th>消费类型:</th>
+                            <td style="padding-right: 5px;">
+                                <select  search-options="key:'type',method:'combobox'"   class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 100px; height: 28px;">
+                                    <option value="" selected>全部</option>
+                                    <option value="0">会员会费</option>
+                                    <option value="1">活动费用</option>
+                                    <option value="2">产品/服务购买</option>
+                                </select></td>
+                            <th>消费时间:</th>
+                            <td>
+                                <input class="easyui-datebox  theme-textbox-radius" search-options="key:'start',method:'datebox'" style="width: 110px;"/>
+                                至
+                                <input class="easyui-datebox  theme-textbox-radius" search-options="key:'end',method:'datebox'" style="width: 110px;"/></td>
+                            <td>
+                                <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                                <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <table id="dgConsume" class="form_table" style="padding-top: 10px;" align="center">
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>
+ <script type="text/javascript" src="../Scripts/Highcharts/4.2.3/highcharts.js"></script>
+<script type="text/javascript" src="../Scripts/Highcharts/4.2.3/exporting.js"></script>
+</html>

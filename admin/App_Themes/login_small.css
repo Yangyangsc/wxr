@@ -1,0 +1,163 @@
+@CHARSET "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+html,
+body {
+    background: #d6dee0;
+    /*url('default/images/login/bg.gif')*/
+    
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font: normal 14px "Microsoft YaHei";
+    height: 100%;
+}
+#login_top {
+    display: none;
+    height: 39px;
+    background: #07c url('default/images/login/topBg.gif') 0px 0px repeat-x;
+}
+#welcome {
+    height: 39px;
+    line-height: 39px;
+    padding-left: 40px;
+    background: url('default/images/login/topleft.gif') 0px 0px no-repeat;
+    color: #fff;
+    float: left;
+}
+#back {
+    float: right;
+    height: 39px;
+    line-height: 39px;
+    padding-right: 15px;
+}
+#back a {
+    color: #fff;
+    text-decoration: none;
+}
+#login_center {
+    height: 100%;
+    overflow: hidden;
+}
+#login_bottom {
+    display: none;
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    bottom: 0;
+    height: 30px;
+    line-height: 20px;
+    text-align: center;
+    color: #666;
+}
+#login_area {
+    width: 466px;
+    height: 328px;
+    background: url('default/images/login/login.jpg') center -165px no-repeat;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -164px;
+    margin-left: -234px;
+    z-index: 999;
+}
+#login_form {
+    width: 370px;
+    height: 290px;
+    position: absolute;
+    top: 42px;
+    left: 55px;
+}
+@media screen and (min-height: 650px) {
+    #login_area {} #login_form {
+        top: 42px;
+    }
+    #login_bottom {
+        display: none;
+        top: 620px;
+    }
+}
+#login_tip {
+    height: 55px;
+    line-height: 35px;
+    color: #3d96c9;
+    font-weight: 400;
+    font-size: 20px;
+    color: #ff4e00;
+}
+input,
+img {
+    border-style: none;
+    vertical-align: middle;
+}
+.usernameDiv,
+.pwdDiv {
+    width: 360px;
+    height: 29px;
+    line-height: 29px;
+    /*padding-left: 43px;*/
+}
+.username,
+.pwd {
+    width: 300px;
+    height: 29px;
+    line-height: 29px;
+    border: none;
+    background: none;
+    margin-left: 58px;
+}
+.usernameDiv {
+    background: url('default/images/login/username.gif') 0px 0px no-repeat;
+    margin-top: 15px;
+}
+.pwdDiv {
+    background: url('default/images/login/pwd.gif') 0px 0px no-repeat;
+    margin-top: 16px;
+}
+#LoginButton {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 120px;
+    height: 35px;
+    line-height: 35px;
+    background: url('default/images/login/btn.gif') 0px 0px no-repeat;
+    font: normal 15px/41px "Microsoft YaHei";
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 20px auto 0 120px;
+}
+#sub_btn:hover {
+    color: #ff0
+}
+.verifyDiv {
+    margin-top: 16px;
+    width: 360px;
+    height: 29px;
+    line-height: 29px;
+    background: url('default/images/login/verify.gif') 0 0 no-repeat;
+}
+.verify {
+    margin-left: 58px;
+    height: 29px;
+    line-height: 29px;
+    background: none;
+    width: 118px;
+}
+.verifyDiv img {
+    width: 90px;
+    height: 28px;
+    vertical-align: middle;
+    margin: 0 15px;
+}
+.verifyDiv a {
+    display: inline-block;
+    height: 29px;
+    line-height: 29px;
+    vertical-align: middle;
+}

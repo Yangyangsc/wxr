@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="author" content="name=cai" />
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+    <meta name="format-detection" content="telephone=no" />
+    <meta name="format-detection" content="email=no" />
+    <title>排行榜</title>
+    <link rel="Stylesheet" href="css/anwer/answer_base.css" />
+    <script>
+      document.write("<link rel=Stylesheet href=css/anwer/answer_rankinglist.css?v=" + Date.now() + ">");
+    </script>
+  </head>
+  <body>
+    <div class="rankBackBox">
+      <a href="answer.html" class="rankBack"></a>
+    </div>
+    <div class="r_layout">
+      <div class="r_head">
+        <img onclick="isPopup(true)" class="sign_btn" src="images/rink_sign_btn.png">
+      </div>
+      <div class="r_box">
+        <div class="content user">
+          <div class="item">
+            <div class="item_left" id="myAllRight"></div>
+            <div class="item_middle">
+              <img class="item_img" id="myImg" src="images/rink_user_icon.jpg">
+              <div class="item_who">
+                <p class="ellipsis" id="myname"></p>
+                <p>用时:<text id="myusedtime"></text>秒</p>
+              </div>
+            </div>
+            <div class="item_right">
+              <div class="item_succ">
+                <div class="succ_ok succ_boxs">答题全对NO.<text id="myuhead"></text></div>
+              </div>
+              <div class="item_correct">正确率:<text id="myright"></text></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="content common" id="rink_common">
+          <!-- <div class="item">
+            <div class="item_left">001</div>
+            <div class="item_middle">
+              <img class="item_img" src="images/rink_user_icon.jpg">
+              <div class="item_who">
+                <p class="ellipsis">绵绵黄</p>
+                <p>用时:180秒</p>
+              </div>
+            </div>
+            <div class="item_right">
+              <div class="item_succ">答题全对NO.88</div>
+              <div class="item_correct">正确率:100%</div>
+            </div>
+          </div> -->
+
+        </div>
+      </div>
+
+      <!-- 排行榜弹窗 -->
+      <div class="r_popup">
+        <div class="r_popup_box">
+          <div class="r_popup_cont">
+            <div class="r_popup_info">
+              <div class="p_cont">覆盖全国的外星人社群，致力于促进外星人行业的发展与交流，发布最新的行业资讯与峰会实情，搭建互相学习，共同进步的交流平台！</div>
+              <img class="qrcode" src="images/rink_erwei.jpg" alt="">
+              <div class="long_press">
+                <p class="erwei_text">长按识别客服二维码</p>
+                <p>添加客服小弓加群</p>
+              </div>
+            </div>
+          </div>
+          <img class="r_popup_close" onclick="isPopup(false)" id="rinkBtn" src="images/rink_close.png" alt="">
+        </div>
+      </div>
+    </div>
+    
+    <!-- 底部技术支持 -->
+    <div class="bottom_support"> </div>
+    <!-- Toast弹窗 -->
+    <div class="Prompt"></div>
+    <!-- 排行榜模板 -->
+    <script type="text/template" id="list">
+      {{each item_list as list}}
+        <div class="item">
+          {{if list.pm < 10}}
+          <div class="item_left">00{{list.pm}}</div>
+          {{else if list.pm >= 10 && list.pm < 100}}
+          <div class="item_left">0{{list.pm}}</div>
+          {{else if list.pm >= 100 && list.pm < 1000}}
+           <div class="item_left">0{{list.pm}}</div>
+           {{else}}
+           <div class="item_left">{{list.pm}}</div>
+          {{/if}}
+          <div class="item_middle">
+            <img class="item_img" src="http:\\image.huanxinkeji.cn{{list.user_image}}">
+            <div class="item_who">
+              <p class="ellipsis">{{list.user_name || '参赛者'}}</p>
+              <p>用时:{{list.usedtime}}秒</p>
+            </div>
+          </div>
+          <div class="item_right">
+            <div class="item_succ">
+              {{if list.allrightph <= 100 && list.accuracy == '100%'}}
+              <div class="succ_ok">答题全对NO.{{list.allrightph}}</div>
+              {{/if}}
+            </div>
+            <div class="item_correct">正确率:{{list.accuracy}}</div>
+          </div>
+        </div>
+      {{/each}}
+    </script>
+    <script type="text/javascript" src="js/answer/answer_reset.js"></script>
+    <script type="text/javascript" src="js/answer/answer_common.js"></script>
+    <script src="js/cache.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+    <script src="bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/api/user.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/wechatHelperShare.js" type="text/javascript" charset="utf-8"></script>
+    <!-- 新建的js文件 -->
+    <script type="text/javascript" src="js/answer/answer_jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/answer/answer_template.js"></script>
+    <script>
+      document.write("<script type='text/javascript' src='js/answer/answer_rankinglist.js?v=" + Date.now() +
+        "'><\/script>");
+    </script>
+  </body>
+</html>

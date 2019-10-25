@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>活动报名</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../scripts/zepto.min.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script type="text/javascript" src="../js/apiCaller.js"></script>
+  <script src="../scripts/weui.min.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+
+  <!-- endbuild -->
+
+  <!-- build:js js/main.js -->
+  <!-- endbuild -->
+</head>
+
+<body>
+  <form id="orderForm">
+
+    <div class="weui-panel weui-panel_access save-order-activity">
+      <div class="weui-panel__bd">
+        <a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+          <div class="weui-media-box__hd">
+            <img class="weui-media-box__thumb" src="../images/thumb_1.jpg" alt="">
+          </div>
+          <div class="weui-media-box__bd">
+            <h4 class="weui-media-box__title"></h4>
+            <p class="weui-media-box__desc"> <br></p>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="weui-cells save-order-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>类型</p>
+        </div>
+        <div class="weui-cell__ft">
+          <span class="text" id="ticketType"></span>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells save-order-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>金额</p>
+        </div>
+        <div class="weui-cell__ft">
+          <span class="text" id='price'></span>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells save-order-cells ">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>联系人</p>
+        </div>
+        <div class="weui-cell__ft">
+          <input class="weui-input" type="text" id="username" required placeholder="请输入联系人" emptyTips="请输入联系人" notMatchTips="请输入联系人">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>联系电话</p>
+        </div>
+        <div class="weui-cell__ft">
+          <input class="weui-input" type="tel" id="tel" required placeholder="请输入联系电话" emptyTips="请输入联系电话" notMatchTips="请输入联系电话">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>公司名称</p>
+        </div>
+        <div class="weui-cell__ft">
+          <input class="weui-input" type="text" id="company" required placeholder="请输入公司名称" emptyTips="请输入公司名称" notMatchTips="请输入公司名称">
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>数量</p>
+        </div>
+        <div class="weui-cell__ft">
+          <img src="../images/remove.jpg" id="remove-btn" alt="">
+          <input class="weui-input" id="number" value="1" required pattern="[0-9]" placeholder="输入你现在的手机号" emptyTips="请输入数量" notMatchTips="请输入正确的数量">
+          <img src="../images/add.jpg" id="add-btn" alt="">
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells save-order-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>配送方式</p>
+        </div>
+        <div class="weui-cell__ft">
+          <span class="text">电子票</span>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells save-order-cells" style='display:none;' id="channelContainer">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>优惠渠道</p>
+        </div>
+        <div class="weui-cell__ft">
+          <span class="text" id="code"></span>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cells save-order-cells">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>金额</p>
+        </div>
+        <div class="weui-cell__ft">
+          <span class="text text-red" id="ticketPrice"></span>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <p>优惠</p>
+        </div>
+        <div class="weui-cell__ft">
+          <span class="text text-red" id="discount"></span>
+        </div>
+      </div>
+    </div>
+    <div class="bottom-button__fixed">
+      <div class="save-order-bottom">
+        <div class="weui-flex">
+          <div class="weui-flex__item">
+            支付金额: <span class="text text-red" id="totalPrice"></span>
+          </div>
+          <div class="weui-flex__item">
+            <a href="javascript:;" id="btnPay" class="weui-btn weui-btn_primary">立即支付</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+  <script>
+    function GetRequest() {
+      var url = location.search; //获取url中"?"符后的字串
+      var theRequest = new Object();
+      if (url.indexOf("?") != -1) {
+        var str = url.substr(1);
+        strs = str.split("&");
+        for (var i = 0; i < strs.length; i++) {
+          theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+        }
+      }
+      return theRequest;
+    }
+    var query = GetRequest();
+    var openid = query["openid"];
+    var bindhandle = function () {
+      $("#btnPay").on('click', function () {
+        validForm()
+      })
+      $("#number").on("change", function (e) {
+        var count = $(this).val() || 1;
+        if (isNaN(count))
+          $(this).val(1);
+        reloadPrice($(this).val());
+      })
+      $("#remove-btn").on('click', function () {
+        var count = $("#number").val() || 1;
+        var newCount = parseInt(count) <= 1 ? parseInt(count) : parseInt(count) - 1;
+        $("#number").val(newCount);
+        reloadPrice(newCount);
+      })
+      $("#add-btn").on('click', function () {
+        var count = $("#number").val() || 1;
+        var newCount = parseInt(count) + 1;
+        $("#number").val(newCount);
+        reloadPrice(newCount);
+      })
+    }
+    var validForm = function () {
+      // weui.form.validate('#form', function(error){ console.log(error);}); // error: {dom:[Object], msg:[String]}
+      weui.form.validate('#orderForm', function (error) {
+        if (!error) {
+          submit()
+        }
+        // return true; // 当return true时，不会显示错误
+      });
+    }
+    var submit = function () {
+
+
+      var loading = weui.loading('提交中...');
+      apiCaller.call('orders', {
+        data: {
+          userid: common.getCache('openid'),
+          mobile: $("#tel").val(),
+          ticketid: common.query().id,
+          username: $("#username").val(),
+          company: $("#company").val(),
+          total: $("#number").val(),
+          tickettype: '',
+          channelid: common.query().cid
+
+        },
+        success: function (result) {
+          loading.hide();
+          if (result.successed && result.rows.length > 0) {
+            var orderData = result.rows[0];
+            toPay(orderData.orderid)
+          }
+          else {
+            weui.toast(result.message, 3000);
+          }
+        },
+        error: function () {
+          loading.hide();
+          weui.toast('购买失败', 3000);
+        }
+      })
+    }
+    var toPay = function (orderid) {
+      var loading = weui.loading('准备支付...');
+      var jsApiCall = null;
+      apiCaller.call('wechat/mp/pay', {
+        data: {
+          openid: openid,
+          orderid: orderid,
+        },
+        success: function (result) {
+          loading.hide();
+          if (result.successed) {
+            jsApiCall = function jsApiCall() {
+              WeixinJSBridge.invoke(
+                'getBrandWCPayRequest',
+                result.result,//josn串
+                function (res) {
+                  WeixinJSBridge.log(res.err_msg);
+                  if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    document.location.href = './orderList.html'
+                  } else {
+                    weui.toast('支付失败，请重试', 3000);
+                  }
+                }
+              );
+            }
+
+              (function callpay() {
+                if (typeof WeixinJSBridge == "undefined") {
+                  if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                  }
+                  else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                  }
+                }
+                else {
+                  jsApiCall();
+                }
+              })();
+          }
+          else {
+            weui.toast('支付失败，请重试', 3000);
+          }
+        },
+        error: function () {
+          loading.hide();
+          weui.toast('支付失败，请重试', 3000);
+        }
+      })
+    }
+    var reloadPrice = function (count) {
+      var activity_price = common.getCache('activity_price') ? parseFloat(common.getCache('activity_price')) : 0;
+      var channeldiscount = common.getCache('channeldiscount') ? parseFloat(common.getCache('channeldiscount')) : 0;
+      var totalPrice = (parseFloat(channeldiscount) * count * activity_price / 100.0)
+      var discount = (activity_price * count) - totalPrice;
+
+      $("#ticketPrice").text("￥" + activity_price * count);
+      $("#discount").text("－￥" + discount);
+      $("#totalPrice").text("￥" + totalPrice)
+    }
+    var initLoad = function () {
+      var id = common.query().id;
+      var cid = common.query().cid;
+      apiCaller.call('tickets/' + id + '?cid=' + cid, {
+        type: 'get',
+        success: function (result) {
+          if (result.successed && result.rows.length > 0) {
+            var rowData = result.rows[0];
+            var count = $("#number").val() || 1
+            var totalPrice = (rowData.channeldiscount / 100) * count * rowData.activity_price
+            var discount = (rowData.activity_price * count) - totalPrice;
+            var desc = common.format(rowData.activity_date_start) + '-' + common.format(rowData.activity_date_end) + ' </br>' + rowData.activity_city_name + ' -' + rowData.activity_location;
+
+            common.addCache('activity_price', "" + rowData.activity_price);
+            common.addCache('channeldiscount', "" + rowData.channeldiscount);
+
+            reloadPrice(count);
+
+            $(".weui-media-box__title").text(rowData.activity_topic);
+            $(".weui-media-box__desc").html(desc);
+            $("#ticketType").text(rowData.ticket_title);
+            $("#price").text("￥" + rowData.activity_price);
+
+
+            $("#code").text(rowData.channelname + '（' + (rowData.channeldiscount / 10.0) + '折）');
+            if (rowData.channeldiscount < 100) {
+              $("#channelContainer").show();
+            }
+          }
+
+        }
+      })
+    }
+    $(function () {
+
+      initLoad();
+      bindhandle();
+    })
+  </script>
+</body>
+
+</html>

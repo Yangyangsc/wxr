@@ -1,0 +1,763 @@
+@mixin center_h() {
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+$ratio: 750/375 !default;
+$color-grey: #333 !default;
+$color-lightgrey: #999 !default;
+$color-green: #00d62a !default;
+$color-yellow: #ec6941 !default;
+$color-red: #f22020 !default;
+$color-blue: #00a0e9 !default;
+
+$xs-screen: 340px;
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  color: $color-grey;
+  background: #f2f2f2;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.pos-abs {
+  position: absolute;
+}
+
+.text-green {
+  color: $color-green !important;
+}
+
+.text-red {
+  color: $color-red !important;
+}
+
+.hide {
+  display: none !important;
+}
+
+.activity-banner {
+  img {
+    display: block;
+    width: 100%;
+  }
+}
+
+.bottom-button__fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  .weui-btn {
+    border-radius: 0;
+    font-size: 38px/$ratio;
+
+    &.weui-btn_warn {
+      background-color: $color-red;
+    }
+
+    &.weui-btn_primary {
+      background: $color-green;
+    }
+
+    &.weui-btn_disabled {
+      background: lighten($color-grey, 50%);
+      color: lighten($color-grey, 30%);
+    }
+  }
+}
+
+.activity-infos {
+  background: #fff;
+  overflow: hidden;
+  h1 {
+    font-size: 42px/$ratio;
+    font-weight: normal;
+    color: $color-grey;
+  }
+}
+
+.activity-infos__lists {
+  &.weui-cells {
+    &::before {
+      display: none;
+    }
+
+    .weui-cell {
+      padding: 5px 15px;
+
+      &::before {
+        right: 15px;
+      }
+    }
+  }
+}
+
+.activity-infos__title {
+  display: inline-block;
+  padding-right: 10px;
+  font-size: 22px/$ratio;
+  color: $color-lightgrey;
+}
+
+.activity-infos__text {
+  font-size: 24px/$ratio;
+  color: lighten($color-grey, 20%);
+}
+
+#iosActionsheetCancel {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 20px;
+  height: 20px;
+}
+
+.activity-infos__content {
+  .activity-infos__item {
+    &::before {
+      display: none;
+    }
+  }
+
+  .weui-panel__hd {
+    padding: 10px 15px;
+    text-align: center;
+    font-size: 34px/$ratio;
+    color: lighten($color-grey, 20%);
+
+    &::after {
+      right: 15px;
+    }
+  }
+
+  .weui-media-box__desc {
+    color: lighten($color-grey, 10%);
+  }
+
+  h4.weui-media-box__title {
+    padding-left: 5px;
+    font-size: 25px/$ratio;
+    color: lighten($color-grey, 10%);
+    font-weight: normal;
+    line-height: 1;
+    border-left: 4px solid $color-yellow;
+  }
+
+  .vip-thumb {
+    margin-top: 10px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+  }
+}
+
+.success__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  @for $i from 1 to 4 {
+    &.success__wrapper#{$i} {
+      background-image: url(../images/ticket#{$i}_bg.jpg);
+    }
+  }
+
+  .success__container {
+    position: relative;
+    margin: 20% auto 10%;
+    width: 80%;
+    .ticket {
+      position: relative;
+      display: block;
+      width: 100%;
+      z-index: 2;
+    }
+
+    .name {
+      position: absolute;
+      font-size: 84px/$ratio;
+      color: #fff;
+      top: 43%;
+      left: 2%;
+      width: 100%;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .qrcode {
+      width: 30%;
+      position: absolute;
+      top: 60%;
+      left: 51%;
+      transform: translateX(-50%);
+      z-index: 10;
+    }
+
+    .ticket-banner {
+      position: absolute;
+      width: 80%;
+      top: 9%;
+      right: 8%;
+      z-index: 1;
+    }
+
+    .text {
+      position: absolute;
+      bottom: 9%;
+      width: 100%;
+      font-size: 14px;
+      color: #fff;
+      line-height: 1.4;
+      text-align: center;
+      z-index: 10;
+    }
+  }
+}
+
+// 购票
+.ticket__wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-image: url(../images/success_bg.jpg);
+  overflow: auto;
+
+  .ticket__container {
+    margin: 10% 8.666666%;
+
+    .ticket-banner {
+      position: absolute;
+      top: 9.2%;
+      width: 70.8%;
+      left: 14.5%;
+      height: 19.5%;
+    }
+
+    .ticket-top {
+      display: block;
+      width: 100%;
+    }
+
+    .ticket__content {
+      overflow: hidden;
+      text-align: center;
+      background: #fff;
+
+      .qrcode {
+        display: block;
+        margin: 0 auto; 
+        width: 40%;
+      }
+
+      .vipname {
+        font-size: 50px/$ratio
+      }
+
+      .vipcompany {
+        font-size: 30px/$ratio;
+        color: lighten($color-grey, 20%);
+      }
+
+      .ticket-info {
+        padding: 10px;
+        margin: 10px 20px;
+        text-align: left;
+        border-top: 1px solid lighten($color-lightgrey, 28%);
+
+        .title {
+          font-size: 34px/$ratio;
+        }
+
+        .item {
+          .item-title {
+            padding-right: 10px;
+            display: inline-block;
+            color: $color-lightgrey;
+            font-size: 20px/$ratio;
+          }
+          .item-text {
+            display: inline-block;
+            color: lighten($color-grey, 20%);
+            font-size: 24px/$ratio;
+          }
+        }
+      }
+
+      .logo {
+        display: block;
+        width: 30%;
+        margin: 0 auto 20px;
+      }
+    }
+  }
+}
+
+.activity-ticket-item {
+  padding-left: 10px;
+  margin: 0 20px 10px 10px;
+  background: #e5e5e5 url(../images/border_left.jpg) repeat-y top left;
+
+  &.bussiness {
+    .activity-ticket-remain {
+      background: linear-gradient(45deg, $color-yellow, darken($color-yellow, 20%));
+    }
+    .weui-cell__hd {
+      color: $color-yellow;
+    }
+  }
+
+  &.vip {
+    .activity-ticket-remain {
+      background: linear-gradient(45deg, #ae00c3, darken(#ae00c3, 20%));
+    }
+    .weui-cell__hd {
+      color: #ae00c3;
+    }
+  }
+
+  &.disable {
+    .activity-ticket-remain {
+      background: #e5e5e5 !important;
+    }
+    .weui-cell__hd,
+    .activity-ticket-remain {
+      color: lighten($color-grey, 30%) !important;
+    }
+  }
+
+  .weui-cell {
+    padding: 0;
+  }
+
+  .weui-cell__hd {
+    font-size: 38px/$ratio;
+    font-weight: bold;
+    color: $color-green;
+  }
+
+  .weui-cell__bd p {
+    padding: 0 10px;
+    font-size: 20px/$ratio;
+    color: lighten($color-grey, 30%);
+  }
+
+  .activity-ticket-remain {
+    margin-right: -10px;
+    width: 60px;
+    height: 60px;
+    padding: 10px 5px;
+    color: #fff;
+    text-align: center;
+    border-radius: 10px;
+    background: linear-gradient(45deg, $color-green, darken($color-green, 20%));
+    .price,
+    .null {
+      font-size: 30px/$ratio;
+    }
+    .null {
+      line-height: 40px;
+    }
+    .remain {
+      font-size: 16px/$ratio;
+    }
+  }
+}
+
+.order-list__item {
+  &.weui-panel {
+    margin-left: 10px;
+    margin-right: 10px;
+    border-radius: 10px;
+    border-top-right-radius: 0;
+    background: #fff url(../images/bottom_bg.jpg) repeat-x left bottom;
+    &::after,
+    &::before {
+      display: none;
+    }
+
+    .weui-panel__ft {
+      .weui-cell__bd {
+        text-align: center;
+        color: $color-yellow;
+
+        &.close {
+          &::after {
+            display: inline-block;  
+            transform: rotate(-45deg);
+          }
+        }
+
+        &::after {
+          content: " ";
+          display: none;
+          height: 6px;
+          width: 6px;
+          border-width: 2px 2px 0 0;
+          border-color: $color-yellow;
+          border-style: solid;
+          transform: rotate(135deg);
+          position: relative;
+          margin-top: -4px;
+          margin-left: 5px;
+        }
+      }
+
+      .weui-cell__ft {
+        display: none;
+      }
+    }
+
+    .weui-media-box__title {
+      font-size: 30px/$ratio;
+    }
+
+    .weui-media-box__desc {
+      font-size: 20px/$ratio;
+    }
+
+    .vip-info {
+      padding: 0;
+
+      .weui-cell {
+        padding-top: 0;
+      }
+
+      .weui-btn {
+        background: #ffb502;
+        font-size: 25px/$ratio;
+      }
+    }
+
+    .weui-media-box_text {
+      font-size: 25px/$ratio;
+      color: lighten($color-grey, 20%);
+
+      &::before {
+        display: none;
+      }
+
+      .vipname {
+        color: $color-green;
+        font-size: 30px/$ratio;
+      }
+
+      .viptel {
+        padding-left: 50px;
+      }
+
+      .price {
+        display: inline-block;
+        padding: 0 5px;
+        color: $color-red;
+      }
+    }
+
+    .remain-days {
+      position: absolute;
+      top: 0;
+      right: 0;
+      padding: 10px 0 0;
+      width: 56px;
+      height: 60px;
+      text-align: center;
+      background: $color-blue;
+      font-size: 17px/$ratio;
+      color: #fff;
+      line-height: 1.2;
+
+      &.over {
+        font-size: 32px/$ratio;
+        background: lighten($color-lightgrey, 20%);
+      }
+
+      span {
+        display: inline-block;
+        font-size: 42px/$ratio;
+      }
+    }
+  }
+}
+
+.save-order-activity {
+  margin-top: 0;
+  .weui-media-box_appmsg .weui-media-box__hd {
+    width: 160px;
+  }
+  .weui-media-box__title {
+    font-size: 25px/$ratio;
+  }
+  .weui-media-box__desc {
+    line-height: 1.4;
+    margin-top: 10px;
+    font-size: 20px/$ratio;
+  }
+}
+
+.save-order-cells {
+  margin-top: 10px;
+  font-size: 30px/$ratio;
+
+  .weui-input {
+    text-align: right;
+  }
+}
+
+#remove-btn {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+}
+
+#add-btn {
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+}
+
+#number {
+  display: inline-block;
+  width: 20px;
+  text-align: center;
+}
+
+.save-order-bottom {
+  background: #fff;
+
+  .weui-flex__item {
+    padding-left: 10px;
+    align-self: center;
+  }
+
+  .weui-btn {
+    margin: 10px;
+    border-radius: 5px;
+    line-height: 2;
+    font-size: 34px/$ratio;
+    background-color: $color-green;
+  }
+}
+
+.weui-cells_checkbox .weui-check:checked + .weui-icon-checked:before {
+  color: $color-red;
+}
+
+.save-order-checkbox {
+  margin-bottom: 80px;
+}
+
+.submit-cells {
+  margin-top: 0;
+
+  .weui-cell__bd p {
+    font-size: 34px/$ratio;
+  }
+
+  .weui-input {
+    font-size: 30px/$ratio;
+    text-align: right;
+  }
+}
+
+.login__wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  background: url('../images/login-bg.jpg') no-repeat;
+  background-size: cover;
+
+  .login-logo {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 25%;
+    bottom: 20px;
+  }
+}
+
+.login-form__container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  
+  .login-input {
+    position: relative;
+    margin-top: 10px;
+    padding: 7px 10px;
+    background: rgba(#000, .5);
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      display: block;
+      width: 30px;
+      height: 20px;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &.name {
+        margin-top: 2px;
+        left: 15px;
+        width: 20px;
+        background-image: url('../images/name.png');
+      }
+      &.password {
+        background-image: url('../images/password.png');
+      }
+    }
+
+    input {
+      padding-left: 40px;
+      height: 20px;
+      width: 200px;
+      background-color: transparent;
+      border: 0;
+      color: #fff;
+      -webkit-tap-highlight-color: transparent;
+      outline-color: transparent;
+    }
+  }
+}
+
+#login-btn {
+  display: block;
+  margin: 15px auto 0;
+  width: 200px;
+  height: 34px;
+  line-height: 34px;
+  border-radius: 20px;
+  text-align: center;
+  background: #009ceb;
+  color: #fff;
+  border: 0;
+  -webkit-tap-highlight-color: transparent;
+  outline-color: transparent;
+
+  &:active {
+    background: darken(#009ceb, 10%);
+  }
+}
+
+.activity-list__wrapper {
+  padding: 10px;
+
+  .weui-cells {
+    margin-top: 0;
+    margin-bottom: 10px;
+
+    &::before,
+    &::after {
+      display: none;
+    }
+
+    .weui-media-box__title {
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .weui-cell_access .weui-cell__ft:after {
+      border-color: #009ceb;
+    }
+  }
+}
+
+.btn-scan {
+
+  &.weui-btn_primary {
+    background: #04e500;
+
+    &:active {
+      background: darken(#04e500, 5%);
+    }
+  }
+  .icon {
+    display: inline-block;
+    margin-bottom: -3px;
+    margin-right: 6px;
+    width: 20px;
+    height: 20px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-image: url('../images/scan.png');
+  }
+}
+
+.sign-in__wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: #fff;
+
+  .sign-in__container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 40px;
+    width: 100%;
+    text-align: center;
+    img {
+      width: 50%;
+    }
+
+    p {
+      margin: 10px 10px 0;
+      font-size: 16px;
+      color: #333;
+      line-height: 1.2;
+
+      &.error {
+        color: #666;
+        img {
+          display: inline-block;
+          margin-bottom: -3px;
+          margin-right: 6px;
+          width: 20px;
+          height: 20px;
+        }
+      }
+    }
+
+    .weui-btn {
+      margin: 0 80px 10px;
+
+      &.ticket-type {
+        margin: 0 60px;
+
+        &.vip {
+          background: #ae00c3;
+        }
+
+        &.bussiness {
+          background: #ec6941;
+        }
+      }
+
+      &.btn-sign-in {
+        margin-top: 80px;
+        background: #009ceb;
+      }
+    }
+  }
+}

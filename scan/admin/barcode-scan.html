@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>扫描二维码</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/doT.js?v=1.0.0.0"></script>
+  <script src="../scripts/zepto.min.js?v=1.0.0.0"></script>
+  <script src="../scripts/weui.min.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/common.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/apiCaller.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/wechatHelper.js?v=1.0.0.1"></script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+
+  <script type="text/javascript" src="../js/fromWechat.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/requireLogin.js?v=1.0.0.0"></script>
+  <script>
+    $(function () {
+      setTimeout(function(){
+      wechatHelper.init(function () {
+        wechatHelper.scan({
+          success: function (result) {
+            var url = './checkin.html?orderid=' + result + "&type=" + common.query().checktype+ "&activityid=" + common.query().activityid;
+            window.location.href = url
+          },
+          fail:function(){
+             window.location.href = './orders.html'; 
+          },
+          cancel: function () {
+            window.location.href = './orders.html';
+          }
+        })
+      })},500);
+    })
+  </script>
+
+</head>
+
+<body>
+  <div class="activity-list__wrapper">
+
+  </div>
+</body>
+
+</html>

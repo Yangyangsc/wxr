@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>合作渠道设置</title>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+
+    <script type="text/javascript" src="./Scripts/channeldetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <style type="text/css">
+         .datagrid-row {
+            height: 40px;
+        }
+         .datagrid-cell{
+            white-space:normal; 
+        }
+         .datagrid-cell img {
+            max-height: inherit;
+        }
+         .datagrid-cell-c2-logo {
+            position: relative;
+        }
+    </style>
+</head>
+
+<form id="formChannel" runat="server">
+ <div id="main-layout" class="easyui-layout" style="height: 500px;">
+    <div data-options="region:'north'" style="border: none;">
+        <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+            <a href="#" class="easyui-linkbutton"  iconcls="icon-save" id="lnkSave">保存</a>
+            <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+        </div>
+    </div>
+    <div data-options="region:'center',title:''">
+      <div id="tabChannel" class="easyui-tabs" data-options="tabWidth:140,tabHeight:35,fit:true">
+          <div title="<span class='tt-inner'>渠道信息</span>" style="padding: 10px;" data-options="fit:true">
+            <table class="form_table" style="padding-top: 10px;" data-options="fit:true">
+                        <tr>
+                            <th style="width: 140px">渠道名称: <font color='red'>*</font></th>
+                            <td colspan="3">
+                                <input placeholder="合作渠道名称，如新浪中国" class="easyui-textbox theme-textbox-radius" name="name" style="width: 80%" data-options="missingMessage:'请输入合作渠道名称',required:true,validType:'length[1,128]'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>合作说明:</th>
+                            <td colspan="3">
+                               <input placeholder="合作的备注" class="easyui-textbox  theme-textbox-radius" style="width: 80%;height:50px" name="memo" data-options="multiline:true,invalidMessage:'分享内容不能超过255个字符!',validType:'length[1,255]'">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>渠道折扣:</th>
+                            <td>
+                                <input placeholder="购票折扣(1~100)" class="easyui-numberbox  theme-textbox-radius" style="width:120px" value="100" name="discount" data-options="missingMessage:'请输入折扣',required:true,min:10,max:100,precision:0"/>
+                                <b><font color="red">%</font></b>
+                            </td>
+                            <td colspan="2">
+                                <font color="red">注：请输入(1~100),通过合作渠道引流的用户，享受活动购票折扣. <br/>100表示无优惠折扣</font>
+                            </td>
+                        </tr>
+                        <tr style="display: none">
+                            <th>优惠数量:</th>
+                            <td>
+                                <input  style="width:120px" class="easyui-numberbox  theme-textbox-radius" value="0"  name="max" data-options="missingMessage:'请输入价格',required:true,min:0,max:999999,precision:0"/>
+                            </td>
+                            <td colspan="2">
+                                <font color="red">注：最多可为合作渠道优惠的购票数量，超过此数量不再享受折扣<br/>0代表不限制数量</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>合作状态:</th>
+                            <td>
+                                <select name="disabled"  class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 120px; height: 28px;" data-options="missingMessage:'请选择票种级别',required:true">
+                                    <option selected value="0">正常合作</option>
+                                    <option value="1">停止合作</option>
+                                </select>
+                            </td>
+                            <td colspan="2">
+                                <font color="red">注：停止合作的渠道带来的引流，不享受购票折扣</font>
+                            </td>
+                        </tr>
+            </table>
+          </div>
+           <div title="赠票设置" style="padding: 10px;" data-options="fit:true">
+                <div id="tools_Ticket" style="width: 100%; border: none;">
+                    <div class="easyui-panel" style="padding: 5px; border: none">
+                        <a id="lnkAddGift" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
+                        <a href="#" id="btnGift" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'">导出Excel</a>
+                        <a id="lnkRemoveGift" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                    </div>
+                </div>
+                <table id="dgTicket" class="form_table" style="padding-top: 10px;" align="center">
+                </table>
+           </div>
+       </div>
+    </div>
+ </div>
+</form>

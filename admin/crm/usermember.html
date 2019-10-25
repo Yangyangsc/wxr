@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>用户会员设置</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <!--<link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    
+    <!--框架用的js-->
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_memberHelper.js"></script>
+    <script type="text/javascript" src="Scripts/usermember.js"></script>
+    
+   <style>.label-top{ margin:0 0 10px; display:block;}</style>
+
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />-->
+</head>
+
+<form id="formUserMember" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div data-options="region:'north'" style="border: none;">
+            <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+            </div>
+        </div>
+        <div data-options="region:'center',title:''">
+            <table class="form_table" style="padding-top: 10px;width:95%" data-options="fit:true">
+                <tr>
+                    <th>入会类别:
+                    </th>
+                    <td>
+                        <select id="selMembers" name="memberid" class="easyui-combobox theme-textbox-radius" data-options="editable:false"  style="width:150px">
+                                  
+                        </select>
+                    </td>
+                    <th>入会时间:
+                    </th>
+                    <td>
+                        <input class="easyui-datebox  theme-textbox-radius"  name="joindate" style="width: 150px;" data-options="missingMessage:'请选择入会时间',required:true">
+                    </td>
+                </tr>
+                <tr class="guide">
+                    <th>入会推荐人:
+                    </th>
+                    <td>
+                        <input class="theme-textbox-radius" disabled name="guidename">
+                    </td>
+                </tr>
+                <tr>
+                    <th>会员期效:
+                    </th>
+                    <td>
+                        <select name="forever" id="selforever" class="easyui-combobox theme-textbox-radius" data-options="editable:false"  style="width:150px">
+                                <option value="0">固定时间</option>
+                                <option value="1">永久会员</option>
+                            </select>
+                    </td>
+                </tr>
+                <tr class="memberdate">
+                    <th>起始时间:
+                    </th>
+                    <td>
+                        <input class="easyui-datebox  theme-textbox-radius"  name="start" style="width: 150px;">
+                    </td>
+                    <th>截止时间:
+                    </th>
+                    <td>
+                        <input class="easyui-datebox  theme-textbox-radius"  name="end" style="width: 150px;">
+                    </td>
+                </tr>
+                <tr>
+                    <th>会员备注:</th>
+                    <td colspan="3">
+                        <input class="easyui-textbox  theme-textbox-radius" style="width: 100%;height: 80px" name="memo" data-options="multiline:true,invalidMessage:'输入内容不能超过255个字符!',validType:'length[1,255]'">
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>

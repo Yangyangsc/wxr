@@ -1,0 +1,50 @@
+{
+  "name": "web-framework",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./lunch.js"
+  },
+  "description": "LiteCoder Node Web Develop Framework",
+  "author": {
+    "name": "Stephen Shen"
+  },
+  "dependencies": {
+    "ali-oss": "^4.8.0",
+    "body-parser": "~1.8.1",
+    "co": "^4.6.0",
+    "co-redis": "^2.1.1",
+    "connect-redis": "^3.2.0",
+    "cookie-parser": "~1.3.3",
+    "cors": "^2.8.1",
+    "dateformat": "^2.0.0",
+    "debug": "~2.0.0",
+    "express": "~4.9.0",
+    "express-session": "^1.14.2",
+    "express3-handlebars": "^0.5.2",
+    "hbs": "^4.0.1",
+    "jsonwebtoken": "^7.2.1",
+    "jwt-simple": "^0.5.1",
+    "memory-cache": "^0.1.6",
+    "moment": "^2.17.1",
+    "morgan": "~1.3.0",
+    "multer": "^1.3.0",
+    "multiparty": "^4.1.3",
+    "mysql": "^2.12.0",
+    "node-uuid": "^1.4.7",
+    "node-xlsx": "^0.7.4",
+    "oauth2-server": "^2.4.1",
+    "redis": "^2.6.5",
+    "serve-favicon": "~2.1.3",
+    "soap": "^0.18.0",
+    "stylus": "0.42.3",
+    "svg-captcha": "^1.3.2",
+    "ueditor": "^1.2.0",
+    "xml2js": "^0.4.17"
+  },
+  "devDependencies": {
+    "karma": "^1.3.0",
+    "qs": "^6.3.0",
+    "request": "^2.79.0"
+  }
+}

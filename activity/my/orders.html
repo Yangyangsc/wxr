@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>我的订单</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+		<!-- build:js js/goods-details.js -->
+	</head>
+
+	<body class="container-with-footermenu" style="background: #f2f2f2;">
+		<div id="div_orders" class="goods-details__wrapper" style="display: none;">
+		</div>
+
+		<div id="div_nodata" style="height: 100%; width: 100%; text-align: center;padding-top: 40%; display: none;">
+			<img src="../images/no_data.png" style="width: 100px;"/>
+			<p style="font-size: 19px;color: gray;">暂无数据</p>
+		</div>
+	</body>
+
+	<!--描述：订单模版-->
+	<script id="order_tmpl" type="text/x-dot-template">
+		{{~it:value:index}} {{ addrinfo=JSON.parse(value.receive_info);}}
+		<div class="weui-panel address-panel my-order__item">
+			<div class="weui-panel__hd">
+				<a href="javascript:;" class="add-address pull-right"></a>订单日期：{{= value.order_date}}</div>
+			<div class="weui-panel__bd">
+				<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+					<div class="weui-media-box__hd book_thumb">
+						<img class="weui-media-box__thumb" src="{{? value.product_image}} {{= imageServer + common.replace(value.product_image, '\\\\', '\/') }} {{??}}./images/goods_default.jpg{{?}}" alt="">
+					</div>
+					<div class="weui-media-box__bd">
+						<div class="pull-left">
+							<h4 class="weui-media-box__title">{{=value.product_name}}<span>X{{=value.order_count}}</span></h4>
+							<p class="book-info">{{=value.product_memo}}</p>
+						</div>
+						<div class="price-details pull-right">¥{{=value.order_total}} <span class="other">(含运费¥8.00)</span></div>
+					</div>
+				</a>
+				<div class="weui-panel__ft">
+					<a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+						<div class="weui-cell__bd">
+							<div class="row"><span class="mobile">{{= addrinfo.mobile}}</span><span class="username">收货人:{{= addrinfo.recipient}}</span></div>
+							<div class="address">收货地址：{{= addrinfo.city_name+addrinfo.district_name+addrinfo.address_name}}</div>
+						</div>
+					</a>
+				</div>
+			</div>
+		</div>
+		{{~}}
+	</script>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/ecommerce.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/order.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

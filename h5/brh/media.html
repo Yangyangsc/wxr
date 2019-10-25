@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>百人会</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" type="text/css" href="../js/lib/dropload/dropload.css" />
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<!-- endbuild -->
+		<style type="text/css">
+			.media-panel__text::before {
+				content: none;
+			}
+		</style>
+
+	</head>
+
+	<body style="background: #fff;padding-bottom: 108px;">
+		<div class="media-container">
+			<div class="weui-tab">
+				<div class="weui-navbar">
+					<div class="weui-navbar__item weui-bar__item_on">
+						优选媒体
+					</div>
+					<div class="weui-navbar__item">
+						严选媒体
+					</div>
+				</div>
+				<div class="weui-tab__panel">
+					<div class="media-tab__panel show">
+						<div class="media-panel__text">
+							<p>新媒体百人会会员旗下优质原创内容媒体、高的行业影响力、高黏性的粉丝群体、互动活跃、打开率高于行业平均值。</p>
+						</div>
+						<div class="media-panel__list">
+							<div class="media-items">
+								<div class="weui-panel weui-panel_access">
+									<div id="youxuanList" class="weui-panel__bd"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="media-tab__panel">
+						<div class="media-panel__text">
+							<p>新媒体百人会会员旗下优质原创内容媒体、高的行业影响力、高黏性的粉丝群体、互动活跃、打开率高于行业平均值。</p>
+						</div>
+						<div class="media-panel__list">
+							<div class="media-items">
+								<div class="weui-panel weui-panel_access">
+									<div id="yanxuanList" class="weui-panel__bd"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="footer-menu_container">
+			<div class="weui-flex">
+				<div class="weui-flex__item" onclick="window.location.href='index.html'">
+					<i class="icon icon-home"></i>
+					<span class="title">首页</span>
+				</div>
+				<div class="weui-flex__item active" onclick="window.location.href='media.html'">
+					<i class="icon icon-search"></i>
+					<span class="title">媒体库</span>
+				</div>
+				<div class="weui-flex__item" onclick="window.location.href='zhiku.html'">
+					<i class="icon icon-star"></i>
+					<span class="title">智库</span>
+				</div>
+				<div class="weui-flex__item" onclick="window.location.href='train.html'">
+					<i class="icon icon-doc"></i>
+					<span class="title">培训</span>
+				</div>
+				<div class="weui-flex__item" onclick="window.location.href='profile.html'">
+					<i class="icon icon-profile"></i>
+					<span class="title">我的</span>
+				</div>
+			</div>
+		</div>
+
+		<!--列表模版-->
+		<script id="media_temp" type="text/x-dot-template">
+			{{~it:value:index}}
+			<a href="media/detail.html?mediano={{=value.media_no}}&level={{=value.media_level}}" class="weui-media-box weui-media-box_appmsg">
+				<div class="weui-media-box__hd">
+					<img class="weui-media-box__thumb" src="{{? value.media_logo}} {{= imageServer + common.replace(value.media_logo, '\\\\', '\/') }} {{??}}./images/media_default.jpg {{?}}" alt="">
+				</div>
+				<div class="weui-media-box__bd">
+					<h4 class="weui-media-box__title">{{= value.media_name}}
+						{{~value.labels:label:lindex}}
+                        	<span class="weui-badge">{{=label}}</span>
+                        {{~}}
+                      </h4>
+					<p class="wechat">微信号：{{=value.media_no}}</p>
+					<p class="weui-media-box__desc">{{=value.media_describ}}</p>
+				</div>
+			</a>
+			{{~}}
+		</script>
+
+	</body>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/brh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/dropload/dropload.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="media/js/media.js?rnd=v1" type="text/javascript" charset="utf-8"></script>
+
+</html>

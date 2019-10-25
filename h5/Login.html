@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <script>
+                    var reg = /\s*title\s*=\s*([^&]*)?/i;
+                    var result = reg.exec(decodeURIComponent(window.location.href));
+                    if(result) {
+                        var hehe = document.getElementsByTagName("head");
+                        var eleTile = document.createElement("title");
+                        eleTile.innerText = result[1];
+                        hehe[0].appendChild(eleTile);
+                    }
+                </script>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1,
+            maximum-scale=1, minimum-scale=1">
+        <title>登录</title>
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/fort.css">
+        <style>
+.top-banner {
+  background-color: #333;
+}
+.nav {
+  margin-bottom: 30px;
+}
+.nav li.current a{
+  background-color: #009DFF;
+  color: #fff;
+  padding: 10px;
+}
+.nav a {
+  margin: 5px;
+  color: #333;
+  text-decoration: none;
+  border-radius: 8px;
+  box-shadow:1px 2px 5px -1px black;
+}
+</style>
+        <script src="activity/js/fort.js"></script>
+    </head>
+    <body>
+        <div class="form-wrapper">
+            <div class="top"><div class="colors"></div></div>
+            <div class="nav">
+                <ul>
+                    <li class="current"><a href="login.html">Register</a></li>
+                </ul>
+            </div>
+            <form name="form" id="login_form" method="post" action="*">
+                <div class="form">
+                    <!-- <div class="form-item">
+                        <input type="text" name="text" required="required"
+                            placeholder="Name" autocomplete="off">
+                    </div> -->
+                    <div class="form-item">
+                        <input type="tel" id="tel" name="user_mobile"
+                            required="required"
+                            placeholder="Phone" autocomplete="off">
+                        <p id="tips_tel" style="color:red;margin-top:
+                            10px;display: none;"></p>
+                    </div>
+                    <div class="form-item">
+                        <input id="code" type="text" name="code"
+                            required="required"
+                            placeholder="Code" autocomplete="off">
+                        <p id="tips_code" style="color:red;margin-top:
+                            10px;display: none;"></p>
+                    </div>
+                    <div class="button-panel">
+                        <input id="login_button" type="submit" class="button"
+                            title="Sign In"
+                            value="登录/注册">
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script>
+    gradient();
+</script>
+        <script src="jquery-1.10.2.min.js"></script>
+    </body>
+
+    <script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/urlConfig.js?v=1.1" type="text/javascript"
+        charset="utf-8"></script>
+    <!-- <script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script> -->
+    <script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../bower_components/zepto/zepto.min.js" type="text/javascript"
+        charset="utf-8"></script>
+    <script type="text/javascript" src="../js/wechatHelper.js"></script>
+    <script type="text/javascript" src="../js/apiCaller.js"></script>
+    <script src="../bower_components/dot/doT.min.js" type="text/javascript"
+        charset="utf-8"></script>
+    <script type="text/javascript" src="../js/message.js"></script>
+    <script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/lib/jweixin-1.0.0.js" type="text/javascript"
+        charset="utf-8"></script>
+    <script src="../js/api/activity.js" type="text/javascript" charset="utf-8"></script>
+    <script src="../js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+    <script src="activity/js/login.js"></script>
+</html>

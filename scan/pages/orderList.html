@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>订单列表</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <!-- endbuild -->
+  <script src="../js/doT.js"></script>
+  <script src="../scripts/zepto.min.js"></script>
+  <script src="../scripts/weui.min.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script type="text/javascript" src="../js/apiCaller.js"></script>
+  <!-- build:js js/main.js -->
+  <!-- endbuild -->
+  <script id="order_array_tmpl" type="text/x-dot-template">
+    {{~it:value:index}}
+    <div class="weui-panel weui-panel_access order-list__item">
+      <div class="weui-panel__bd">
+        <div class="weui-media-box weui-media-box_text">
+          <h4 class="weui-media-box__title">{{=value.activity_topic}}</h4>
+          <p class="weui-media-box__desc">{{=common.format(value.activity_date_start)}}- {{=common.format(value.activity_date_end)}} <br>{{=value.activity_city_name}}
+            - {{=value.activity_location}}
+          </p>
+          <div class="remain-days">还有<br><span class="day">{{=value.activity_surplus_day}}</span>天</div>
+        </div>
+        <div class="weui-media-box weui-media-box_text vip-info hide">
+          <div class="weui-cell">
+            <div class="weui-cell__bd">
+              <div class="vipname">参加人: <strong>{{=value.user_name}}</strong></div>
+              <div class="viptel">{{=value.user_mobile}}</div>
+              <div class="order-time">报名时间: {{=common.format(value.order_date)}}</div>
+              <div class="order-other">类型: {{=value.ticket_name}}<span class="price">￥{{=value.discount_price}}</span>状态: {{? value.payment_status==1}}已付款{{??}}
+                待付款{{?}}
+              </div>
+            </div>
+            <div class="weui-cell__ft">
+              <a href="javascript:;" class="weui-btn weui-btn_primary">取票</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="weui-panel__ft">
+        <a href="javascript:void(0);" class="weui-cell weui-cell_access weui-cell_link">
+          <div class="weui-cell__bd show-btn"><span class="text">您有一张票券,点击查看</span></div>
+          <span class="weui-cell__ft"></span>
+        </a>
+      </div>
+    </div>
+    {{~}}
+  </script>
+</head>
+
+<body>
+  <div id="orderlist">
+
+  </div>
+  <script src="../scripts/zepto.min.js"></script>
+  <script>
+    var bindHandle = function () {
+      $('.order-list__item').on('click', function (e) {
+        var $target = $(e.target)
+        if ($target.hasClass('show-btn') || $target.parents('.show-btn').length) {
+          $(this).find('.vip-info').toggleClass('hide');
+          $(this).find('.text').toggle()
+          if ($target.hasClass('show-btn')) {
+            $target.toggleClass('close')
+          } else {
+            $target.parents('.show-btn').toggleClass('close')
+          }
+        }
+      })
+    }
+    var initLoad = function () {
+      var loading = weui.loading('正在加载...');
+      var openid = common.getCache('openid');
+      apiCaller.call('orders?uid=' + openid + '&page=1&rows=100', {
+        type: 'get',
+        success: function (result) {
+          loading.hide();
+          if (result.successed && result.rows.length > 0) {
+            //票
+            var dataArr = result.rows;
+
+            var arrText = doT.template($("#order_array_tmpl").text());
+            var innerHTML = arrText(dataArr);
+            $("#orderlist").html(innerHTML)
+            bindHandle();
+          }
+
+        },
+        error: function () {
+          loading.hide();
+        }
+      })
+    }
+    $(function () {
+      initLoad();
+    })
+  </script>
+</body>
+
+</html>

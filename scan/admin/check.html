@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<title>
+    验票
+</title>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=11,chrome=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+    <script src="../js/doT.js?v=1.0.0.0"></script>
+    <script src="../scripts/zepto.min.js?v=1.0.0.0"></script>
+    <script src="../scripts/weui.min.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/common.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/apiCaller.js?v=1.0.0.0"></script>
+
+    <script type="text/javascript" src="../js/wechatHelper.js?v=1.0.0.0"></script>
+    <script>
+        $(function () {
+            wechatHelper.init(function () {
+                wechatHelper.share();
+                wechatHelper.scan({
+                    success: function (result) {
+
+
+                    },
+                    fail: function () {
+
+                    }
+                });
+            })
+        })
+    </script>
+</head>
+
+<body>
+
+</body>
+
+</html>

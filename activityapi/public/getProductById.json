@@ -1,0 +1,35 @@
+{
+    "successed": true,
+    "rows": [
+        {
+            "id": "483748-aec1293-1338743-09839",
+            "name": "年份六宝茶",
+            "images": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/31981508123194_.pic.jpg,http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/31981508123194_.pic.jpg,http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/31981508123194_.pic.jpg",
+            "sku": [
+                {
+                    "id": "3169c06a-a8f7-4e96-9e69-f16d5ba7be43",
+                    "price": 299.00,
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/31981508123194_.pic.jpg",
+                    "inventory": 200,
+                    "name": "2017"
+                },
+                {
+                    "id": "3169c06a-a8f7-4e96-9e69-f16d5ba7be44",
+                    "price": 399.00,
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/31981508123194_.pic.jpg",
+                    "inventory": 200,
+                    "name": "2018"
+                },
+                {
+                    "id": "3169c06a-a8f7-4e96-9e69-f16d5ba7be45",
+                    "price": 499.00,
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/31981508123194_.pic.jpg",
+                    "inventory": 200,
+                    "name": "2019"
+                }
+            ],
+            "richtext": "",
+            "url": ""
+        }
+    ]
+}

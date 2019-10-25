@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,
+			maximum-scale=1, minimum-scale=1">
+		<title>活动票据</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+		<!-- build:js js/goods-details.js -->
+	</head>
+
+	<body id="by_content" class="container-with-footermenu" style="background:
+		#f2f2f2;">
+
+		<div class="weui-tabbar footer-menu order-menu">
+			<!-- ../activity.html?cateid=bf2c83ef-e93e-4bcd-b5bb-7ffa031764e8&slider=activity-top&title=弯弓聚吧 -->
+			<!-- activity.html?slider=activity-top&title=弯弓聚吧 -->
+			<a href="../index.html?slider=activity-top&title=弯弓聚吧"
+				class="weui-tabbar__item back-activity">
+				<p class="weui-tabbar__label">返回活动</p>
+			</a>
+		</div>
+	</body>
+
+	<!--描述：模版-->
+	<script id="ticket_tmpl" type="text/x-dot-template">
+		{{~it:value:index}}
+		<div class="goods-details__wrapper">
+			<div class="top-banner swiper-container">
+				<img src="{{? value.activity_cover}} {{= imageServer + common.replace(value.activity_cover, '\\\\', '\/') }} {{??}}../images/activity-details.jpg{{?}}" alt="">
+			</div>
+			<div class="my-order__item activity-details__item">
+				<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+					<div class="weui-media-box__bd">
+						<h4 class="weui-media-box__title">{{=value.activity_topic}}</h4>
+						<p class="book-info"><i class="icon icon-clock"></i>{{=common.combine2DateString(value.activity_date_start,value.activity_date_end)}}</p>
+						<p class="book-info"><i class="icon icon-map"></i>{{=value.activity_city_name+value.activity_location}}</p>
+					</div>
+				</a>
+			</div>
+			<div class="weui-panel comment-panel activity-details-panel">
+				<div class="weui-panel__bd">
+					<div class="weui-media-box weui-media-box_small-appmsg">
+						<div class="weui-cells">
+							<div class="weui-cell">
+								<div class="weui-cell__bd weui-cell_primary">
+									<p class="ticket-success">出票成功，谢谢您的支持</p>
+									<div class="ticket-qrcode">
+										<img src="{{= 'http://webapi.huanxinkeji.cn/' + common.replace(value.qrcode_path, '\\\\', '\/') }}" alt="">
+									</div>
+									<p class="ticket-info">请于活动当日向工作人员出示此二维码进行入场签到</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		{{~}}
+	</script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript"
+		charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/activity.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript"
+		charset="utf-8"></script>
+
+	<script src="js/actticket.js" type="text/javascript" charset="utf-8"></script>
+</html>

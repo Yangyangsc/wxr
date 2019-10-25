@@ -1,0 +1,14 @@
+.message-success .weui-icon-success-no-circle:before {
+    background-image: url('../images/!.png');
+    content: ' '
+}
+
+.message-warning .weui-icon-success-no-circle:before {
+    background-image: url('../images/!.png');
+    content: ' '
+}
+
+.message-error .weui-icon-success-no-circle:before {
+    background-image: url('../images/error.png');
+    content: ' '
+}

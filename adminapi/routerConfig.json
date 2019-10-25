@@ -1,0 +1,202 @@
+﻿[
+  {
+    "controller": "./commoncontroller.js",
+    "baseUrl":"/common",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/usercontroller.js",
+    "baseUrl":"/user",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/departmentcontroller.js",
+    "baseUrl":"/department",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/dictionarycontroller.js",
+    "baseUrl":"/dictionary",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/dictionaryitemcontroller.js",
+    "baseUrl":"/dictionaryitem",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/rolescontroller.js",
+    "baseUrl":"/roles",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/userRolecontroller.js",
+    "baseUrl":"/userrole",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/functioncontroller.js",
+    "baseUrl":"/function",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/funcprivilegecontroller.js",
+    "baseUrl":"/funcprivilege",
+    "authorize":true
+  },
+    {
+    "controller": "../controller/systemsettingcontroller.js",
+    "baseUrl":"/SystemSetting",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/bus/storecontroller.js",
+    "baseUrl":"/store",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/bas/attachmentcontroller.js",
+    "baseUrl":"/attachment",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/crm/membercontroller.js",
+    "baseUrl":"/member",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/crm/membertypecontroller.js",
+    "baseUrl":"/membertype",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/crm/workexperiencecontroller.js",
+    "baseUrl":"/workexperience",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/crm/userlabelcontroller.js",
+    "baseUrl":"/userlabel",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/bas/labelcontroller.js",
+    "baseUrl":"/label",
+    "authorize":false
+  },
+  {
+    "controller": "../controller/crm/socialgroupcontroller.js",
+    "baseUrl":"/socialgroup",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/cnt/articlecatelogcontroller.js",
+    "baseUrl":"/articlecatelog",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/cnt/articlecontroller.js",
+    "baseUrl":"/article",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/portal/slidercontroller.js",
+    "baseUrl":"/slider",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/portal/sliderimagecontroller.js",
+    "baseUrl":"/sliderimage",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/act/activitycatalogcontroller.js",
+    "baseUrl":"/activitycatalog",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/act/activitycontroller.js",
+    "baseUrl":"/activity",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/act/activityticketcontroller.js",
+    "baseUrl":"/activityticket",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/act/activitychannelcontroller.js",
+    "baseUrl":"/activitychannel",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/act/activityordercontroller.js",
+    "baseUrl":"/activityorder",
+    "authorize":false
+  },
+  {
+    "controller": "../controller/act/channelgiftcontroller.js",
+    "baseUrl":"/channelgift",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/ecommerce/productcontroller.js",
+    "baseUrl":"/product",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/ecommerce/productordercontroller.js",
+    "baseUrl":"/productorder",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/ecommerce/productcatalogcontroller.js",
+    "baseUrl":"/productcatalog",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/crm/activitycontroller.js",
+    "baseUrl":"/crmactivity",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/homecontroller.js",
+    "baseUrl":"/home",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/analysis/analysiscontroller.js",
+    "baseUrl":"/analysis",
+    "authorize":false
+  },
+  {
+    "controller": "../controller/finance/consumecontroller.js",
+    "baseUrl":"/consume",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/bas/mediacontroller.js",
+    "baseUrl":"/media",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/brh/enterprisecontroller.js",
+    "baseUrl":"/enterprise",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/brh/kolcontroller.js",
+    "baseUrl":"/kol",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/brh/datecontroller.js",
+    "baseUrl":"/date",
+    "authorize":true
+  },
+  {
+    "controller": "../controller/game/gamecontroller.js",
+    "baseUrl":"",
+    "authorize":true
+  }
+]

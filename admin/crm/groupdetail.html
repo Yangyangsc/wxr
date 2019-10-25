@@ -1,0 +1,144 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>群组管理</title>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/groupdetail.js"></script>
+    
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+</head>
+
+
+
+<form id="formGroup" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+
+    <div data-options="region:'north'" style="border: none;">
+        <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+            <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+        </div>
+    </div>
+
+    <div data-options="region:'center',title:''">
+                <table class="form_table" style="padding-top: 10px;width: 95%" data-options="fit:true">
+                    <tr>
+                        <td style="width: 80%" valign="top">
+                            <table class="form_table" style="width:100%" data-options="fit:true">
+                                    <tr>
+                                        <th style="width:120px">群组名称:<font color='red'>*</font>
+                                        </th>
+                                        <td colspan="3">
+                                            <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="name" data-options="missingMessage:'请输入群组名称',invalidMessage:'输入内容不能超过50个字符!',required:true,validType:'length[1,50]'" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>群类型:
+                                        </th>
+                                        <td>
+                                            <select id="selType" class="easyui-combobox theme-textbox-radius" style="width: 130px" data-options="editable:false" name="type">
+                                                <option value="0" selected>免费群</option>
+                                                <option value="1">收费群</option>
+                                                <option value="2">微信公众号</option>
+                                            </select>
+                                        </td>
+                                        <th>收费标准:
+                                        </th>
+                                        <td>
+                                            <input class="easyui-textbox theme-textbox-radius" style="width: 100px" name="charge" data-options="invalidMessage:'输入内容不能超过60个字符!',validType:'length[1,60]'" />
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <th>成立日期:
+                                        </th>
+                                        <td>
+                                            <input class="easyui-datebox theme-textbox-radius" style="width: 130px"  name="create"/>
+                                        </td>
+                                        <th>排序索引:
+                                        </th>
+                                        <td>
+                                            <input class="easyui-numberbox theme-textbox-radius" style="width: 100px" name="index" data-options="min:0,max:99999999,precision:0"/>
+                                        </td>
+                                    </tr>
+                                    <tr class="wechat" >
+                                        <th>App ID :</th> 
+                                        <td colspan="3">
+                                            <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="appid" data-options="invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                                        </td>
+                                    </tr>
+                                    <tr class="wechat">
+                                        <th>Security Key :</th> 
+                                        <td colspan="3">
+                                            <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="securitykey" data-options="invalidMessage:'输入内容不能超过255个字符!',validType:'length[1,255]'" />
+                                        </td>
+                                    </tr>
+                                    <tr class="wechat">
+                                        <th>Token :</th> 
+                                        <td colspan="3">
+                                            <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="token" data-options="invalidMessage:'输入内容不能超过255个字符!',validType:'length[1,255]'" />
+                                        </td>
+                                    </tr>
+                                   
+                                    <tr>
+                                        <th>群备注:</th>
+                                        <td colspan="3">
+                                            <input class="easyui-textbox  theme-textbox-radius" style="width: 95%;height: 80px" name="memo" data-options="multiline:true,invalidMessage:'输入内容不能超过255个字符!',validType:'length[1,255]'">
+                                        </td>
+                                    </tr>
+                                </table>
+                        </td>
+                        <td valign="top">
+                            <table class="form_table">
+                                <tr>
+                                    <td align="center"><b>群图标</b></td>
+                                </tr>
+                                <tr>
+                                    <td width="80px" valign="top" align="center">
+                                        <img src=" ../images/group/default.jpg" id="imgLogo" width="80px" style="cursor: pointer;border: 1px solid #ccc;" />
+                                        <input type="hidden" name="image" id="groupLogo" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                        <td align="center"><b>群二维码</b></td>
+                                </tr>
+                                <tr>
+                                    <td width="80px" valign="top" align="center">
+                                        <img src=" ../images/group/default_qr.png" id="imgQrcode" width="80px" style="cursor: pointer;border: 1px solid #ccc;" />
+                                        <input type="hidden" name="qrcode" id="groupcode" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+ 
+        </div>
+    </div>
+</form>

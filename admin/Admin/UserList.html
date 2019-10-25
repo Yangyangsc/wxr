@@ -1,0 +1,100 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>用户管理</title>
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+   
+   
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+
+    <!--<script type="text/javascript" src="../Scripts/Jquery.FileDownload.js"></script>-->
+    <script type="text/javascript" src="../Scripts/Framework/Framework_treeform.js"></script>
+    <script type="text/javascript" src="./Scripts/UserManager.js"></script>
+</head>
+<body>
+    <form id="aspnetForm">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div id="side" data-options="region:'west',split:true,iconCls:'icon-file1',title:'部门'" style="width: 250px; border-left: none;">
+                <div class="easyui-panel" style="padding: 5px; border: none;">
+                    <a href="#" id="btnNewDepartment" class="easyui-linkbutton" title="新建" data-options="plain:true,iconCls:'icon-add'">新建</a>
+                    <a href="#"id="btnEditDepartment" class="easyui-linkbutton"  data-options="plain:true,iconCls:'icon-edit'">编辑</a>
+                    <a href="#" id="btnDeleteDepartment"  class="easyui-linkbutton"  data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                </div>
+                <div>
+                    <ul id="ulDeptTree"></ul>
+                    <div id="mm" class="easyui-menu" style="width: 120px;">
+                    <div id="mmbtnNewDepartment" data-options="iconCls:'icon-add'">新建</div>
+                    <div id="mmbtnEditDepartment"  data-options="iconCls:'icon-edit'">编辑</div>
+                    <div id="mmbtnDeleteDepartment" data-options="iconCls:'icon-delete'">删除</div>
+                </div>
+                </div>
+            </div>
+            <div class="main" id="bt_index_layout_center" data-options="region:'center',title:'人员信息',iconCls:'icon-file2'">
+                <table id="dg"></table>
+                <div id="tools_1" style="width: 100%; border: none;">
+                    <div style="margin-bottom: 5px">
+                        <table class="form_table" style="padding-top: 10px;">
+                            <tr>
+                                <th>姓名:</th>
+                                <td>
+                                    <input class="easyui-textbox theme-textbox-radius" search-options="key:'name'" style="margin-left: 0px;" type="text" value="" /></td>
+                                <th>登录账号:</th>
+                                <td style="padding-right: 5px;">
+                                    <input class="easyui-textbox  theme-textbox-radius" search-options="key:'account'" style="margin-left: 0px;" type="text" value="" /></td>
+                                <th>状态:</th>
+                                <td style="padding-right: 5px;">
+                                    <select id="ddlenabled"  search-options="key:'status',method:'combobox'"  class="easyui-combobox theme-textbox-radius" data-options="editable:false"  style="width: 70px; height: 28px;">
+                                        <option value="" selected>全部</option>
+                                        <option value="0">正常</option>
+                                        <option value="1">禁用</option>
+                                    </select></td>
+                                <td>
+                                    <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                                    <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="easyui-panel" style="padding: 5px; border: none">
+                        <a href="#" id="btnNewUser" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
+                        <a href="#" id="btnDeleteUser" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-stop'" onclick="setUserEnableStatus(1)">停用</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-start'" onclick="setUserEnableStatus(0)">启用</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-reset'" onclick="resetPassword()">重设密码</a>
+                        <!--<a href="#" class="easyui-menubutton" data-options="menu:'#export',iconCls:'icon-OfficeExcel'">数据导出</a>
+                        <a href="#" class="easyui-menubutton" data-options="menu:'#import',iconCls:'icon-import'">数据导入</a>-->
+                    
+                    </div>
+                    <!--<div id="export" style="width: 150px;">
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-user'" onclick="exportUser()">用户数据导出</a>
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-settings'" onclick="exportDepartment()">部门数据导出</a>
+                    </div>
+                    <div id="import" style="width: 150px;">
+                        <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-user'" onclick="importUser()">用户数据导入</a>
+                    </div>-->
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

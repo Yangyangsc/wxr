@@ -1,0 +1,305 @@
+<!-- 添加优惠券 div id="coupon" -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<title>活动报名</title>
+	<!-- build:css css/style.css -->
+	<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+
+	<!-- endbuild -->
+
+	<!-- build:js js/main.js -->
+	<!-- endbuild -->
+	<style>
+		.save-order-activity .weui-media-box__title {
+			font-size: 14px;
+			font-weight: bold;
+		}
+
+		.save-order-activity .weui-media-box_appmsg .weui-media-box__hd {
+			width: 160px;
+			height: inherit;
+		}
+
+		.save-order-activity .weui-media-box__desc {
+			line-height: 1.6;
+			margin-top: 10px;
+			font-size: 11px;
+		}
+
+		.save-order-cells {
+			margin-top: 6px;
+			font-size: 15px;
+		}
+
+		.bottom-button__fixed {
+			position: fixed;
+			left: 0;
+			right: 0;
+			bottom: 0;
+		}
+
+		.save-order-cells .weui-cell .weui-cell__bd {
+			color: #808080;
+		}
+
+		.save-order-cells .weui-cell .weui-cell__ft {
+			color: #333333;
+		}
+
+		#remove-btn {
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+		}
+
+		#add-btn {
+			display: inline-block;
+			width: 15px;
+			height: 15px;
+		}
+
+		.save-order-cells .weui-input {
+			text-align: right;
+			color: #333333;
+		}
+
+		#number {
+			display: inline-block;
+			width: 20px;
+			text-align: center;
+		}
+
+		.save-order-bottom {
+			background: #fff;
+		}
+
+		.save-order-bottom .weui-flex__item {
+			padding-left: 10px;
+			-ms-grid-row-align: center;
+			align-self: center;
+		}
+
+		.bottom-button__fixed .weui-btn {
+			border-radius: 0;
+			font-size: 19px;
+		}
+
+		.save-order-bottom .weui-btn {
+			margin: 10px;
+			border-radius: 5px;
+			line-height: 2;
+			font-size: 17px;
+			background-color: #00d62a;
+		}
+
+		.bottom-button__fixed .weui-btn.weui-btn_primary {
+			background: #00d62a;
+		}
+
+		html,
+		body {
+			color: #333;
+			font-size: inherit;
+		}
+
+		.weui-cells {
+			line-height: 1.41176471;
+		}
+
+		.save-order-cells .weui-cell .weui-cell__ft #number {
+			font-size: 18px;
+		}
+
+		.weui-input {
+			width: 100%;
+			border: 0;
+			outline: 0;
+			-webkit-appearance: none;
+			background-color: transparent;
+			font-size: inherit;
+			color: inherit;
+			height: 1.41176471em;
+			line-height: 1.41176471;
+		}
+
+		.save-order-bottom .weui-btn:after {
+			border: none;
+		}
+
+		.weui-media-box__desc {
+			display: inherit;
+		}
+	</style>
+</head>
+
+<body>
+	<form id="orderForm">
+		<div class="weui-panel weui-panel_access save-order-activity">
+			<div class="weui-panel__bd">
+				<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+					<div class="weui-media-box__hd">
+						<img class="weui-media-box__thumb" id="imgBanner" src="../images/thumb_1.jpg" alt="">
+					</div>
+					<div class="weui-media-box__bd">
+						<div class="weui-media-box__title" style="word-wrap:break-word;white-space:normal">
+							<!--<h4 ></h4>-->
+						</div>
+						<p class="weui-media-box__desc" style="word-wrap:break-word;white-space:normal"> <br></p>
+					</div>
+				</a>
+			</div>
+		</div>
+		<div class="weui-cells save-order-cells">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p id="ticketTypeFront">购票类型</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text" id="ticketType"></span>
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells save-order-cells">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p id='priceFront'>票面单价</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text text-red" id='price'></span>
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>数量</p>
+				</div>
+				<div class="weui-cell__ft">
+					<img src="../images/remove.png" id="remove-btn" alt="">
+					<input class="weui-input" id="number" value="1" disabled required pattern="[0-9]" style="color:#333333;opacity:1" placeholder="购票数量"
+					 emptyTips="请输入数量" notMatchTips="请输入正确的数量">
+					<img src="../images/add.png" id="add-btn" alt="">
+				</div>
+			</div>
+		</div>
+
+		<div class="weui-cells save-order-cells">
+			<div class="weui-cell" id="discountContainer">
+				<div class="weui-cell__bd">
+					<p>优惠券</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text text-red" id="coupon"></span>
+				</div>
+			</div>
+		</div>
+
+		<div class="weui-cells save-order-cells">
+			<div class="weui-cell" id="orderTotalContainer">
+				<div class="weui-cell__bd">
+					<p>订单金额</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text text-red" id="ticketPrice"></span>
+				</div>
+			</div>
+			<div class="weui-cell fromchannel" style='display:none;' id="channelContainer">
+				<div class="weui-cell__bd">
+					<p>渠道来源</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text" id="code"></span>
+				</div>
+			</div>
+			<div class="weui-cell fromchannel" style='display:none;' id="channelDiscount">
+				<div class="weui-cell__bd">
+					<p>优惠金额</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text text-red" id="discount"></span>
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells save-order-cells ">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>参加人姓名</p>
+				</div>
+				<div class="weui-cell__ft">
+					<input class="weui-input" type="text" id="username" required placeholder="必填" emptyTips="请输入参加人姓名" notMatchTips="请输入参加人姓名">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>联系电话</p>
+				</div>
+				<div class="weui-cell__ft">
+					<input class="weui-input" type="tel" id="tel" required placeholder="必填" emptyTips="请输入联系电话" notMatchTips="请输入联系电话">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>工作单位</p>
+				</div>
+				<div class="weui-cell__ft">
+					<input class="weui-input" type="text" id="company" required placeholder="必填" emptyTips="请输入工作单位" notMatchTips="请输入工作单位">
+				</div>
+			</div>
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>工作职务</p>
+				</div>
+				<div class="weui-cell__ft">
+					<input class="weui-input" type="text" id="position" placeholder="工作职务(选填)" emptyTips="请输入工作职务" notMatchTips="请输入工作职务">
+				</div>
+			</div>
+		</div>
+		<div class="weui-cells save-order-cells" style="display: none">
+			<div class="weui-cell">
+				<div class="weui-cell__bd">
+					<p>配送方式</p>
+				</div>
+				<div class="weui-cell__ft">
+					<span class="text">电子票</span>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom-button__fixed">
+			<div class="save-order-bottom">
+				<div class="weui-flex">
+					<div class="weui-flex__item" id="paymentDisplay">
+						<b>支付金额:</b> <span class="text text-red" id="totalPrice"></span>
+					</div>
+					<div class="weui-flex__item" style="background-color: #00d62a" id="btnPay">
+						<a href="javascript:;" id="btnPayButton" class="weui-btn weui-btn_primary" style="border:0px none">立即支付</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</form>
+</body>
+<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/urlConfig.js?v=1.1" type="text/javascript" charset="utf-8"></script>
+<script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/wechatHelper.js"></script>
+<script type="text/javascript" src="../js/apiCaller.js"></script>
+<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/message.js"></script>
+<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/api/activity.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/makeorder.js?rand=v2" type="text/javascript" charset="utf-8"></script>
+
+</html>

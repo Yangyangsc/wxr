@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<title>
+    验票
+</title>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=11,chrome=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-cache">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+    <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <script src="../js/doT.js?v=1.0.0.0"></script>
+    <script src="../scripts/zepto.min.js?v=1.0.0.0"></script>
+    <script src="../scripts/weui.min.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/common.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/apiCaller.js?v=1.0.0.0"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/wechatHelper.js?v=1.0.0.1"></script>
+    <!--<script type="text/javascript" src="../js/fromWechat.js?v=1.0.0.0"></script>-->
+    <!--<script type="text/javascript" src="../js/requireLogin.js?v=1.0.0.0"></script>-->
+    <script id="order_array_tmpl" type="text/x-dot-template">
+        {{~it:value:index}}
+        <div class="weui-cells">
+            <a class="weui-cell weui-cell_access" data-id={{=value.id}} href="javascript:;">
+                <div class="weui-cell__bd weui-cell_primary">
+                    <h4 class="weui-media-box__title">{{=value.topic}}</h4>
+                    <p class="weui-media-box__desc">
+                        {{=common.combine2DateString(value.startdate,value.enddate)}} <br/>{{=value.city}} {{=value.location}}
+                    </p>
+                </div>
+                <span class="weui-cell__ft"></span>
+            </a>
+        </div>
+        {{~}}
+    </script>
+    <script>
+        //
+        var initLoad = function () {
+            apiCaller.authCall('activity/checkin', {
+                type: 'get',
+                success: function (result) {
+                    if (result.successed && result.rows.length > 0) {
+                        //票
+                        var dataArr = result.rows;
+                        var arrText = doT.template($("#order_array_tmpl").text());
+                        var innerHTML = arrText(dataArr);
+                        $("#orderlist").html(innerHTML);
+                        bindHandle();
+                    }
+                    else {
+                        if (result.errorcode === 10000) {
+                            //window.location.href = './login.html'
+                        }
+                    }
+                },
+                error: function (err) {
+
+                }
+            })
+        }
+        var bindHandle = function () {
+            $(".weui-cell_access").on('click', function () {
+                var dataid = $(this).attr('data-id');
+                startUpScan(dataid);
+                //window.location.href = './barcode-scan.html?activityid=' + dataid + '&type=1'
+            })
+        }
+        function startUpScan(activityid) {
+
+            wechatHelper.init(function () {
+
+                wechatHelper.scan({
+                    success: function (result) {
+                        var url = './checkin.html?orderid=' + result + "&type=1&activityid=" + activityid;
+                        window.location.href = url
+                    },
+                    fail: function () {
+                        startUpScan(activityid);
+                        //window.location.href = './orders.html'; 
+                    },
+                    cancel: function () {
+                        //window.location.href = './orders.html';
+                    }
+                })
+            });
+
+        }
+        $(function () {
+            initLoad();
+
+        })
+    </script>
+</head>
+
+<body>
+    <div id="orderlist" class="activity-list__wrapper">
+
+    </div>
+</body>
+
+</html>

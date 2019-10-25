@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>我的会员卡</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+
+		<!-- build:js js/main.js -->
+		<!-- endbuild -->
+	</head>
+
+	<body>
+		<div class="success__wrapper">
+			<!-- success__wrapper2, success__wrapper3 -->
+			<div class="success__container my-homepage__container">
+				<img src="../images/homepage.png" alt="" class="success-content_bg">
+				<div class="my-homepage__userinfo">
+					<img id="imgUserHeader" src="../images/thumbnail.jpg" alt="">
+					<p class="username" id="spanUserName"></p>
+					<span class="number">您的尊享会员号：<span id="s_code"></span></span>
+				</div>
+				<img id="img_qrcode" src="" alt="" class="qrcode">
+			</div>
+		</div>
+	</body>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<!-- <script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script> -->
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/user.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+
+	<script type="text/javascript">
+		var userid = common.query().userid;
+		var userInfo;
+		if(userid) {
+			user.getInfo(userid, function(result) {
+				userInfo = result.data;
+				initShare(userInfo);
+				bindData();
+			}, function(err) {
+				message.toast("获取数据失败", 'error');
+			});
+		} else {
+			userInfo = cache.getUserInfo();
+			if(userInfo) {
+				initShare(userInfo);
+				bindData();
+			}
+		}
+
+		function initShare(user) {
+			var shareOption = {
+				title: "弯弓会员",
+				desc: "邀你加入弯弓会员",
+				imgUrl: imageServer + common.replace(user.user_image, '\\\\', '\/'),
+				link: location.protocol + "//" + location.host + location.pathname + "?userid=" + user.user_id
+			};
+			wechatHelper.initToShare(shareOption, "infoShare");
+		}
+
+		function bindData() {
+			$('#spanUserName').text(userInfo.user_name);
+			$("#imgUserHeader").attr("src", imageServer + common.replace(userInfo.user_image, '\\\\', '\/'));
+			$('#s_code').html(userInfo.user_serial);
+			$("#img_qrcode").attr("src", urlConfig.api.bas.shareqr.replace(":serial", userInfo.user_serial));
+		}
+	</script>
+
+</html>

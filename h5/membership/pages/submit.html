@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>会员信息</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../../css/message.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="user-header__info">
+    <!--<div class="pull-right">-->
+    <div class="user-thumbnail"><img id="user_logo" src="../images/thumbnail.jpg" alt=""></div>
+    <!--</div>-->
+    <!--<div class="pull-left">
+      <span class="user-header__title">用户头像</span>
+    </div>-->
+  </div>
+  <div class="weui-cells user-info__lists">
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img src="../images/icon_phone.jpg"></div>
+      <div class="weui-cell__bd">
+        <input id="mobile" class="weui-input" type="tel" placeholder="手机号码(必填)">
+      </div>
+      <div class="weui-cell__ft">
+        <a id="btn_showcode" href="javascript:;" class="weui-btn weui-btn_mini weui-btn_primary">获取验证码</a>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img src="../images/icon_lock.jpg"></div>
+      <div class="weui-cell__bd">
+        <input id="serialcode" class="weui-input" type="tel" placeholder="短信验证码">
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img src="../images/icon_name.jpg"></div>
+      <div class="weui-cell__bd">
+        <input id="realname" class="weui-input" type="text" placeholder="真实姓名(必填)">
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img src="../images/icon_sex.jpg"></div>
+      <div class="weui-cell__bd">
+        <!--<span class="sex-title">性别:</span>-->
+        <div class="sex-items">
+          <label class="" for="x12">
+              <span>男</span>
+              <input type="radio" name="sex" class="" id="x12" value="1" checked="checked" >
+              <span class="icon-selected"></span>
+          </label>
+          <label class="" for="x13">
+              <span>女</span>
+              <input type="radio" name="sex" class="" id="x13" value="0" >
+              <span class="icon-selected"></span>
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img src="../images/icon_company.jpg"></div>
+      <div class="weui-cell__bd">
+        <input id="corpname" class="weui-input" type="text" placeholder="工作单位(必填)">
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img src="../images/icon_id.jpg"></div>
+      <div class="weui-cell__bd">
+        <input id="corpposition" class="weui-input" type="text" placeholder="职位(选填)">
+      </div>
+    </div>
+  </div>
+  <div class="weui-cells user-info__lists" style="margin-top:15px;" id="recommendArea">
+    <div class="weui-cell">
+      <div class="weui-cell__hd"><img style="width:2.0rem;height:2.0rem;" src="../images/icon_recommend.png"></div>
+      <div class="weui-cell__bd" style="margin-left: 5px;">
+        <input id="recommend" class="weui-input" type="tel" max="6" placeholder="推荐码(选填)">
+      </div>
+    </div>
+  </div>
+  <a id="btn_save" href="javascript:void(0);" class="weui-btn weui-btn_warn user-submit-btn">确定</a>
+  <div id="div_code" style="display:none;">
+    <div class="weui-mask" style="z-index:300;"></div>
+    <div class="weui-dialog" style="z-index:500;">
+      <div id="svg_code" onclick="refreshCode();" class="weui-dialog__hd">
+      </div>
+      <div class="weui-dialog__bd">
+        <input id="verifycode" class="weui-input code-input" type="text" placeholder="请输入验证码">
+        <input id="verifykey" type="hidden" />
+      </div>
+      <div class="weui-dialog__ft">
+        <a id="btn_cancelsend" href="javascript:;" class="weui-dialog__btn weui-dialog__btn_default">取消</a>
+        <a id="btn_sendsms" href="javascript:;" class="weui-dialog__btn weui-dialog__btn_primary">确定</a>
+      </div>
+    </div>
+  </div>
+</body>
+<script src="../../js/lib/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="../../js/wechatHelper.js?v=1.0.0"></script>
+<script type="text/javascript" src="../../js/common.js?v=1.0.0"></script>
+<script type="text/javascript" src="../../js/apiCaller.js?rnd=v1"></script>
+<script type="text/javascript" src="../../js/message.js"></script>
+<script src="../../bower_components/zepto/zepto.min.js"></script>
+<script src="../../bower_components/dot/doT.min.js"></script>
+<script src="../../js/lib/weui.min.js"></script>
+<script src="../../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+  var userid = common.query().userid;
+  var memberid = common.query().memberid;
+  var shareSerial = common.query().shareserial;
+  var serial;
+  var initLoad = function (id) {
+    apiCaller.call('members/' + id, {
+      type: 'get',
+      data: {
+        memberid: memberid
+      },
+      success: function (result) {
+        if (result.successed && result.data) {
+          var userInfo = result.data;
+          if (userInfo.user_image)
+            $("#user_logo").attr("src", imageServer + common.replace(userInfo.user_image, '\\\\', '\/'));
+          // if (userInfo.user_real_name)
+          $("#realname").val(userInfo.user_real_name);
+          $("input[name='sex'][value='" + userInfo.user_sex + "']").attr("checked", true);
+          $("#corpname").val(userInfo.user_corp_name);
+          $("#corpposition").val(userInfo.user_corp_position);
+          $('#mobile').val(userInfo.user_mobile);
+          serial = userInfo.user_serial;
+          if (userInfo.had_member > 0) {
+            message.toast("您已是会员", 'error');
+            $('#mobile').attr("readonly", "readonly");
+            $("#realname").attr("readonly", "readonly");
+            $("#recommend").attr("readonly", "readonly");
+            $('#recommendArea').hide();
+          } else {
+            if (serial != shareSerial) {
+              $('#recommend').val(shareSerial);
+            }
+          }
+        }
+      },
+      error: function (err) {
+        message.toast(err, 'error')
+      }
+    });
+  };
+  var bindhander = function () {
+    $('#btn_showcode').bind("click", showCodeWin);
+
+    $("#btn_sendsms").click(function () {
+      var mobile = $('#mobile').val();
+      if (!mobile || !common.isMobileNo(mobile)) {
+        return message.toast("请正确填写手机号", 'error')
+      }
+      var verifycode = $('#verifycode').val();
+      var verifykey = $('#verifykey').val();
+      if (!verifycode || verifycode.length != 4) {
+        return message.toast("请正确填写图片验证码", 'error')
+      }
+      if (!verifykey) {
+        return message.toast("请正确填写图片验证码", 'error');
+      }
+      apiCaller.call('sms', {
+        type: 'post',
+        data: {
+          type: 1,
+          mobile: mobile,
+          verifycode: verifycode,
+          verifykey: verifykey
+        },
+        success: function (result) {
+          message.toast(result.message, 'error');
+          $("#verifycode").val('');
+          $('#div_code').css('display', 'none');
+          settime();
+        },
+        error: function (err) {
+          message.toast(err.message, 'error');
+        }
+      });
+    });
+
+    $('#btn_save').click(function () {
+      var realname = $("#realname").val();
+      var sex = $("input[name='sex']:checked").val();
+      var corpname = $("#corpname").val();
+      var corpposition = $("#corpposition").val();
+      var mobile = $('#mobile').val();
+      var serialcode = $("#serialcode").val();
+      var recommend = $('#recommend').val();
+      if (!mobile || !common.isMobileNo(mobile))
+        return message.toast("请填写正确的手机号码", 'error');
+      if (!serialcode)
+        return message.toast("请填写验证码", 'error');
+      if (!realname)
+        return message.toast("请填写真实姓名", 'error');
+      if (!corpname)
+        return message.toast("请填写工作单位", 'error');
+      // if (!corpposition)
+      //   return message.toast("请填写所在职位", 'error');
+
+      var data = {
+        userid: userid, memberid: memberid, mobile: mobile, serialcode: serialcode, realname: realname,
+        sex: sex, corpname: corpname, corpposition: corpposition, recommend: recommend
+      };
+
+      apiCaller.call('members', {
+        type: 'post',
+        data: data,
+        success: function (result) {
+          if (result.successed) {
+            if (result.error == 0) {
+              // todo 唤起支付
+              openWechatPay(result.orderid)
+            }
+            else if (result.error = 2005) {
+              alert("信息保存成功！");
+              window.location.href = "./success.html?userid=" + userid;
+            }
+          } else {
+            message.toast("服务器繁忙，请稍后重试！", 'error');
+          }
+        },
+        error: function (err) {
+          message.toast(err.message, 'error');
+        }
+      });
+    });
+
+    $("#btn_cancelsend").click(function () {
+      $("#verifycode").val('');
+      $('#div_code').css('display', 'none');
+    });
+  };
+
+  function refreshCode() {
+    apiCaller.call('serial', {
+      type: 'get',
+      success: function (result) {
+        if (result.successed) {
+          $('#verifykey').val(result.key);
+          $('#svg_code').html(result.code);
+        }
+        else {
+          message.toast("请重新刷新。", 'error')
+        }
+      },
+      error: function (err) {
+        message.toast("网络异常，请稍后重试。", 'error')
+      }
+    });
+  };
+
+  function showCodeWin() {
+    var mobile = $('#mobile').val();
+    if (!mobile || !common.isMobileNo(mobile)) {
+      return message.toast("请正确填写手机号", 'error')
+    }
+    refreshCode();
+    $('#div_code').css('display', 'block');
+  };
+
+  $(function () {
+
+    if (common.isEmpty(userid)) {
+      userid = common.getCache("USER_ID");
+    }
+    if (common.isEmpty(userid) || common.isEmpty(memberid)) {
+      alert('页面缺失重要参数，非法加载!');
+    } else {
+      initLoad(userid);
+      bindhander();
+    }
+  });
+  var openWechatPay = function (orderid) {
+    var jsApiCall = null;
+    apiCaller.call('wechat/mp/pay', {
+	  type: 'post',
+      waitingMessage: '准备微信支付...',
+      data: {
+        userid: userid,
+        orderid: orderid,
+        bustype: 1,
+        type: 1
+      },
+      success: function (result) {
+        //alert(JSON.stringify(result));
+        if (result.successed) {
+          jsApiCall = function jsApiCall() {
+            WeixinJSBridge.invoke(
+              'getBrandWCPayRequest',
+              result.result,//josn串
+              function (res) {
+                WeixinJSBridge.log(res.err_msg);
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                  window.location.href = "./success.html?userid=" + userid;
+                } else {
+                  message.toast('支付失败，请重试!', messageType.warning);
+                }
+              }
+            );
+          }
+
+            (function callpay() {
+              if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                  document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                }
+                else if (document.attachEvent) {
+                  document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                  document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                }
+              }
+              else {
+                jsApiCall();
+              }
+            })();
+        }
+        else {
+          message.toast('支付失败，请重试!', messageType.warning);
+        }
+      },
+      error: function (error) {
+        message.toast('支付失败，请重试!', 'error');
+      }
+    })
+  }
+  var countdown = 60;
+  function settime() {
+    if (countdown == 0) {
+      $('#btn_showcode').removeAttr("disabled");
+      $('#btn_showcode').text("获取验证码");
+      $('#btn_showcode').css('backgroundColor', '#0062e8');
+      countdown = 60;
+      $('#btn_showcode').bind("click", showCodeWin);
+      return;
+    } else {
+      if (countdown == 60) {
+        $('#btn_showcode').unbind("click");
+        $('#btn_showcode').removeAttr("disabled", true);
+        $('#btn_showcode').css('backgroundColor', '#888');
+      }
+      $('#btn_showcode').text("重新发送(" + countdown + ")");
+      countdown--;
+    }
+    setTimeout(function () {
+      settime()
+    }, 1000)
+  }
+  ///初始化微信分享
+  common.createWXShareInit(null, function () {
+    wechatHelper.hideCopyLink();
+  });
+
+</script>
+
+</html>

@@ -1,0 +1,23 @@
+{
+  "name": "pixijs-demos",
+  "authors": [
+    "chuilee <chui.lee8@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  },
+  "devDependencies": {
+    "html5shiv": "^3.7.3"
+  }
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>问答</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+
+    <script type="text/javascript" src="./Scripts/slider_question.js"></script>
+
+</head>
+<form id="aspnetForm" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <table id="dg"></table>
+        <div id="tools_1" style="width: 100%; border: none;">
+            <div>
+                <table class="form_table" style="padding-top: 10px;width:98%">
+                    <tr>
+                        <th style="width:80px">问题:</th>
+                        <td style="width:85px"><input class="easyui-textbox theme-textbox-radius"
+                                search-options="key:'name'" style="width: 80px;" /></td>
+                        <td>
+                            <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                            <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                            <a href="#" id="btnAdd" class="easyui-linkbutton" iconcls="icon-add">添加</a>
+                        </td>
+                    </tr>
+
+                </table>
+            </div>
+            <!-- <div class="easyui-panel" style="padding: 5px; border: none">
+                    <a href="#" id="btnNewSlider" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
+                    <a href="#" id="btnDeleteSlider" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                </div> -->
+        </div>
+    </div>
+</form>

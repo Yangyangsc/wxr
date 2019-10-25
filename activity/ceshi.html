@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+    <title>我的</title>
+    <!-- build:css css/style.css -->
+    <link rel="Stylesheet" href="bower_components/weui/dist/style/weui.css">
+    <link href="css/main.css">
+    <!-- endbuild -->
+    <!-- build:js js/main.js -->
+    <!-- endbuild -->
+    <style>
+      .username {
+				font-size: 1.7rem;
+			}
+			
+			.mobile {
+				font-size: 1.5rem;
+			}
+			
+			.my-header__info .weui-cell .weui-cell__ft::after {
+				border-color: #C8C8CD;
+			}
+		</style>
+  </head>
+
+  <body>
+    <div class="my-header__info">
+      <a class="weui-cell weui-cell_access" href="my/detail.html">
+        <div class="weui-cell__hd">
+          <img id="imgUserHeader" class="userheader" src="./images/thumbnail.jpg">
+        </div>
+        <div class="weui-cell__bd">
+          <p class="username" id="spanUserName"></p>
+          <p class="mobile" id="mobile"></p>
+        </div>
+        <span class="weui-cell__ft"></span>
+      </a>
+    </div>
+
+    <div class="weui-tabbar footer-menu">
+      <a id="a_kt" href="activity.html?slider=activity-top&title=星聚吧" onclick="return !(this.className.indexOf('weui-bar__item_on')>0)"
+        class="weui-tabbar__item ">
+        <span style="display: inline-block;position: relative;">
+          <i class="weui-tabbar__icon icon-message"></i>
+        </span>
+        <p class="weui-tabbar__label">星聚吧</p>
+      </a>
+      <a id="a_jb" href="activity.html?cateid=6cf932a8-1171-4ef3-9e98-fe9502a84701&slider=class-top&title=线下课堂" onclick="return !(this.className.indexOf('weui-bar__item_on')>0)"
+        class="weui-tabbar__item ">
+        <span style="display: inline-block;position: relative;">
+          <i class="weui-tabbar__icon icon-message"></i>
+        </span>
+        <p class="weui-tabbar__label">线下课堂</p>
+      </a>
+      <!--<a href="ecommerce.html" class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+		            <i class="weui-tabbar__icon icon-book"></i>
+		        </span>
+				<p class="weui-tabbar__label">星商城</p>
+			</a>-->
+      <a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+        <span style="display: inline-block;position: relative;">
+          <i class="weui-tabbar__icon icon-person"></i>
+        </span>
+        <p class="weui-tabbar__label">我的</p>
+      </a>
+    </div>
+     <a href="./answer.html">456456464564</a>
+
+
+    <ul>
+      <li>1231231</li>
+    </ul>
+  </body>
+  <script src="js/cache.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="js/autoLogin1.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+  <script src="js/api/user.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="js/message.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+
+  <script src="js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+</html>

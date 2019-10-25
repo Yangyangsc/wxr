@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>会员信息</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/message.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+		<style>
+			.user-thumbnail {
+				margin: auto;
+			}
+			
+			.sex-items {
+				margin-left: 5px;
+			}
+			
+			.icon-selected {
+				margin-bottom: -2px !important;
+			}
+			
+			.uploader {
+				position: absolute;
+				z-index: 1;
+				width: 6rem;
+				height: 6rem;
+				opacity: 0;
+				-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--描述：模版-->
+		<script id="info_tmpl" type="text/x-dot-template">
+			<div class="user-header__info">
+				<div class="user-thumbnail">
+					<input id="uploaderInput" class="uploader" type="file" accept="image/*">
+					<img id="user_logo" src="{{? it.user_image}} {{= imageServer + common.replace(it.user_image, '\\\\', '\/') }}  {{??}}../images/thumbnail.jpg{{?}}" alt="">
+					<input id="userlogo" type="hidden" value="{{? it.user_image}}{{= it.user_image}}{{?}}" />
+				</div>
+			</div>
+			<div class="weui-cells user-info__lists">
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><img src="../images/icon_phone.jpg"></div>
+					<div class="weui-cell__bd">
+						<input id="mobile" class="weui-input" value="{{? it.user_mobile}} {{= it.user_mobile}}{{?}}" type="tel" placeholder="手机号码(必填)">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><img src="../images/icon_name.jpg"></div>
+					<div class="weui-cell__bd">
+						<input id="username" class="weui-input" value="{{? it.user_name}}{{= it.user_name}}{{?}}" type="text" placeholder="昵称(必填)">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><img src="../images/icon_name.jpg"></div>
+					<div class="weui-cell__bd">
+						<input id="realname" class="weui-input" value="{{? it.user_real_name}}{{= it.user_real_name}}{{?}}" type="text" placeholder="真实姓名(必填)">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><img src="../images/icon_sex.jpg"></div>
+					<div class="weui-cell__bd">
+						<div class="sex-items">
+							<label class="" for="x12">
+				              <span>男</span>
+				              <input type="radio" name="sex" class="" id="x12" value="1" {{? it.user_sex!=0}} checked="checked" {{?}}>
+				              <span class="icon-selected"></span>
+				          </label>
+							<label class="" for="x13">
+				              <span>女</span>
+				              <input type="radio" name="sex" class="" id="x13" value="0" {{? it.user_sex==0}} checked="checked" {{?}}>
+				              <span class="icon-selected"></span>
+				          </label>
+						</div>
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><img src="../images/icon_company.jpg"></div>
+					<div class="weui-cell__bd">
+						<input id="corpname" class="weui-input" value="{{? it.user_corp_name}}{{=it.user_corp_name}}{{?}}" type="text" placeholder="工作单位(必填)">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd"><img src="../images/icon_id.jpg"></div>
+					<div class="weui-cell__bd">
+						<input id="corpposition" class="weui-input" value="{{? it.user_corp_position}}{{=it.user_corp_position}}{{?}}" type="text" placeholder="职位(选填)">
+					</div>
+				</div>
+			</div>
+			<a id="btn_save" href="javascript:void(0);" class="weui-btn weui-btn_warn user-submit-btn">确定</a>
+		</script>
+	</body>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/user.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/fileUpload.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/detail.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

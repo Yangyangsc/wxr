@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>新增地址</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+		<!-- build:js js/main.js -->
+		<!-- endbuild -->
+	</head>
+
+	<body style="background: #fff;">
+		<div style="" id="div_content">
+			<div class="weui-cells user-info__lists new-address-form">
+				<div class="weui-cell">
+					<div class="weui-cell__hd">收件人</div>
+					<div class="weui-cell__bd">
+						<input id="recipient" class="weui-input" type="text" placeholder="">
+					</div>
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__hd">联系电话</div>
+					<div class="weui-cell__bd">
+						<input id="mobile" class="weui-input" type="tel" placeholder="">
+					</div>
+				</div>
+				<div id="selectdistrict" class="weui-cell weui-cell_access">
+					<div class="weui-cell__hd">所在地区</div>
+					<div class="weui-cell__bd">
+					</div>
+					<div id="addr_name" class="weui-cell__ft"></div>
+					<input id="districtid" type="hidden" />
+					<input id="districtname" type="hidden" />
+				</div>
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<p>详细街道/大楼/门牌号码</p>
+						<textarea id="address_name" name="" id="" cols="30" rows="6"></textarea>
+					</div>
+				</div>
+				<div class="weui-cells weui-cells_checkbox">
+					<label class="weui-cell weui-check__label" for="address_default">
+		                <div class="weui-cell__hd">
+		                    <input id="address_default" type="checkbox" class="weui-check" name="checkbox1"  />
+		                    <i class="weui-icon-checked"></i>
+		                </div>
+		                <div class="weui-cell__bd">
+		                    <p>默认地址</p>
+		                </div>
+		            </label>
+				</div>
+			</div>
+			<a id="a_sure" href="javascript:;" class="weui-btn weui-btn_warn user-submit-btn">确定</a>
+		</div>
+
+		<div id="div_district" style="display: none;" class="weui-cells city-list">
+
+		</div>
+		<!--描述：地址模版-->
+		<script id="addr_tmpl" type="text/x-dot-template">
+			{{~it:value:index}}
+			<div onclick="showDistrict('{{= value.district_id}}','{{=value.district_name}}')" class="weui-cell weui-cell_access">
+				<div class="weui-cell__bd">{{=value.district_name}}</div>
+				<div class="weui-cell__ft"></div>
+			</div>
+			{{~}}
+		</script>
+	</body>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/user.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/addressdetail.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

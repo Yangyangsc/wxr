@@ -1,0 +1,238 @@
+{
+    "tabs": [
+        {
+            "title": "首页",
+            "content": 0,
+            "items": [
+                {
+                    "type": "silder",
+                    "sliders": [
+                        {
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                            "href": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg"
+                        },
+                        {
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                            "href": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg"
+                        }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                    "click": 1,
+                    "params": "1"
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                    "click": 1,
+                    "params": "2"
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "product",
+                    "template": "2column",
+                    "products": [
+                        {
+                            "id": "483748-aec1293-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                            "name": "石头花瓶",
+                            "price": 179
+                        },
+                        {
+                            "id": "483748-aec1133f-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                            "name": "气泡花瓶",
+                            "price": 109
+                        },
+                        {
+                            "id": "483748-aec1133f-abcdef-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                            "name": "水晶花瓶四色",
+                            "price": 89
+                        },
+                        {
+                            "id": "483748-aec1133f-abcdef-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32031508123476_.pic_hd.jpg",
+                            "name": "July花瓶",
+                            "price": 79
+                        }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "product",
+                    "template": "2column",
+                    "products": [
+                        {
+                            "id": "483748-aec1293-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "用花说笔记本",
+                            "price": 39
+                        },
+                        {
+                            "id": "483748-aec1133f-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "独家液体保鲜液",
+                            "price": 19.9
+                        },
+                        {
+                            "id": "483748-aec1133f-abcdef-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "定制花艺剪",
+                            "price": 79
+                        },
+                        {
+                            "id": "483748-aec1133f-abcdef-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "定制工装手工围裙",
+                            "price": 99
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "单品花束",
+            "content": 0,
+            "items": [
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "product",
+                    "template": "2column",
+                    "products": [
+                        {
+                            "id": "483748-aec1293-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "简花.标准",
+                            "describ": "普通花量,10~15枝鲜花",
+                            "price": 99
+                        },
+                        {
+                            "id": "483748-aec1133f-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "简花.优选",
+                            "describ": "大花量,10~15枝鲜花",
+                            "price": 179
+                        }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "product",
+                    "template": "1column",
+                    "products": [
+                        {
+                            "id": "483748-aec1293-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "挚爱.进口",
+                            "describ": "10枝进口玫瑰",
+                            "price": 399
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "混合花束",
+            "content": 0,
+            "items": [
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "product",
+                    "template": "2column",
+                    "products": [
+                        {
+                            "id": "483748-aec1293-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "混合.悦花",
+                            "describ": "3种花材,8~12枝鲜花",
+                            "price": 99
+                        },
+                        {
+                            "id": "483748-aec1133f-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "混合.繁花",
+                            "describ": "4~6种花材,8~12枝鲜花",
+                            "price": 169
+                        },
+                        {
+                            "id": "483748-aec1133f-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "混合.迷藏",
+                            "describ": "6~8种花材,24枝鲜花",
+                            "price": 399
+                        }
+                    ]
+                },
+                {
+                    "type": "image",
+                    "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                    "click": 0,
+                    "params": ""
+                },
+                {
+                    "type": "product",
+                    "template": "1column",
+                    "products": [
+                        {
+                            "id": "483748-aec1293-1338743-09839",
+                            "image": "http://litecoder.oss-cn-shenzhen.aliyuncs.com/products/32041508123478_.pic_hd.jpg",
+                            "name": "ALPHA.艺术",
+                            "describ": "独一无二，花艺师亲手制作",
+                            "price": 1699
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "title": "一人一茶",
+            "content": 1,
+            "url": "www.baidu.com"
+        },
+        {
+            "title": "我的1",
+            "content": 1,
+            "url": "mygrid"
+        }
+    ]
+}

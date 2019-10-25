@@ -1,0 +1,151 @@
+@CHARSET "UTF-8";
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+html,
+body {
+    background:url('default/images/login/bg.png') repeat-x #d6dee0;
+    
+    overflow-y: hidden;
+    overflow-x: hidden;
+    font: normal 14px "Microsoft YaHei";
+    height: 100%;
+}
+#login_top {
+    height: 89px;
+    
+    text-align: center;
+}
+#welcome {
+    height: 39px;
+    line-height: 39px;
+    padding-left: 40px;
+    background: url('default/images/login/topleft.gif') 0px 0px no-repeat;
+    color: #fff;
+    float: left;
+}
+#back {
+    float: right;
+    height: 39px;
+    line-height: 39px;
+    padding-right: 15px;
+}
+#back a {
+    color: #fff;
+    text-decoration: none;
+}
+#login_center {
+    height: 100%;
+}
+#login_bottom {
+    position: absolute;
+    width: 500px;
+    left: 50%;
+    margin-left: -250px;
+    bottom: 0;
+    height: 30px;
+    line-height: 20px;
+    text-align: center;
+    color: #666;
+}
+#login_area {
+    margin: 0px auto;
+    width: 640px;
+    height: 320px;
+    margin: 30px auto;
+    background:#fff;
+}
+#login_form {
+    width: 330px;
+    margin: 30px auto 0;
+}
+
+#login_tip {
+    width: 330px;
+    margin: 45px auto 0;
+    height: 55px;
+    padding-top:20px;
+    font: 700 20px/55px "Microsoft YaHei";
+    color: #333;
+    /*background:url('../App_Themes/default/images/login/topleft.gif') no-repeat;*/
+}
+#login_tip img {
+    margin-right: 10px;
+    vertical-align: middle;
+}
+input,
+img {
+    vertical-align: middle;
+}
+.usernameDiv,
+.pwdDiv,
+.verifyDiv{
+    width: 310px;
+    height: 38px;
+    line-height: 38px;
+    /*padding-left: 43px;*/
+    
+    margin-top: 15px;
+}
+.usernameDiv{margin-top:0;}
+.username,
+.pwd,
+.verify {
+    width: 310px;
+    height: 38px;
+    line-height: 38px;
+    border: #ddd 1px solid;
+    background: none;
+    font-size: 14px;
+    padding-left:10px;
+}
+.verify {
+    width: 180px;
+}
+.verifyDiv img {
+    width: 90px;
+    height: 28px;
+    vertical-align: middle;
+    margin-left: 15px;
+}
+
+#LoginButton {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    width: 160px;
+    height: 40px;
+    line-height: 40px;
+    background: url('default/images/login/btn_bg.png') 0px 0px repeat-x;
+    font: 700 16px/41px "Microsoft YaHei";
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    vertical-align: middle;
+    margin: 20px auto;
+    border-radius: 3px;
+}
+#sub_btn:hover {
+    color: #ff0
+}
+
+
+@media screen and (max-height: 500px) {
+    #login_top{display: none;}
+    html,
+	body {
+	    background-position-y: -20px;
+	}
+    #login_area {
+        margin-top: 40px;
+    }
+    #login_form {
+        margin-top: 40px;
+    }
+    #login_bottom {
+        
+    }
+    #login_tip{margin-top: 40px;}
+}

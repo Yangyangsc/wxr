@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>服务申请管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+    
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <script type="text/javascript" src="./Scripts/applicationlist.js"></script>
+    <style type="text/css">
+        .main .datagrid-row {
+            height: 44px;
+        }
+        .main .datagrid-cell{
+            white-space:normal; 
+        }
+        .main .datagrid-cell img {
+            max-height: inherit;
+        }
+        .main .datagrid-cell-c2-logo {
+            position: relative;
+        }
+    </style>
+</head>   
+<form id="aspnetForm" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div class="main" id="bt_index_layout_center" data-options="region:'center'">
+            <table id="dg"></table>
+            <div id="tools_1" style="width: 100%; border: none;">
+                <div style="margin-bottom: 5px">
+                    <table class="form_table">
+                        <tr>
+                            <th>企业名称:</th>
+                            <td>
+                                <input class="easyui-textbox  theme-textbox-radius" search-options="key:'name'" style="width: 120px;"/></td>
+                            <th>申请类型:</th>
+                            <td>
+                                <select   search-options="key:'type'"  class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight:'auto'"  style="width: 90px; height: 28px;">
+                                    <option value="" selected>全部</option>
+                                     <option value="1">投放服务</option>
+                                      <option value="2">企业咨询</option>
+                                </select>    
+                            </td>
+                            <th>处理状态:</th>
+                            <td>
+                                <select   search-options="key:'status'"  class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight:'auto'"  style="width: 90px; height: 28px;">
+                                    <option value="" selected>全部</option>
+                                    <option value="0">待处理</option>
+                                    <option value="1">已完成</option>
+                                    <option value="2">预约失败</option>
+                                </select>    
+                            </td>
+                            <td>
+                                <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                                <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                            </td>
+                        </tr>
+                        
+                    </table>
+
+                </div>
+                <div class="easyui-panel" style="padding: 5px; border: none">
+                    <a href="#" id="btnProcess" class="easyui-linkbutton" onclick="process()" data-options="plain:true,iconCls:'icon-process'">处理预约状态</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

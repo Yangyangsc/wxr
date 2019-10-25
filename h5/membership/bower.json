@@ -1,0 +1,21 @@
+{
+  "name": "pixijs-demos",
+  "authors": [
+    "chuilee <chui.lee8@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "weui": "^1.1.1",
+    "zepto": "^1.2.0"
+  }
+}

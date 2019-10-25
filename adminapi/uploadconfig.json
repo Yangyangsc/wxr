@@ -1,0 +1,23 @@
+﻿{
+    "userheader":{"saveDir":"userheader/","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+    "menuIcon":{"saveDir":"menuicon/","fileName":"keep","output":"Original","fileFormat":""},
+    "htmlinnerimage":{"saveDir":"html/web/richtext/images","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+    "htmlinnerfile":{"saveDir":"html/web/richtext/files","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+    "htmlinnervideo":{"saveDir":"html/web/richtext/video","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+    "htmlinnercatch":{"saveDir":"html/web/richtext/catch","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+	"storepicture":{"saveDir":"store/","fileName":"random","output":"Original","fileFormat":"","handler":"../provider/businessAttachmenthandler,./provider/businessAttachmenthandler.js"},
+    "product":{"saveDir":"product/","fileName":"random","output":"Original","fileFormat":""},
+    "productpicture":{"saveDir":"product/","fileName":"random","output":"Original","fileFormat":"","handler":"../provider/businessAttachmenthandler,./provider/businessAttachmenthandler.js"},
+    "groupimage":{"saveDir":"group/","fileName":"random","output":"Original","fileFormat":""},
+    "articlecover":{"saveDir":"article/cover/","fileName":"random","output":"Original","fileFormat":""},
+    "articleCatelog":{"saveDir":"article/catalog/","fileName":"random","output":"Original","fileFormat":""},
+    "activitycover":{"saveDir":"activity/cover/","fileName":"random","output":"Original","fileFormat":""},
+    "questionimg":{"saveDir":"question/img/","fileName":"random","output":"Original","fileFormat":""},
+	"mediaLogo":{"saveDir":"media/logo/","fileName":"random","output":"Original","fileFormat":""},
+    "activitycatalog":{"saveDir":"activity/catalog/","fileName":"random","output":"Original","fileFormat":""},
+    "slider":{"saveDir":"slider/","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+	"membertype":{"saveDir":"membertype/","fileName":"random","output":"Original","fileFormat":""},
+    "attachment":{"saveDir":"attachments/","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":"","handler":"../provider/businessAttachmenthandler,./provider/businessAttachmenthandler.js"},
+    "enterpriselogo":{"saveDir":"enterpriselogo/","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""},
+    "kolimage":{"saveDir":"kolimage/","fileName":"random","subFolder":"onebydate","output":"Original","fileFormat":""}
+}

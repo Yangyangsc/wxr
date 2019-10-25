@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>订单处理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <!--<link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+
+      <script>
+       function processOrder(){
+           var orderid= $.getUrlParam('orderid');
+           if ($.isNullOrEmpty( orderid)){
+               $.messager.alert('错误','确实重要参数','error');
+               return;
+           }
+           var processresult = $('#result').combobox('getValue');
+           if (processresult=='') {
+               $.messager.alert('提示','请标记处理结果','info');
+               return;
+           }
+           var opinion = $('#opinion').textbox('getValue');
+            ApiCaller.Put({url:'/productorder/'+orderid+'/process',
+                            data:{result:processresult,opinion:opinion},
+                            successFunc:function(result){
+                              
+                                 dialogHelper.closeModal({result:processresult,opinion:opinion,user:ApiCaller.getUser().name});
+            }})
+       }
+     </script>
+</head>
+
+<body>
+    <form id="formProcess">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'center',title:''">
+                <table class="form_table" style="padding-top:30px;width:90%" data-options="fit:true">
+                    <tr>
+                        <th style="width:110px">标记处理:</th>
+                        <td>
+                            <select id="result" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'"  style="width: 140px; height: 28px;">
+                                    <option value="1">已发货</option>
+                                    <option value="2">已退款</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>意见备注:</th>
+                        <td>
+                            <input  class="easyui-textbox theme-textbox-radius" style="width: 95%;height: 60px" id="opinion" data-options="multiline:true,invalidMessage:'意见不能超过255个字符!',validType:'length[1,255]'">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th/>
+                        <td>
+                            <a href="#" class="easyui-linkbutton" onclick="processOrder()" iconCls="icon-ok" style="width:150px;height:40px">保存处理结果</a>
+                        </td>
+                        </tr>
+                </table>
+            </div>
+            
+        </div>
+    </form>
+</body>

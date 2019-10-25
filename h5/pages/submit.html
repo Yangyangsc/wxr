@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>填写信息</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <!-- endbuild -->
+  <script src="../scripts/zepto.min.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script type="text/javascript" src="../js/apiCaller.js"></script>
+
+  <script src="../scripts/weui.min.js"></script>
+  <!-- build:js js/main.js -->
+  <!-- endbuild -->
+
+</head>
+
+<body>
+  <div class="weui-cells submit-cells">
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <p>联系电话</p>
+      </div>
+      <div class="weui-cell__ft">
+        <input class="weui-input" type="tel" placeholder="必填">
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <p>单位名称</p>
+      </div>
+      <div class="weui-cell__ft">
+        <input class="weui-input" type="text" placeholder="必填">
+      </div>
+    </div>
+    <div class="weui-cell">
+      <div class="weui-cell__bd">
+        <p>微信号</p>
+      </div>
+      <div class="weui-cell__ft">
+        <input class="weui-input" type="text" placeholder="必填">
+      </div>
+    </div>
+  </div>
+  <div class="bottom-button__fixed">
+    <a href="javascript:;" class="weui-btn weui-btn_primary" id="showIOSActionSheet">下一步</a>
+  </div>
+  <script>
+    var id = common.query().id
+    $(function () {
+
+    })
+  </script>
+</body>
+
+</html>

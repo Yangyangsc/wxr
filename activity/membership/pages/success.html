@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>成功加入</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="success__wrapper">
+    <!-- success__wrapper2, success__wrapper3 -->
+    <div class="success__container">
+
+      <img src="../images/success-content_bg.png?rnd=20160525" alt="" class="success-content_bg">
+      <img id="imgUserHeader" alt="" class="userhead">
+      <span class="username"><span id="spanUserName"></span></span>
+      <img src="../images/qrcode.jpg" alt="" class="qrcode">
+      <span class="number">您的尊享会员号：<span id="s_code"></span></span>
+    </div>
+  </div>
+</body>
+<script src="../../js/lib/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="../../js/wechatHelper.js"></script>
+<script type="text/javascript" src="../../js/common.js"></script>
+<script type="text/javascript" src="../../js/apiCaller.js"></script>
+<script src="../../bower_components/zepto/zepto.min.js"></script>
+<script src="../../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+<script src="../../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+  var userid = common.query().userid;
+  $(function () {
+    if (userid) {
+      apiCaller.call('users/' + userid, {
+        type: 'get',
+        success: function (result) {
+          if (result.successed && result.data) {
+            $('#spanUserName').text(result.data.user_name);
+            $("#imgUserHeader").attr("src", imageServer + common.replace(result.data.user_image, '\\\\', '\/'));
+            $('#s_code').html(result.data.user_serial);
+          }
+        },
+        error: function (err) {
+          message.toast(err, 'error')
+        }
+      });
+    } else {
+      alert('页面缺失重要参数，非法加载!');
+    }
+  });
+  ///初始化微信分享
+  common.createWXShareInit(null, function () {
+    wechatHelper.hideCopyLink();
+  });
+
+</script>
+
+</html>

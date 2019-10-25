@@ -1,0 +1,1971 @@
+<!DOCTYPE html>
+<!-- saved from url=(0047)http://www.jeasyui.com/documentation/index.php# -->
+<html class="panel-fit"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Documentation - jQuery EasyUI</title>
+		<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/easyui/themes/metro/easyui.css">
+        <link rel="stylesheet" href="http://www.jeasyui.com/css/kube.css" type="text/css">
+        <link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/css/main.css">
+		<link rel="shortcut icon" href="http://www.jeasyui.com/favicon.ico" type="image/x-icon">
+		<link rel="stylesheet" type="text/css" href="http://www.jeasyui.com/prettify/prettify.css">
+		<script type="text/javascript" src="http://www.jeasyui.com/prettify/prettify.js"></script>
+		<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.min.js"></script>
+		<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script>
+		<script type="text/javascript">
+			$(function(){
+				$('#tt').tabs({
+					onLoad:function(panel){
+						var plugin = panel.panel('options').title;
+						panel.find('textarea[name="code-'+plugin+'"]').each(function(){
+							var data = $(this).val();
+							data = data.replace(/(\r\n|\r|\n)/g, '\n');
+							if (data.indexOf('\t') == 0){
+								data = data.replace(/^\t/, '');
+								data = data.replace(/\n\t/g, '\n');
+							}
+							data = data.replace(/\t/g, '    ');
+							var pre = $('<pre name="code" class="prettyprint linenums"></pre>').insertAfter(this);
+							pre.text(data);
+							$(this).remove();
+						});
+						prettyPrint();
+					}
+				});
+				var sw = $(window).width();
+				if (sw < 767){
+					$('body').layout('collapse', 'west');
+				}
+				$('.navigation-toggle span').bind('click', function(){
+					$('#head-menu').toggle();
+				});
+			});
+			function open1(plugin){
+				if ($('#tt').tabs('exists',plugin)){
+					$('#tt').tabs('select', plugin);
+				} else {
+					$('#tt').tabs('add',{
+						title:plugin,
+						href:plugin+'.php',
+						closable:true,
+						bodyCls:'content-doc',
+						extractor:function(data){
+							data = $.fn.panel.defaults.extractor(data);
+							var tmp = $('<div></div>').html(data);
+							data = tmp.find('#content').html();
+							tmp.remove();
+							return data;
+						}
+					});
+				}
+			}
+		</script>
+		<style type="text/css">
+			.tree-title{
+				font-size: 14px;
+			}
+			.tree-title a{
+				text-decoration: none;
+			}
+			#head-menu{
+				position: absolute;
+				z-index: 8;
+				display: none;
+				background: #2d3e50;
+				color: #fff;
+				left: 0;
+				padding: 0 4.5%;
+				top: 66px;
+			}
+			#head-menu .navbar{
+				margin: 0 40px 20px 40px;
+			}
+			#head-menu a{
+				color: #fff;
+			}
+		</style>
+	</head>
+	<body class="easyui-layout layout panel-noscroll" style="text-align:left">
+		<div id="head-menu">
+			<div class="navbar navbar-right">
+				<ul>
+					<li><a href="http://www.jeasyui.com/index.php">Home</a></li>
+					<li><a href="http://www.jeasyui.com/demo/main/index.php">Demo</a></li>
+					<li><a href="http://www.jeasyui.com/tutorial/index.php">Tutorial</a></li>
+					<li><a href="http://www.jeasyui.com/documentation/index.php">Documentation</a></li>
+					<li><a href="http://www.jeasyui.com/download/index.php">Download</a></li>
+					<li><a href="http://www.jeasyui.com/extension/index.php">Extension</a></li>
+					<li><a href="http://www.jeasyui.com/contact.php">Contact</a></li>
+					<li><a href="http://www.jeasyui.com/forum/index.php">Forum</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="panel layout-panel layout-panel-north panel-htop" style="width: 1179px; left: 0px; top: 0px;"><div region="north" border="false" class="group wrap header panel-body panel-body-noheader panel-body-noborder layout-body" style="font-size: 100%; width: 1179px; height: 66px;" title="">
+			<div class="content">
+	<div class="navigation-toggle" data-tools="navigation-toggle" data-target="#navbar-1" style="display: none;">
+		<span>EasyUI</span>
+	</div>
+	<div id="elogo" class="navbar navbar-left">
+		<ul>
+			<li>
+				<a href="http://www.jeasyui.com/index.php"><img src="http://www.jeasyui.com/images/logo2.png" alt="jQuery EasyUI"></a>
+			</li>
+		</ul>
+	</div>
+	<div id="navbar-1" class="navbar navbar-right">
+		<ul>
+			<li><a href="http://www.jeasyui.com/index.php">Home</a></li>
+			<li><a href="http://www.jeasyui.com/demo/main/index.php">Demo</a></li>
+			<li><a href="http://www.jeasyui.com/tutorial/index.php">Tutorial</a></li>
+			<li><a href="http://www.jeasyui.com/documentation/index.php">Documentation</a></li>
+			<li><a href="http://www.jeasyui.com/download/index.php">Download</a></li>
+			<li><a href="http://www.jeasyui.com/extension/index.php">Extension</a></li>
+			<li><a href="http://www.jeasyui.com/contact.php">Contact</a></li>
+			<li><a href="http://www.jeasyui.com/forum/index.php">Forum</a></li>
+		</ul>
+	</div>
+	<div style="clear:both"></div>
+</div>
+<script type="text/javascript">
+	function setNav(){
+		var demosubmenu = $('#demo-submenu');
+		if (demosubmenu.length){
+			if ($(window).width() < 450){
+				demosubmenu.find('a:last').hide();
+			} else {
+				demosubmenu.find('a:last').show();
+			}
+		}
+		if ($(window).width() < 767){
+			$('.navigation-toggle').each(function(){
+				$(this).show();
+				var target = $(this).attr('data-target');
+				$(target).hide();
+				setDemoNav();
+			});
+		} else {
+			$('.navigation-toggle').each(function(){
+				$(this).hide();
+				var target = $(this).attr('data-target');
+				$(target).show();
+			});
+		}
+	}
+	function setDemoNav(){
+		$('.navigation-toggle').each(function(){
+			var target = $(this).attr('data-target');
+			if (target == '#navbar-demo'){
+				if ($(target).is(':visible')){
+					$(this).css('margin-bottom', 0);
+				} else {
+					$(this).css('margin-bottom', '2.3em');
+				}
+			}
+		});
+	}
+	$(function(){
+		setNav();
+		$(window).bind('resize', function(){
+			setNav();
+		});
+		$('.navigation-toggle').bind('click', function(){
+			var target = $(this).attr('data-target');
+			$(target).toggle();
+			setDemoNav();
+		});
+	})
+</script>		</div></div>
+		<div class="panel layout-panel layout-panel-west panel-htop layout-split-west easyui-fluid" style="width: 235px; left: 0px; top: 66px;"><div class="panel-header" style="width: 230px;"><div class="panel-title">Plugins</div><div class="panel-tool"><a href="javascript:;" class="panel-tool-collapse" style="display: none;"></a><a href="javascript:;" class="layout-button-left"></a></div></div><div region="west" split="true" title="" style="padding: 5px; width: 230px; height: 514px;" class="panel-body layout-body">
+			<ul class="easyui-tree tree"><li><div id="_easyui_tree_1" class="tree-node"><span class="tree-hit tree-expanded"></span><span class="tree-icon tree-folder tree-folder-open icon-base"></span><span class="tree-title">Base</span></div><ul style="display:block"><li><div id="_easyui_tree_2" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;parser&#39;)">parser</a></span></div></li><li><div id="_easyui_tree_3" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;easyloader&#39;)">easyloader</a></span></div></li><li><div id="_easyui_tree_4" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;draggable&#39;)">draggable</a></span></div></li><li><div id="_easyui_tree_5" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;droppable&#39;)">droppable</a></span></div></li><li><div id="_easyui_tree_6" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;resizable&#39;)">resizable</a></span></div></li><li><div id="_easyui_tree_7" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;pagination&#39;)">pagination</a></span></div></li><li><div id="_easyui_tree_8" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;searchbox&#39;)">searchbox</a></span></div></li><li><div id="_easyui_tree_9" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;progressbar&#39;)">progressbar</a></span></div></li><li><div id="_easyui_tree_10" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;tooltip&#39;)">tooltip</a></span></div></li><li><div id="_easyui_tree_11" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;mobile&#39;)">mobile</a></span></div></li></ul></li><li><div id="_easyui_tree_12" class="tree-node"><span class="tree-hit tree-expanded"></span><span class="tree-icon tree-folder tree-folder-open icon-layout"></span><span class="tree-title">Layout</span></div><ul style="display:block"><li><div id="_easyui_tree_13" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;panel&#39;)">panel</a></span></div></li><li><div id="_easyui_tree_14" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;tabs&#39;)">tabs</a></span></div></li><li><div id="_easyui_tree_15" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;accordion&#39;)">accordion</a></span></div></li><li><div id="_easyui_tree_16" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;layout&#39;)">layout</a></span></div></li></ul></li><li><div id="_easyui_tree_17" class="tree-node"><span class="tree-hit tree-expanded"></span><span class="tree-icon tree-folder tree-folder-open icon-menu"></span><span class="tree-title">Menu and Button</span></div><ul style="display:block"><li><div id="_easyui_tree_18" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;menu&#39;)">menu</a></span></div></li><li><div id="_easyui_tree_19" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;linkbutton&#39;)">linkbutton</a></span></div></li><li><div id="_easyui_tree_20" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;menubutton&#39;)">menubutton</a></span></div></li><li><div id="_easyui_tree_21" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;splitbutton&#39;)">splitbutton</a></span></div></li><li><div id="_easyui_tree_22" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;switchbutton&#39;)">switchbutton</a></span></div></li></ul></li><li><div id="_easyui_tree_23" class="tree-node"><span class="tree-hit tree-expanded"></span><span class="tree-icon tree-folder tree-folder-open icon-form"></span><span class="tree-title">Form</span></div><ul style="display:block"><li><div id="_easyui_tree_24" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;form&#39;)">form</a></span></div></li><li><div id="_easyui_tree_25" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;validatebox&#39;)">validatebox</a></span></div></li><li><div id="_easyui_tree_26" class="tree-node tree-node-selected"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;textbox&#39;)">textbox</a></span></div></li><li><div id="_easyui_tree_27" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;passwordbox&#39;)">passwordbox</a></span></div></li><li><div id="_easyui_tree_28" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;combo&#39;)">combo</a></span></div></li><li><div id="_easyui_tree_29" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;combobox&#39;)">combobox</a></span></div></li><li><div id="_easyui_tree_30" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;combotree&#39;)">combotree</a></span></div></li><li><div id="_easyui_tree_31" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;combogrid&#39;)">combogrid</a></span></div></li><li><div id="_easyui_tree_32" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;combotreegrid&#39;)">combotreegrid</a></span></div></li><li><div id="_easyui_tree_33" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;tagbox&#39;)">tagbox</a></span></div></li><li><div id="_easyui_tree_34" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;numberbox&#39;)">numberbox</a></span></div></li><li><div id="_easyui_tree_35" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;datebox&#39;)">datebox</a></span></div></li><li><div id="_easyui_tree_36" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;datetimebox&#39;)">datetimebox</a></span></div></li><li><div id="_easyui_tree_37" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;datetimespinner&#39;)">datetimespinner</a></span></div></li><li><div id="_easyui_tree_38" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;calendar&#39;)">calendar</a></span></div></li><li><div id="_easyui_tree_39" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;spinner&#39;)">spinner</a></span></div></li><li><div id="_easyui_tree_40" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;numberspinner&#39;)">numberspinner</a></span></div></li><li><div id="_easyui_tree_41" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;timespinner&#39;)">timespinner</a></span></div></li><li><div id="_easyui_tree_42" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;slider&#39;)">slider</a></span></div></li><li><div id="_easyui_tree_43" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;filebox&#39;)">filebox</a></span></div></li></ul></li><li><div id="_easyui_tree_44" class="tree-node"><span class="tree-hit tree-expanded"></span><span class="tree-icon tree-folder tree-folder-open icon-window"></span><span class="tree-title">Window</span></div><ul style="display:block"><li><div id="_easyui_tree_45" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;window&#39;)">window</a></span></div></li><li><div id="_easyui_tree_46" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;dialog&#39;)">dialog</a></span></div></li><li><div id="_easyui_tree_47" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;messager&#39;)">messager</a></span></div></li></ul></li><li><div id="_easyui_tree_48" class="tree-node"><span class="tree-hit tree-expanded"></span><span class="tree-icon tree-folder tree-folder-open icon-datagrid"></span><span class="tree-title">DataGrid and Tree</span></div><ul style="display:block"><li><div id="_easyui_tree_49" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;datagrid&#39;)">datagrid</a></span></div></li><li><div id="_easyui_tree_50" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;datalist&#39;)">datalist</a></span></div></li><li><div id="_easyui_tree_51" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;propertygrid&#39;)">propertygrid</a></span></div></li><li><div id="_easyui_tree_52" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;tree&#39;)">tree</a></span></div></li><li><div id="_easyui_tree_53" class="tree-node"><span class="tree-indent"></span><span class="tree-indent"></span><span class="tree-icon tree-file icon-gears"></span><span class="tree-title"><a href="http://www.jeasyui.com/documentation/index.php#" onclick="open1(&#39;treegrid&#39;)">treegrid</a></span></div></li></ul></li></ul>
+		</div></div>
+		<div class="panel layout-panel layout-panel-center panel-htop" style="width: 944px; left: 235px; top: 66px;"><div region="center" title="" class="panel-body panel-body-noheader layout-body panel-noscroll" style="width: 944px; height: 542px;">
+			<div id="tt" class="easyui-tabs tabs-container easyui-fluid" fit="true" border="false" plain="true" style="width: 942px; height: 540px;">
+				
+			<div class="tabs-header tabs-header-plain tabs-header-noborder" style="width: 942px;"><div class="tabs-scroller-left" style="display: none;"></div><div class="tabs-scroller-right" style="display: none;"></div><div class="tabs-wrap" style="margin-left: 0px; margin-right: 0px; width: 942px;"><ul class="tabs" style="height: 27px;"><li class="tabs-first"><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title">welcome</span><span class="tabs-icon"></span></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">accordion</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">datalist</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">parser</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">easyloader</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">layout</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">combobox</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">switchbutton</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class=""><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">tagbox</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li><li class="tabs-selected tabs-last"><a href="javascript:;" class="tabs-inner" style="height: 27px; line-height: 25px;"><span class="tabs-title tabs-closable">validatebox</span><span class="tabs-icon"></span></a><a href="javascript:;" class="tabs-close"></a></li></ul></div></div><div class="tabs-panels tabs-panels-noborder" style="height: 511px; width: 942px;"><div class="panel panel-htop" style="display: none; width: 1022px;"><div title="" href="welcome.php" class="content-doc panel-body panel-body-noheader panel-body-noborder" style="width: 1022px; height: 629px;">
+<h1>Documentation</h1>
+<p>Each component of easyui has properties, methods and events. Users can extend them easily.</p>
+
+<h4>Properties</h4>
+<p>The properties is defined in jQuery.fn.{plugin}.defaults. For example, the dialog's properties is defined in jQuery.fn.dialog.defaults.</p>
+
+<h4>Events</h4>
+<p>The events(callback functions) is defined in jQuery.fn.{plugin}.defaults also.</p>
+
+<h4>Methods</h4>
+<p>
+The calling method syntax: $('selector').plugin('method', parameter);
+</p>
+<p>Where:</p><p>
+</p><ul>
+	<li><span style="font-style:italic">selector</span> is the jquery object selector.</li>
+	<li><span style="font-style:italic">plugin</span> is the plugin name.</li>
+	<li><span style="font-style:italic">method</span> is the existing method corresponding to the plugin.</li>
+	<li><span style="font-style:italic">parameter</span> is the parameter object, can be a object, string, ...</li>
+</ul>
+<p>
+The methods is defined in jQuery.fn.{plugin}.methods. 
+Each method has two parameters: jq and param. 
+The first parameter 'jq' is required, which refers to that jQuery object. 
+The second parameter 'param' refers to the really parameter that pass through the method. 
+For example, to extend a method named 'mymove' for the dialog component, the code looks like this:
+</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">.</span><span class="pln">extend</span><span class="pun">(</span><span class="pln">$</span><span class="pun">.</span><span class="pln">fn</span><span class="pun">.</span><span class="pln">dialog</span><span class="pun">.</span><span class="pln">methods</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span></li><li class="L1"><span class="pln">    mymove</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">jq</span><span class="pun">,</span><span class="pln"> newposition</span><span class="pun">){</span></li><li class="L2"><span class="pln">        </span><span class="kwd">return</span><span class="pln"> jq</span><span class="pun">.</span><span class="pln">each</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(){</span></li><li class="L3"><span class="pln">            $</span><span class="pun">(</span><span class="kwd">this</span><span class="pun">).</span><span class="pln">dialog</span><span class="pun">(</span><span class="str">'move'</span><span class="pun">,</span><span class="pln"> newposition</span><span class="pun">);</span></li><li class="L4"><span class="pln">        </span><span class="pun">});</span></li><li class="L5"><span class="pln">    </span><span class="pun">}</span></li><li class="L6"><span class="pun">});</span></li></ol></pre>
+<p>Now you can call 'mymove' method to move the dialog to specified position:</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#dd'</span><span class="pun">).</span><span class="pln">dialog</span><span class="pun">(</span><span class="str">'mymove'</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span></li><li class="L1"><span class="pln">    left</span><span class="pun">:</span><span class="pln"> </span><span class="lit">200</span><span class="pun">,</span></li><li class="L2"><span class="pln">    top</span><span class="pun">:</span><span class="pln"> </span><span class="lit">100</span></li><li class="L3"><span class="pun">});</span></li></ol></pre>
+
+<h3>Getting Started with jQuery EasyUI</h3>
+<p>
+Download the library and include EasyUI CSS and JavaScript files on your page.
+</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"stylesheet"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/css"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"easyui/themes/default/easyui.css"</span><span class="tag">&gt;</span></li><li class="L1"><span class="tag">&lt;link</span><span class="pln"> </span><span class="atn">rel</span><span class="pun">=</span><span class="atv">"stylesheet"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/css"</span><span class="pln"> </span><span class="atn">href</span><span class="pun">=</span><span class="atv">"easyui/themes/icon.css"</span><span class="tag">&gt;</span></li><li class="L2"><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/javascript"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"easyui/jquery.min.js"</span><span class="tag">&gt;&lt;/script&gt;</span></li><li class="L3"><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/javascript"</span><span class="pln"> </span><span class="atn">src</span><span class="pun">=</span><span class="atv">"easyui/jquery.easyui.min.js"</span><span class="tag">&gt;&lt;/script&gt;</span></li></ol></pre>
+<p>
+Once you've included the EasyUI necessary files, you can define an EasyUI component from markup or using JavaScript.
+For example, to define a panel with collapsible functionality, you can write the HTML code like this:
+</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"p"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-panel"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">500px</span><span class="pun">;</span><span class="pln">height</span><span class="pun">:</span><span class="lit">200px</span><span class="pun">;</span><span class="pln">padding</span><span class="pun">:</span><span class="lit">10px</span><span class="pun">;</span><span class="atv">"</span></li><li class="L1"><span class="pln">        </span><span class="atn">title</span><span class="pun">=</span><span class="atv">"My Panel"</span><span class="pln"> </span><span class="atn">iconCls</span><span class="pun">=</span><span class="atv">"icon-save"</span><span class="pln"> </span><span class="atn">collapsible</span><span class="pun">=</span><span class="atv">"true"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    The panel content</span></li><li class="L3"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+<p>
+When creating a component from markup, the 'data-options' attribute can be used to support HTML5 compliant attribute names since version 1.3.
+So you can rewrite the code above as:
+</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"p"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-panel"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">500px</span><span class="pun">;</span><span class="pln">height</span><span class="pun">:</span><span class="lit">200px</span><span class="pun">;</span><span class="pln">padding</span><span class="pun">:</span><span class="lit">10px</span><span class="pun">;</span><span class="atv">"</span></li><li class="L1"><span class="pln">        </span><span class="atn">title</span><span class="pun">=</span><span class="atv">"My Panel"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"iconCls:'icon-save',collapsible:true"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    The panel content</span></li><li class="L3"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+<p>
+The code below shows how to create a combobox that bind 'onSelect' event.
+</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-combobox"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"language"</span></li><li class="L1"><span class="pln">        </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"</span></li><li class="L2"><span class="atv">            url:'combobox_data.json',</span></li><li class="L3"><span class="atv">            valueField:'id',</span></li><li class="L4"><span class="atv">            textField:'text',</span></li><li class="L5"><span class="atv">            panelHeight:'auto',</span></li><li class="L6"><span class="atv">            onSelect:function(record){</span></li><li class="L7"><span class="atv">                alert(record.text)</span></li><li class="L8"><span class="atv">            }"</span><span class="tag">&gt;</span></li></ol></pre>
+
+</div></div><div class="panel panel-htop" style="display: none; width: 1022px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 1022px; height: 629px;">
+			
+
+<div style="padding:10px">
+
+<h3>Accordion</h3>
+<p>Override defaults with $.fn.accordion.defaults.</p>
+<p>
+The accordion allows you to provide multiple panels and display one or more at a time.
+Each panel has built-in support for expanding and collapsing.
+Clicking on a panel header to expand or collapse that panel body.
+The panel content can be loaded via ajax by specifying a 'href' property.
+Users can define a panel to be selected.
+If it is not specified, then the first panel is taken by default.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/accordion.png">
+
+<h4>Dependencies</h4>
+<ul>
+	<li>panel</li>
+</ul>
+
+<h4>Usage Example</h4>
+<h5>Create Accordion</h5>
+<p>Create accordion via markup, add 'easyui-accordion' class to &lt;div/&gt; markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"aa"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-accordion"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">300px</span><span class="pun">;</span><span class="pln">height</span><span class="pun">:</span><span class="lit">200px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">title</span><span class="pun">=</span><span class="atv">"Title1"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"iconCls:'icon-save'"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">overflow</span><span class="pun">:</span><span class="kwd">auto</span><span class="pun">;</span><span class="pln">padding</span><span class="pun">:</span><span class="lit">10px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">        </span><span class="tag">&lt;h3</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">color</span><span class="pun">:#</span><span class="lit">0099FF</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span><span class="pln">Accordion for jQuery</span><span class="tag">&lt;/h3&gt;</span></li><li class="L3"><span class="pln">        </span><span class="tag">&lt;p&gt;</span><span class="pln">Accordion is a part of easyui framework for jQuery. </span></li><li class="L4"><span class="pln">        It lets you define your accordion component on web page more easily.</span><span class="tag">&lt;/p&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">title</span><span class="pun">=</span><span class="atv">"Title2"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"iconCls:'icon-reload',selected:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">padding</span><span class="pun">:</span><span class="lit">10px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L7"><span class="pln">        content2</span></li><li class="L8"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L9"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">title</span><span class="pun">=</span><span class="atv">"Title3"</span><span class="tag">&gt;</span></li><li class="L0"><span class="pln">        content3</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L2"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+<p>We can change or recreate accordion later and modify some features.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#aa'</span><span class="pun">).</span><span class="pln">accordion</span><span class="pun">({</span></li><li class="L1"><span class="pln">    animate</span><span class="pun">:</span><span class="kwd">false</span></li><li class="L2"><span class="pun">});</span></li></ol></pre>
+
+<br>
+<h5>Refresh Accordion Panel Content</h5>
+<p>Call 'getSelected' method to get the current panel and then we can call 'refresh' method of panel to load new content.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="kwd">var</span><span class="pln"> pp </span><span class="pun">=</span><span class="pln"> $</span><span class="pun">(</span><span class="str">'#aa'</span><span class="pun">).</span><span class="pln">accordion</span><span class="pun">(</span><span class="str">'getSelected'</span><span class="pun">);</span><span class="pln">    </span><span class="com">// get the selected panel</span></li><li class="L1"><span class="kwd">if</span><span class="pln"> </span><span class="pun">(</span><span class="pln">pp</span><span class="pun">){</span></li><li class="L2"><span class="pln">    pp</span><span class="pun">.</span><span class="pln">panel</span><span class="pun">(</span><span class="str">'refresh'</span><span class="pun">,</span><span class="str">'new_content.php'</span><span class="pun">);</span><span class="pln">    </span><span class="com">// call 'refresh' method to load new content</span></li><li class="L3"><span class="pun">}</span></li></ol></pre>
+
+<p>&nbsp;</p>
+<h4>Container Options</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>width</td>
+<td>number</td>
+<td>The width of accordion container.</td>
+
+<td>auto</td>
+</tr>
+<tr>
+<td>height</td>
+<td>number</td>
+<td>The height of accordion container.</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>fit</td>
+<td>boolean</td>
+
+<td>Set to true to set the accordion container size fit it's parent container.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>border</td>
+<td>boolean</td>
+<td>Defines if to show the border.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>animate</td>
+
+<td>boolean</td>
+<td>Defines if to show animation effect when expand or collapse panel.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>multiple</td>
+<td>boolean</td>
+<td>
+True to enable expanding multiple panels at one time.
+Available since version 1.3.5.
+</td>
+<td>false</td>
+</tr>
+<tr>
+<td>selected</td>
+<td>number</td>
+<td>
+The initialized selected panel index.
+Available since version 1.3.5.
+</td>
+<td>0</td>
+</tr>
+<tr>
+<td>halign</td>
+<td>string</td>
+<td>
+The header alignment of the accordion panel. Possible values are: 'top','left','right'.
+Available since version 1.5.2.
+</td>
+<td>top</td>
+</tr>
+</tbody></table>
+
+<h4>Panel Options</h4>
+<p>The accordion panel options is inhirited from panel, below is the addition properties:</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>selected</td>
+<td>boolean</td>
+<td>Set to true to expand the panel.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>collapsible</td>
+<td>boolean</td>
+<td>Defines if to show collapsible button. False will prevent from clicking to expand/collapse this panel.</td>
+<td>true</td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onSelect</td>
+<td>title,index</td>
+<td>Fires when a panel is selected.</td>
+
+</tr>
+<tr>
+<td>onUnselect</td>
+<td>title,index</td>
+<td>
+Fires when a panel is unselected. Available since version 1.3.5.
+</td>
+</tr>
+<tr>
+<td>onAdd</td>
+<td>title,index</td>
+<td>Fires when a new panel is added.</td>
+</tr>
+<tr>
+<td>onBeforeRemove</td>
+<td>title,index</td>
+<td>Fires before a panel is removed, return false to cancel the remove action.</td>
+</tr>
+
+<tr>
+<td>onRemove</td>
+<td>title,index</td>
+<td>Fires when a panel is removed.</td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>options</td>
+<td>none</td>
+<td>Return the options of accordion.</td>
+</tr>
+
+<tr>
+<td>panels</td>
+<td>none</td>
+<td>Get all panels.</td>
+</tr>
+<tr>
+<td>resize</td>
+<td>none</td>
+<td>Resize the accordion.</td>
+</tr>
+<tr>
+
+<td>getSelected</td>
+<td>none</td>
+<td>Get the first selected panel.</td>
+</tr>
+<tr>
+<td>getSelections</td>
+<td>none</td>
+<td>Get the all the selected panels. Available since version 1.3.5.</td>
+</tr>
+<tr>
+<td>getPanel</td>
+<td>which</td>
+<td>Get the specified panel. The 'which' parameter can be the title or index of panel.</td>
+</tr>
+<tr>
+<td>getPanelIndex</td>
+<td>panel</td>
+<td>
+Get the specified panel index. Available since version 1.3.
+<p>The example below shows how to get the selected panel index.</p>
+<pre>var p = $('#aa').accordion('getSelected');
+if (p){
+	var index = $('#aa').accordion('getPanelIndex', p);
+	alert(index);
+}
+</pre>
+</td>
+</tr>
+<tr>
+<td>select</td>
+
+<td>which</td>
+<td>Select the specified panel. The 'which' parameter can be the title or index of panel.</td>
+</tr>
+<tr>
+<td>unselect</td>
+<td>which</td>
+<td>
+Unselect the specified panel. The 'which' parameter can be the title or index of panel.
+Available since version 1.3.5.
+</td>
+</tr>
+<tr>
+<td>add</td>
+<td>options</td>
+<td>
+Add a new panel. By default the added panel will become selected.
+To add a unselected new panel, pass the 'selected' property and set it to false.
+<p>Code example:</p>
+<pre>$('#aa').accordion('add', {
+	title: 'New Title',
+	content: 'New Content',
+	selected: false
+});
+</pre>
+</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>which</td>
+
+<td>Remove the specified panel. The 'which' parameter can be the title or index of panel.</td>
+</tr>
+</tbody></table>
+
+</div>
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 942px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 942px; height: 555px;">
+			
+
+<div style="padding:10px">
+
+<h3>DataList</h3>
+<p>Extend from $.fn.datagrid.defaults. Override defaults with $.fn.datalist.defaults.</p>
+<p>
+The datalist renders items in a list.
+It is a special datagrid that displays data in one column.
+You can define the column format and style for each rows.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/datalist.png">
+
+<h4>Dependencies</h4>
+<ul>
+	<li>datagrid</li>
+</ul>
+
+<h4>Usage Example</h4>
+<p>Create datalist from markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;ul</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-datalist"</span><span class="pln"> </span><span class="atn">title</span><span class="pun">=</span><span class="atv">"DataList"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">400px</span><span class="pun">;</span><span class="pln">height</span><span class="pun">:</span><span class="lit">250px</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"AL"</span><span class="tag">&gt;</span><span class="pln">Alabama</span><span class="tag">&lt;/li&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"AK"</span><span class="tag">&gt;</span><span class="pln">Alaska</span><span class="tag">&lt;/li&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"AZ"</span><span class="tag">&gt;</span><span class="pln">Arizona</span><span class="tag">&lt;/li&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"AR"</span><span class="tag">&gt;</span><span class="pln">Arkansas</span><span class="tag">&lt;/li&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"CA"</span><span class="tag">&gt;</span><span class="pln">California</span><span class="tag">&lt;/li&gt;</span></li><li class="L6"><span class="pln">    </span><span class="tag">&lt;li</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"CO"</span><span class="tag">&gt;</span><span class="pln">Colorado</span><span class="tag">&lt;/li&gt;</span></li><li class="L7"><span class="tag">&lt;/ul&gt;</span></li></ol></pre>
+<p>Create datalist using javascript.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"dl"</span><span class="tag">&gt;&lt;/div&gt;</span></li></ol></pre>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#dl'</span><span class="pun">).</span><span class="pln">datalist</span><span class="pun">({</span></li><li class="L1"><span class="pln">    url</span><span class="pun">:</span><span class="pln"> </span><span class="str">'datalist_data1.json'</span><span class="pun">,</span></li><li class="L2"><span class="pln">    checkbox</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span></li><li class="L3"><span class="pln">    lines</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span></li><li class="L4"><span class="pun">});</span></li></ol></pre>
+
+
+<h4>Properties</h4>
+<p>The properties extend from datagrid, below is the added properties for datalist.</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>lines</td>
+<td>boolean</td>
+<td>Defines if to display the row lines.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>checkbox</td>
+<td>boolean</td>
+<td>Defines if to display checkbox for each rows.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>valueField</td>
+<td>string</td>
+<td>The field value name to bind to the row.</td>
+<td>value</td>
+</tr>
+<tr>
+<td>textField</td>
+<td>string</td>
+<td>The field name to display on the row.</td>
+<td>text</td>
+</tr>
+<tr>
+<td>groupField</td>
+<td>string</td>
+<td>Indicate what field to be grouped.</td>
+<td></td>
+</tr>
+<tr>
+<td>textFormatter</td>
+<td>function(value,row,index)</td>
+<td>
+The text field formater function, takes three parameters:<br>
+value: the field value.<br>
+row: the row record data.<br>
+index: the row index.
+</td>
+<td></td>
+</tr>
+<tr>
+<td>groupFormatter</td>
+<td>function(value,rows)</td>
+<td>
+The formatter function to return the group content, takes two parameters:<br>
+value: the group value defined by 'groupField' property.<br>
+rows: the data rows according to the specified group value.
+</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<p>The events extend from datagrid.</p>
+
+<h4>Methods</h4>
+<p>The methods extend from datagrid.</p>
+
+
+</div>
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 942px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 942px; height: 555px;">
+			
+
+
+<h1>Parser</h1>
+<h4>Usage</h4>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">.</span><span class="pln">parser</span><span class="pun">.</span><span class="pln">parse</span><span class="pun">();</span><span class="pln">       </span><span class="com">// parse all the page</span></li><li class="L1"><span class="pln">$</span><span class="pun">.</span><span class="pln">parser</span><span class="pun">.</span><span class="pln">parse</span><span class="pun">(</span><span class="str">'#cc'</span><span class="pun">);</span><span class="pln">  </span><span class="com">// parse the specified node</span></li></ol></pre>
+
+<h4>Properties</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>$.parser.auto</td>
+<td>boolean</td>
+<td>Defines if to auto parse the easyui component.</td>
+<td>true</td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>$.parser.onComplete</td>
+
+<td>context</td>
+<td>Fires when parser finishing its parse action.</td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>$.parser.parse</td>
+<td>context</td>
+<td>Parse the easyui component.</td>
+</tr>
+</tbody></table>
+
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 942px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 942px; height: 555px;">
+			
+
+<div style="padding:10px">
+
+<h3>EasyLoader</h3>
+<h4>Usage</h4>
+<h5>Load EasyUI module</h5>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;script&gt;</span></li><li class="L1"><span class="pln">    easyloader</span><span class="pun">.</span><span class="pln">base </span><span class="pun">=</span><span class="pln"> </span><span class="str">'../'</span><span class="pun">;</span><span class="pln">    </span><span class="com">// set the easyui base directory</span></li><li class="L2"><span class="pln">    $</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(){</span></li><li class="L3"><span class="pln">        easyloader</span><span class="pun">.</span><span class="pln">load</span><span class="pun">(</span><span class="str">'messager'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span><span class="pln">        </span><span class="com">// load the specified module</span></li><li class="L4"><span class="pln">            $</span><span class="pun">.</span><span class="pln">messager</span><span class="pun">.</span><span class="pln">alert</span><span class="pun">(</span><span class="str">'Title'</span><span class="pun">,</span><span class="pln"> </span><span class="str">'load ok'</span><span class="pun">);</span></li><li class="L5"><span class="pln">        </span><span class="pun">});</span><span class="pln">        </span></li><li class="L6"><span class="pln">    </span><span class="pun">});</span></li><li class="L7"><span class="tag">&lt;/script&gt;</span></li></ol></pre>
+<h5>Load script from an absolute url</h5>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="kwd">using</span><span class="pun">(</span><span class="str">'http://code.jquery.com/jquery-1.4.4.min.js'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span></li><li class="L1"><span class="pln">    </span><span class="com">// ...</span></li><li class="L2"><span class="pun">});</span></li></ol></pre>
+<h5>Load script from relative url</h5>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="com">// the script path relative to easyui directory</span></li><li class="L1"><span class="kwd">using</span><span class="pun">(</span><span class="str">'./myscript.js'</span><span class="pun">,</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(){</span></li><li class="L2"><span class="pln">    </span><span class="com">// ...</span></li><li class="L3"><span class="pun">});</span></li></ol></pre>
+
+<h4>Properties</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>modules</td>
+<td>object</td>
+<td>Predefined modules.</td>
+<td></td>
+</tr>
+<tr>
+<td>locales</td>
+
+<td>object</td>
+<td>Predefined locales.</td>
+<td></td>
+</tr>
+<tr>
+<td>base</td>
+<td>string</td>
+<td>The easyui base directory, must end with '/'.</td>
+<td>The base directory will be auto setted relative to easyload.js</td>
+</tr>
+<tr>
+
+<td>theme</td>
+<td>string</td>
+<td>The name of theme that defined in 'themes' directory</td>
+<td>default</td>
+</tr>
+<tr>
+<td>css</td>
+<td>boolean</td>
+<td>Defines if loading css file when loading module</td>
+<td>true</td>
+
+</tr>
+<tr>
+<td>locale</td>
+<td>string</td>
+<td>The locale name</td>
+<td>null</td>
+</tr>
+<tr>
+<td>timeout</td>
+<td>number</td>
+<td>Timeout value in milliseconds. Fires if a timeout occurs.</td>
+
+<td>2000</td>
+</tr>
+</tbody></table>
+
+<h4>Defined locales</h4>
+<ul>
+<li>af</li>
+<li>bg</li>
+<li>ca</li>
+<li>cs</li>
+<li>cz</li>
+<li>da</li>
+<li>de</li>
+<li>en</li>
+<li>es</li>
+<li>fr</li>
+<li>nl</li>
+<li>tr</li>
+<li>zh_CN</li>
+<li>zh_TW</li>
+</ul>
+
+<h4>Events</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onProgress</td>
+<td>name</td>
+
+<td>Fires when a module is loaded successfully.</td>
+</tr>
+<tr>
+<td>onLoad</td>
+<td>name</td>
+<td>Fires when a module and it's dependencies are loaded successfully.</td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>load</td>
+<td>module, callback</td>
+
+<td>Load the specified module. When load success a callback function will be called.<br>
+The module parameter valid type are:<br>
+a single module name<br>
+an module array<br>
+a css file that end with '.css'<br>
+a js file that end with '.js'</td>
+</tr>
+</tbody></table>
+
+</div>
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 942px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 942px; height: 555px;">
+			
+
+<div style="padding:10px">
+
+<h3>Layout</h3>
+<p>Override defaults with $.fn.layout.defaults.</p>
+<p>
+The layout is the container that has up to five regions: north, south, east, west and center.
+The center region panel is required but edge region panel is optional.
+Every edge region panel can be resized by dragging its border, 
+they also can be collapsed by clicking on its collapsing trigger.
+The layout can be nested, thus users can build what complex layout he wants.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/layout.png">
+
+<h4>Dependencies</h4>
+<ul>
+	<li>panel</li>
+	<li>resizable</li>
+</ul>
+
+<h4>Usage Example</h4>
+<h5>Create Layout</h5>
+<p>1. Create Layout via markup.</p>
+<p>Add 'easyui-layout' class to &lt;div/&gt; markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"cc"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-layout"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">600px</span><span class="pun">;</span><span class="pln">height</span><span class="pun">:</span><span class="lit">400px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'north',title:'North Title',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">height</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'south',title:'South Title',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">height</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'east',title:'East',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'west',title:'West',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'center',title:'center title'"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">padding</span><span class="pun">:</span><span class="lit">5px</span><span class="pun">;</span><span class="pln">background</span><span class="pun">:#</span><span class="pln">eee</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L6"><span class="tag">&lt;/div&gt;</span></li></ol></pre>
+<p>2. Create layout on whole page.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-layout"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'north',title:'North Title',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">height</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'south',title:'South Title',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">height</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'east',title:'East',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'west',title:'West',split:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">100px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'center',title:'center title'"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">padding</span><span class="pun">:</span><span class="lit">5px</span><span class="pun">;</span><span class="pln">background</span><span class="pun">:#</span><span class="pln">eee</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L6"><span class="tag">&lt;/body&gt;</span></li></ol></pre>
+<p>3. Create nested layout.</p>
+<p>Notice that the west panel of inner layout is collapsed.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-layout"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'north'"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">height</span><span class="pun">:</span><span class="lit">100px</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'center'"</span><span class="tag">&gt;</span></li><li class="L3"><span class="pln">        </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-layout"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"fit:true"</span><span class="tag">&gt;</span></li><li class="L4"><span class="pln">            </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'west',collapsed:true"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">180px</span><span class="atv">"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L5"><span class="pln">            </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'center'"</span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L6"><span class="pln">        </span><span class="tag">&lt;/div&gt;</span></li><li class="L7"><span class="pln">    </span><span class="tag">&lt;/div&gt;</span></li><li class="L8"><span class="tag">&lt;/body&gt;</span></li></ol></pre>
+
+<p>4. Loading content with ajax</p>
+<p>
+The layout is created based on panel. Each region panel provides built-in support for
+asynchronously loading content from URLs. 
+Using the async loading technology, users can make their layout page display more faster.
+</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;body</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-layout"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'west',href:'west_content.php'"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">180px</span><span class="atv">"</span><span class="pln"> </span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;div</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"region:'center',href:'center_content.php'"</span><span class="pln"> </span><span class="tag">&gt;&lt;/div&gt;</span></li><li class="L3"><span class="tag">&lt;/body&gt;</span></li></ol></pre>
+
+<br>
+<h5>Collpase Layout Panel</h5>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#cc'</span><span class="pun">).</span><span class="pln">layout</span><span class="pun">();</span></li><li class="L1"><span class="com">// collapse the west panel</span></li><li class="L2"><span class="pln">$</span><span class="pun">(</span><span class="str">'#cc'</span><span class="pun">).</span><span class="pln">layout</span><span class="pun">(</span><span class="str">'collapse'</span><span class="pun">,</span><span class="str">'west'</span><span class="pun">);</span></li></ol></pre>
+
+<br>
+<h5>Add west region panel with tool buttons</h5>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#cc'</span><span class="pun">).</span><span class="pln">layout</span><span class="pun">(</span><span class="str">'add'</span><span class="pun">,{</span></li><li class="L1"><span class="pln">    region</span><span class="pun">:</span><span class="pln"> </span><span class="str">'west'</span><span class="pun">,</span></li><li class="L2"><span class="pln">    width</span><span class="pun">:</span><span class="pln"> </span><span class="lit">180</span><span class="pun">,</span></li><li class="L3"><span class="pln">    title</span><span class="pun">:</span><span class="pln"> </span><span class="str">'West Title'</span><span class="pun">,</span></li><li class="L4"><span class="pln">    split</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span></li><li class="L5"><span class="pln">    tools</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[{</span></li><li class="L6"><span class="pln">        iconCls</span><span class="pun">:</span><span class="str">'icon-add'</span><span class="pun">,</span></li><li class="L7"><span class="pln">        handler</span><span class="pun">:</span><span class="kwd">function</span><span class="pun">(){</span><span class="pln">alert</span><span class="pun">(</span><span class="str">'add'</span><span class="pun">)}</span></li><li class="L8"><span class="pln">    </span><span class="pun">},{</span></li><li class="L9"><span class="pln">        iconCls</span><span class="pun">:</span><span class="str">'icon-remove'</span><span class="pun">,</span></li><li class="L0"><span class="pln">        handler</span><span class="pun">:</span><span class="kwd">function</span><span class="pun">(){</span><span class="pln">alert</span><span class="pun">(</span><span class="str">'remove'</span><span class="pun">)}</span></li><li class="L1"><span class="pln">    </span><span class="pun">}]</span></li><li class="L2"><span class="pun">});</span></li></ol></pre>
+
+<h4>Layout Options</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>fit</td>
+<td>boolean</td>
+<td>
+Set to true to set the layout size fit its parent container.
+When creating layout on 'body' tag, it will be auto maximized to the full size of whole page.
+</td>
+<td>false</td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onCollapse</td>
+<td>region</td>
+<td>Fires when collapse a region panel. Available since version 1.4.4.</td>
+</tr>
+<tr>
+<td>onExpand</td>
+<td>region</td>
+<td>Fires when expand a region panel. Available since version 1.4.4.</td>
+</tr>
+<tr>
+<td>onAdd</td>
+<td>region</td>
+<td>Fires when add a new region panel. Available since version 1.4.4.</td>
+</tr>
+<tr>
+<td>onRemove</td>
+<td>region</td>
+<td>Fires when remove a region panel. Available since version 1.4.4.</td>
+</tr>
+</tbody></table>
+
+<h4>Region Panel Options</h4>
+<p>
+The region panel options is defined in panel component, below is some common and added properties:
+</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>title</td>
+
+<td>string</td>
+<td>The layout panel title text.</td>
+<td>null</td>
+</tr>
+<tr>
+<td>region</td>
+<td>string</td>
+<td>Defines the layout panel position, the value is one of following: north, south, east, west, center.</td>
+<td></td>
+</tr>
+<tr>
+
+<td>border</td>
+<td>boolean</td>
+<td>True to show layout panel border.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>split</td>
+<td>boolean</td>
+<td>True to show a split bar which user can change the panel size.</td>
+<td>false</td>
+
+</tr>
+<tr>
+<td>iconCls</td>
+<td>string</td>
+<td>An icon CSS class to show a icon on panel header.</td>
+<td>null</td>
+</tr>
+<tr>
+<td>href</td>
+<td>string</td>
+<td>An URL to load data from remote server.</td>
+
+<td>null</td>
+</tr>
+<tr>
+<td>collapsible</td>
+<td>boolean</td>
+<td>Defines if to show collapsible button.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>minWidth</td>
+<td>number</td>
+<td>The minimum panel width.</td>
+<td>10</td>
+</tr>
+
+<tr>
+<td>minHeight</td>
+<td>number</td>
+<td>The minimum panel height.</td>
+<td>10</td>
+</tr>
+<tr>
+<td>maxWidth</td>
+<td>number</td>
+<td>The maximum panel width.</td>
+
+<td>10000</td>
+</tr>
+<tr>
+<td>maxHeight</td>
+<td>number</td>
+<td>The maximum panel height.</td>
+<td>10000</td>
+</tr>
+<tr>
+<td>expandMode</td>
+<td>string</td>
+<td>
+The expanding mode when click on the collapsed panel. Possible values are 'float','dock' and null.<br>
+float: the region panel will expand and float on the top.<br>
+dock: the region panel will expand and dock on the layout.<br>
+null: nothing happens.<br>
+Available since version 1.4.4.
+</td>
+<td>float</td>
+</tr>
+<tr>
+<td>collapsedSize</td>
+<td>number</td>
+<td>The collapsed panel size. Available since version 1.4.4.</td>
+<td>28</td>
+</tr>
+<tr>
+<td>hideExpandTool</td>
+<td>boolean</td>
+<td>True to hide the expand tool on the collapsed panel. Available since version 1.4.4.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>hideCollapsedContent</td>
+<td>boolean</td>
+<td>True to hide the title bar on the collapsed panel. Available since version 1.4.4.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>collapsedContent</td>
+<td>string,function(title)</td>
+<td>
+The title content to display on the collapsed panel, possible values:<br>
+1) the title string.<br>
+2) a function that returns the title content.<br>
+Available since version 1.4.4.
+<p>Usage example:</p>
+<pre>collapsedContent: function(title){
+	var region = $(this).panel('options').region;
+	if (region == 'north' || region == 'south'){
+		return title;
+	} else {
+		return '&lt;div class="mytitle"&gt;'+title+'&lt;/div&gt;';
+	}
+}
+</pre>
+</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameter</strong></th>
+
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>resize</td>
+<td>param</td>
+<td>
+Set the layout size. The 'param' object has following properties:<br>
+width: the layout width.<br>
+height: the layout height.
+<p>Code example:</p>
+<pre>$('#cc').layout('resize', {
+	width:'80%',
+	height:300
+})
+</pre>
+</td>
+</tr>
+<tr>
+<td>panel</td>
+<td>region</td>
+<td>Return the specified panel, the 'region' parameter possible values:'north','south','east','west','center'.</td>
+
+</tr>
+<tr>
+<td>collapse</td>
+<td>region</td>
+<td>Collapse the specified panel, the 'region' parameter possible values:'north','south','east','west'.</td>
+</tr>
+<tr>
+<td>expand</td>
+<td>region</td>
+<td>Expand the specified panel, the 'region' parameter possible values:'north','south','east','west'.</td>
+</tr>
+<tr>
+<td>add</td>
+<td>options</td>
+<td>
+Add a specified panel, the options parameter is a config object, see tab panel properties for more details.
+</td>
+</tr>
+<tr>
+<td>remove</td>
+<td>region</td>
+<td>Remove the specified panel, the 'region' parameter possible values:'north','south','east','west'.</td>
+</tr>
+<tr>
+<td>split</td>
+<td>region</td>
+<td>Split the region panel. Available since version 1.4.2.</td>
+</tr>
+<tr>
+<td>unsplit</td>
+<td>region</td>
+<td>Unsplit the region panel. Available since version 1.4.2.</td>
+</tr>
+</tbody></table>
+
+</div>
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 1022px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 1022px; height: 629px;">
+			
+
+<div style="padding:10px">
+
+<h3>ComboBox</h3>
+<p>Extend from $.fn.combo.defaults. Override defaults with $.fn.combobox.defaults.</p>
+<p>
+The combobox display an editable text box and drop-down list, from which the user can select one or multiple values.
+The user can type text directly into the top of list, or select one or more of present values from the list.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/combobox.png">
+
+<h4>Dependencies</h4>
+<ul>
+	<li>combo</li>
+</ul>
+
+<h4>Usage Example</h4>
+<p>Create combobox from &lt;select&gt; element with a pre-defined structure.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;select</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"cc"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-combobox"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"dept"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">200px</span><span class="pun">;</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L1"><span class="pln">    </span><span class="tag">&lt;option</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"aa"</span><span class="tag">&gt;</span><span class="pln">aitem1</span><span class="tag">&lt;/option&gt;</span></li><li class="L2"><span class="pln">    </span><span class="tag">&lt;option&gt;</span><span class="pln">bitem2</span><span class="tag">&lt;/option&gt;</span></li><li class="L3"><span class="pln">    </span><span class="tag">&lt;option&gt;</span><span class="pln">bitem3</span><span class="tag">&lt;/option&gt;</span></li><li class="L4"><span class="pln">    </span><span class="tag">&lt;option&gt;</span><span class="pln">ditem4</span><span class="tag">&lt;/option&gt;</span></li><li class="L5"><span class="pln">    </span><span class="tag">&lt;option&gt;</span><span class="pln">eitem5</span><span class="tag">&lt;/option&gt;</span></li><li class="L6"><span class="tag">&lt;/select&gt;</span></li></ol></pre>
+<p>Create combobox from &lt;input&gt; markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"cc"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-combobox"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"dept"</span></li><li class="L1"><span class="pln">    </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"valueField:'id',textField:'text',url:'get_data.php'"</span><span class="tag">&gt;</span></li></ol></pre>
+<p>Create combobox using javascript.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"cc"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"dept"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"aa"</span><span class="tag">&gt;</span></li></ol></pre>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#cc'</span><span class="pun">).</span><span class="pln">combobox</span><span class="pun">({</span></li><li class="L1"><span class="pln">    url</span><span class="pun">:</span><span class="str">'combobox_data.json'</span><span class="pun">,</span></li><li class="L2"><span class="pln">    valueField</span><span class="pun">:</span><span class="str">'id'</span><span class="pun">,</span></li><li class="L3"><span class="pln">    textField</span><span class="pun">:</span><span class="str">'text'</span></li><li class="L4"><span class="pun">});</span></li></ol></pre>
+<p>Create two dependent comboboxes.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"cc1"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-combobox"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"</span></li><li class="L1"><span class="atv">        valueField: 'id',</span></li><li class="L2"><span class="atv">        textField: 'text',</span></li><li class="L3"><span class="atv">        url: 'get_data1.php',</span></li><li class="L4"><span class="atv">        onSelect: function(rec){</span></li><li class="L5"><span class="atv">            var url = 'get_data2.php?id='+rec.id;</span></li><li class="L6"><span class="atv">            $('#cc2').combobox('reload', url);</span></li><li class="L7"><span class="atv">        }"</span><span class="tag">&gt;</span></li><li class="L8"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"cc2"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-combobox"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"valueField:'id',textField:'text'"</span><span class="tag">&gt;</span></li></ol></pre>
+
+<p>The json data format sample:</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pun">[{</span></li><li class="L1"><span class="pln">    </span><span class="str">"id"</span><span class="pun">:</span><span class="lit">1</span><span class="pun">,</span></li><li class="L2"><span class="pln">    </span><span class="str">"text"</span><span class="pun">:</span><span class="str">"text1"</span></li><li class="L3"><span class="pun">},{</span></li><li class="L4"><span class="pln">    </span><span class="str">"id"</span><span class="pun">:</span><span class="lit">2</span><span class="pun">,</span></li><li class="L5"><span class="pln">    </span><span class="str">"text"</span><span class="pun">:</span><span class="str">"text2"</span></li><li class="L6"><span class="pun">},{</span></li><li class="L7"><span class="pln">    </span><span class="str">"id"</span><span class="pun">:</span><span class="lit">3</span><span class="pun">,</span></li><li class="L8"><span class="pln">    </span><span class="str">"text"</span><span class="pun">:</span><span class="str">"text3"</span><span class="pun">,</span></li><li class="L9"><span class="pln">    </span><span class="str">"selected"</span><span class="pun">:</span><span class="kwd">true</span></li><li class="L0"><span class="pun">},{</span></li><li class="L1"><span class="pln">    </span><span class="str">"id"</span><span class="pun">:</span><span class="lit">4</span><span class="pun">,</span></li><li class="L2"><span class="pln">    </span><span class="str">"text"</span><span class="pun">:</span><span class="str">"text4"</span></li><li class="L3"><span class="pun">},{</span></li><li class="L4"><span class="pln">    </span><span class="str">"id"</span><span class="pun">:</span><span class="lit">5</span><span class="pun">,</span></li><li class="L5"><span class="pln">    </span><span class="str">"text"</span><span class="pun">:</span><span class="str">"text5"</span></li><li class="L6"><span class="pun">}]</span></li></ol></pre>
+
+<h4>Properties</h4>
+<p>The properties extend from combo, below is the added properties for combobox.</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+
+<td>valueField</td>
+<td>string</td>
+<td>The underlying data value name to bind to this ComboBox.</td>
+<td>value</td>
+</tr>
+<tr>
+<td>textField</td>
+<td>string</td>
+<td>The underlying data field name to bind to this ComboBox.</td>
+<td>text</td>
+</tr>
+<tr>
+<td>groupField</td>
+<td>string</td>
+<td>Indicate what field to be grouped. Available since version 1.3.4.</td>
+<td>null</td>
+</tr>
+<tr>
+<td>groupFormatter</td>
+<td>function(group)</td>
+<td>
+return group text to display on group item. Available since version 1.3.4.
+<p>Code example:</p>
+<pre>$('#cc').combobox({
+	groupFormatter: function(group){
+		return '&lt;span style="color:red"&gt;' + group + '&lt;/span&gt;';
+	}
+});
+</pre>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>mode</td>
+<td>string</td>
+<td>
+Defines how to load list data when text changed.
+Set to 'remote' if the combobox loads from server.
+When set to 'remote' mode, what the user types will be sent as the http request parameter named 'q' to server to retrieve the new data.
+</td>
+<td>local</td>
+</tr>
+<tr>
+<td>url</td>
+<td>string</td>
+<td>A URL to load list data from remote.</td>
+
+<td>null</td>
+</tr>
+<tr>
+<td>method</td>
+<td>string</td>
+<td>The http method to retrieve data.</td>
+<td>post</td>
+</tr>
+<tr>
+<td>data</td>
+<td>array</td>
+
+<td>
+The list data to be loaded.
+<p>Code example:</p>
+<pre>&lt;input class="easyui-combobox" data-options="
+		valueField: 'label',
+		textField: 'value',
+		data: [{
+			label: 'java',
+			value: 'Java'
+		},{
+			label: 'perl',
+			value: 'Perl'
+		},{
+			label: 'ruby',
+			value: 'Ruby'
+		}]" /&gt;
+</pre>
+</td>
+<td>null</td>
+</tr>
+<tr>
+<td>queryParams</td>
+<td>object</td>
+<td>
+The additional parameters that will be sent to server when requesting remote data.
+Available since version 1.4.2.
+</td>
+<td>{}</td>
+</tr>
+<tr>
+<td>limitToList</td>
+<td>boolean</td>
+<td>
+True to limit the inputed values to the listed items.
+Available since version 1.5.
+</td>
+<td>false</td>
+</tr>
+<tr>
+<td>showItemIcon</td>
+<td>boolean</td>
+<td>
+True to display icon of the selected item on the textbox.
+Available since version 1.4.5.
+</td>
+<td>false</td>
+</tr>
+<tr>
+<td>groupPosition</td>
+<td>string</td>
+<td>
+The item group position, possible values are: 'static' and 'sticky'.
+Set this property to 'sticky' to stick the item group to the top of drop-down panel.
+Available since version 1.4.5.
+</td>
+<td>static</td>
+</tr>
+<tr>
+<td>filter</td>
+<td>function</td>
+<td>Defines how to filter the local data when 'mode' is set to 'local'. The function takes two parameters:<br>
+q: the user typed text.<br>
+row: the list row data.<br>
+Return true to allow the row to be displayed.
+<p>Code example:</p>
+<pre>$('#cc').combobox({
+	filter: function(q, row){
+		var opts = $(this).combobox('options');
+		return row[opts.textField].indexOf(q) == 0;
+	}
+});
+</pre>
+</td>
+
+<td></td>
+</tr>
+<tr>
+<td>formatter</td>
+<td>function</td>
+<td>
+Defineds how to render the row. The function takes one parameter: row.
+<p>Code example:</p>
+<pre>$('#cc').combobox({
+	formatter: function(row){
+		var opts = $(this).combobox('options');
+		return row[opts.textField];
+	}
+});
+</pre>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>loader</td>
+<td>function(param,success,error)</td>
+<td>
+Defines how to load data from remote server. Return false can abort this action.
+This function takes following parameters:<br>
+param: the parameter object to pass to remote server.<br>
+success(data): the callback function that will be called when retrieve data successfully.<br>
+error(): the callback function that will be called when failed to retrieve data.
+</td>
+<td>json loader</td>
+</tr>
+<tr>
+<td>loadFilter</td>
+<td>function(data)</td>
+<td>
+Return the filtered data to display. Available since version 1.3.3.
+</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<br>
+<h4>Events</h4>
+<p>The events extend from combo, below is the added events for combobox.</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onBeforeLoad</td>
+<td>param</td>
+<td>
+Fires before a request is made to load data, return false to cancel this load action.
+<p>Code example:</p>
+<pre>// change the http request parameters before load data from server
+$('#cc').combobox({
+	onBeforeLoad: function(param){
+		param.id = 2;
+		param.language = 'js';
+	}
+});
+</pre>
+</td>
+</tr>
+<tr>
+<td>onLoadSuccess</td>
+
+<td>none</td>
+<td>Fires when remote data is loaded successfully.</td>
+</tr>
+<tr>
+<td>onLoadError</td>
+<td>none</td>
+<td>Fires when an error occurs during loading remote data.</td>
+</tr>
+<tr>
+<td>onChange</td>
+<td>newValue,oldValue</td>
+<td>Fires when the field value is changed.</td>
+</tr>
+<tr>
+<td>onClick</td>
+<td>record</td>
+<td>Fires when the user clicks a list item. Available since version 1.5.1.</td>
+</tr>
+<tr>
+<td>onSelect</td>
+<td>record</td>
+<td>Fires when the user selects a list item.</td>
+</tr>
+<tr>
+<td>onUnselect</td>
+<td>record</td>
+<td>Fires when the user unselects a list item.</td>
+</tr>
+</tbody></table>
+
+<br>
+<h4>Methods</h4>
+<p>The methods extend from combo, below is the added or overridden methods for combobox.</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>options</td>
+
+<td>none</td>
+<td>Return the options object.</td>
+</tr>
+<tr>
+<td>getData</td>
+<td>none</td>
+<td>Return the loaded data.</td>
+</tr>
+<tr>
+<td>loadData</td>
+<td>data</td>
+
+<td>Load the locale list data.</td>
+</tr>
+<tr>
+<td>reload</td>
+<td>url</td>
+<td>
+Request the remote list data. Pass the 'url' parameter to override the original URL value.
+<p>Code example:</p>
+<pre>$('#cc').combobox('reload');  // reload list data using old URL
+$('#cc').combobox('reload','get_data.php');  // reload list data using new URL
+</pre>
+</td>
+</tr>
+<tr>
+<td>setValues</td>
+<td>values</td>
+<td>
+Set the combobox value array.
+<p>Code example:</p>
+<pre>$('#cc').combobox('setValues', ['001','002']);
+</pre>
+</td>
+</tr>
+<tr>
+<td>setValue</td>
+<td>value</td>
+<td>
+Set the combobox value.
+<p>Code example:</p>
+<pre>$('#cc').combobox('setValue', '001');
+</pre>
+</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>none</td>
+<td>Clear the combobox value.</td>
+</tr>
+
+<tr>
+<td>select</td>
+<td>value</td>
+<td>Select the specified item.</td>
+</tr>
+<tr>
+<td>unselect</td>
+<td>value</td>
+<td>Unselect the specified item.</td>
+</tr>
+</tbody></table>
+
+
+</div>
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 1022px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 1022px; height: 629px;">
+			
+
+<div style="padding:10px">
+
+<h3>SwitchButton</h3>
+<p>Override defaults with $.fn.switchbutton.defaults.</p>
+<p>
+The switch button can be used in a &lt;form&gt;. It has two states: 'on' and 'off'.
+The user can click or tap to toggle the switch.
+Labels of the states are customizable.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/switchbutton.png">
+
+<h4>Usage</h4>
+<p>Create switchbutton from markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-switchbutton"</span><span class="pln"> </span><span class="atn">checked</span><span class="tag">&gt;</span></li><li class="L1"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-switchbutton"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"onText:'Yes',offText:'No'"</span><span class="tag">&gt;</span></li></ol></pre>
+<p>Create switchbutton using javascript.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"sb"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">200px</span><span class="pun">;</span><span class="pln">height</span><span class="pun">:</span><span class="lit">30px</span><span class="atv">"</span><span class="tag">&gt;</span></li><li class="L1"><span class="tag">&lt;script</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text/javascript"</span><span class="tag">&gt;</span></li><li class="L2"><span class="pln">    $</span><span class="pun">(</span><span class="kwd">function</span><span class="pun">(){</span></li><li class="L3"><span class="pln">        $</span><span class="pun">(</span><span class="str">'#sb'</span><span class="pun">).</span><span class="pln">switchbutton</span><span class="pun">({</span></li><li class="L4"><span class="pln">            checked</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span></li><li class="L5"><span class="pln">            onChange</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">checked</span><span class="pun">){</span></li><li class="L6"><span class="pln">                console</span><span class="pun">.</span><span class="pln">log</span><span class="pun">(</span><span class="pln">checked</span><span class="pun">);</span></li><li class="L7"><span class="pln">            </span><span class="pun">}</span></li><li class="L8"><span class="pln">        </span><span class="pun">})</span></li><li class="L9"><span class="pln">    </span><span class="pun">})</span></li><li class="L0"><span class="tag">&lt;/script&gt;</span></li></ol></pre>
+
+<h4>Properties</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+
+</tr>
+<tr>
+<td>width</td>
+<td>number</td>
+<td>The width of switchbutton.</td>
+<td>60</td>
+</tr>
+<tr>
+<td>height</td>
+<td>number</td>
+<td>The height of switchbutton.</td>
+<td>26</td>
+</tr>
+<tr>
+<td>handleWidth</td>
+<td>number</td>
+<td>The width of the center handle of switchbutton.</td>
+<td>auto</td>
+</tr>
+<tr>
+<td>checked</td>
+<td>boolean</td>
+<td>Defines if the button is checked.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>boolean</td>
+<td>Defines if to disable the button.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>boolean</td>
+<td>Defines if the button is read-only.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>reversed</td>
+<td>boolean</td>
+<td>Set to true the onText value and offText value will switch their positions.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>onText</td>
+<td>string</td>
+<td>The text value of the left side.</td>
+<td>ON</td>
+</tr>
+<tr>
+<td>offText</td>
+<td>string</td>
+<td>The text value of the right side.</td>
+<td>OFF</td>
+</tr>
+<tr>
+<td>handleText</td>
+<td>string</td>
+<td>The text value of the center handle.</td>
+<td>''</td>
+</tr>
+<tr>
+<td>value</td>
+<td>string</td>
+<td>The default value bound to the button.</td>
+<td>on</td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onChange</td>
+<td>checked</td>
+<td>Fires when the checked value is changed.</td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>options</td>
+<td>none</td>
+<td>Return the options object.</td>
+</tr>
+<tr>
+<td>resize</td>
+<td>param</td>
+<td>Resize the switchbutton.</td>
+</tr>
+<tr>
+<td>disable</td>
+<td>none</td>
+<td>
+Disable the switchbutton. Code example:
+<pre>$('#sb').switchbutton('disable');
+</pre>
+</td>
+</tr>
+<tr>
+<td>enable</td>
+<td>none</td>
+<td>
+Enable the switchbutton. Code example:
+<pre>$('#sb').switchbutton('enable');
+</pre>
+</td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>mode</td>
+<td>Enable/Disable readonly mode.</td>
+</tr>
+<tr>
+<td>check</td>
+<td>none</td>
+<td>Check the switchbutton.</td>
+</tr>
+<tr>
+<td>uncheck</td>
+<td>none</td>
+<td>Uncheck the switchbutton.</td>
+</tr>
+<tr>
+<td>clear</td>
+<td>none</td>
+<td>Clear the switchbutton's 'checked' value.</td>
+</tr>
+<tr>
+<td>reset</td>
+<td>none</td>
+<td>Reset the switchbutton's 'checked' value.</td>
+</tr>
+<tr>
+<td>setValue</td>
+<td>value</td>
+<td>Set the switchbutton value.</td>
+</tr>
+</tbody></table>
+
+</div>
+
+﻿			</div></div><div class="panel panel-htop" style="display: none; width: 1022px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 1022px; height: 629px;">
+			
+
+<div style="padding:10px">
+
+<h3>TagBox</h3>
+<p>Extend from $.fn.combobox.defaults. Override defaults with $.fn.tagbox.defaults.</p>
+<p>
+The TagBox component extends from combobox, it has all features of combobox.
+The TagBox allows the user to display tag labels instead of displaying values on the inputing box.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/tagbox.png">
+
+<h4>Dependencies</h4>
+<ul>
+	<li>combobox</li>
+</ul>
+
+<h4>Usage Example</h4>
+<p>Create tagbox from markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-tagbox"</span><span class="pln"> </span><span class="atn">value</span><span class="pun">=</span><span class="atv">"Apple,Orange"</span><span class="pln"> </span><span class="atn">label</span><span class="pun">=</span><span class="atv">"Add a tag"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">100</span><span class="pun">%</span><span class="atv">"</span><span class="tag">&gt;</span></li></ol></pre>
+<p>Create tagbox by using javascript.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"tb"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"text"</span><span class="pln"> </span><span class="atn">style</span><span class="pun">=</span><span class="atv">"</span><span class="pln">width</span><span class="pun">:</span><span class="lit">300px</span><span class="atv">"</span><span class="tag">&gt;</span></li></ol></pre>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#tb'</span><span class="pun">).</span><span class="pln">tagbox</span><span class="pun">({</span></li><li class="L1"><span class="pln">    label</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Add a tag'</span><span class="pun">,</span></li><li class="L2"><span class="pln">    value</span><span class="pun">:</span><span class="pln"> </span><span class="pun">[</span><span class="str">'Apple'</span><span class="pun">,</span><span class="str">'Orange'</span><span class="pun">]</span></li><li class="L3"><span class="pun">});</span></li></ol></pre>
+
+<h4>Properties</h4>
+<p>The properties extend from combobox, below is the added properties for tagbox:</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>hasDownArrow</td>
+<td>boolean</td>
+<td>Defines if to display the down arrow button.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>tagFormatter</td>
+<td>function(value,row)</td>
+<td>
+The function to return the formatted value.
+<p>Code example:</p>
+<pre>$('#tb').tagbox({
+	tagFormatter: function(value,row){
+		var opts = $(this).tagbox('options');
+		return row ? row[opts.textField] : value;
+	}	
+});
+</pre>
+</td>
+<td></td>
+</tr>
+<tr>
+<td>tagStyler</td>
+<td>function(value,row)</td>
+<td>
+The tag styler function, return style string to custom the tag style such as 'background:red'.
+<p>Code example:</p>
+<pre>$('#tb').tagbox({
+	tagStyler: function(value){
+		if (value == 3){
+			return 'background:#ffd7d7;color:#c65353';
+		} else if (value == 4){
+			return 'background:#b8eecf;color:#45872c';
+		}
+	}	
+});
+</pre>
+</td>
+<td></td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<p>The events extend from combobox, below is the added events for tagbox.</p>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onClickTag</td>
+<td>value</td>
+<td>Fires when the tag is clicked.</td>
+</tr>
+<tr>
+<td>onBeforeRemoveTag</td>
+<td>value</td>
+<td>Fires before removing a tag, return false to deny the action.</td>
+</tr>
+<tr>
+<td>onRemoveTag</td>
+<td>value</td>
+<td>Fires when the user removes a tag.</td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<p>The methods extend from combobox.</p>
+
+
+﻿			</div>
+		</div></div><div class="panel panel-htop" style="display: block; width: 942px;"><div title="" class="panel-body panel-body-noheader panel-body-noborder content-doc" style="width: 942px; height: 511px;">
+			
+
+<div style="padding:10px">
+
+<h3>ValidateBox</h3>
+<p>Override defaults with $.fn.validatebox.defaults.</p>
+<p>
+The validatebox is designed to validate the form input fields.
+If users enter invalid values, it will change the background color, display the alarm icon and a tooltip message.
+The validatebox can be integrated with form plugin and will prevent invalid fields from submission.
+</p>
+<img src="http://www.jeasyui.com/documentation/images/validatebox.png">
+
+<h4>Dependencies</h4>
+<ul>
+	<li>tooltip</li>
+</ul>
+
+
+<h4>Usage</h4>
+<p>Create validatebox from markup.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"vv"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-validatebox"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"required:true,validType:'email'"</span><span class="tag">&gt;</span></li></ol></pre>
+<p>Create validatebox using javascript.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"vv"</span><span class="tag">&gt;</span></li></ol></pre>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">(</span><span class="str">'#vv'</span><span class="pun">).</span><span class="pln">validatebox</span><span class="pun">({</span></li><li class="L1"><span class="pln">    required</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">true</span><span class="pun">,</span></li><li class="L2"><span class="pln">    validType</span><span class="pun">:</span><span class="pln"> </span><span class="str">'email'</span></li><li class="L3"><span class="pun">});</span></li></ol></pre>
+<p>To check password and retype password are same.</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="com">// extend the 'equals' rule</span></li><li class="L1"><span class="pln">$</span><span class="pun">.</span><span class="pln">extend</span><span class="pun">(</span><span class="pln">$</span><span class="pun">.</span><span class="pln">fn</span><span class="pun">.</span><span class="pln">validatebox</span><span class="pun">.</span><span class="pln">defaults</span><span class="pun">.</span><span class="pln">rules</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span></li><li class="L2"><span class="pln">    equals</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></li><li class="L3"><span class="pln">        validator</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">value</span><span class="pun">,</span><span class="pln">param</span><span class="pun">){</span></li><li class="L4"><span class="pln">            </span><span class="kwd">return</span><span class="pln"> value </span><span class="pun">==</span><span class="pln"> $</span><span class="pun">(</span><span class="pln">param</span><span class="pun">[</span><span class="lit">0</span><span class="pun">]).</span><span class="pln">val</span><span class="pun">();</span></li><li class="L5"><span class="pln">        </span><span class="pun">},</span></li><li class="L6"><span class="pln">        message</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Field do not match.'</span></li><li class="L7"><span class="pln">    </span><span class="pun">}</span></li><li class="L8"><span class="pun">});</span></li></ol></pre>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"pwd"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"pwd"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-validatebox"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"required:true"</span><span class="tag">&gt;</span></li><li class="L1"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">id</span><span class="pun">=</span><span class="atv">"rpwd"</span><span class="pln"> </span><span class="atn">name</span><span class="pun">=</span><span class="atv">"rpwd"</span><span class="pln"> </span><span class="atn">type</span><span class="pun">=</span><span class="atv">"password"</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-validatebox"</span><span class="pln"> </span></li><li class="L2"><span class="pln">    </span><span class="atn">required</span><span class="pun">=</span><span class="atv">"required"</span><span class="pln"> </span><span class="atn">validType</span><span class="pun">=</span><span class="atv">"equals['#pwd']"</span><span class="tag">&gt;</span></li></ol></pre>
+
+<h4>Validate Rule</h4>
+<p>The validate rule is defined by using required and validType property, here are the rules already implemented:</p>
+<ul>
+	<li>email: Match email regex rule.</li>
+	<li>url: Match URL regex rule.</li>
+	<li>length[0,100]: Between x and x characters allowed.</li>
+	<li>remote['http://.../action.do','paramName']: Send ajax request to do validate value, return 'true' when successfully.</li>
+</ul>
+<p>To custom validate rule, override $.fn.validatebox.defaults.rules that defines a validator function and invalid message. 
+For example, to define a minLength valid type:</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="pln">$</span><span class="pun">.</span><span class="pln">extend</span><span class="pun">(</span><span class="pln">$</span><span class="pun">.</span><span class="pln">fn</span><span class="pun">.</span><span class="pln">validatebox</span><span class="pun">.</span><span class="pln">defaults</span><span class="pun">.</span><span class="pln">rules</span><span class="pun">,</span><span class="pln"> </span><span class="pun">{</span></li><li class="L1"><span class="pln">    minLength</span><span class="pun">:</span><span class="pln"> </span><span class="pun">{</span></li><li class="L2"><span class="pln">        validator</span><span class="pun">:</span><span class="pln"> </span><span class="kwd">function</span><span class="pun">(</span><span class="pln">value</span><span class="pun">,</span><span class="pln"> param</span><span class="pun">){</span></li><li class="L3"><span class="pln">            </span><span class="kwd">return</span><span class="pln"> value</span><span class="pun">.</span><span class="pln">length </span><span class="pun">&gt;=</span><span class="pln"> param</span><span class="pun">[</span><span class="lit">0</span><span class="pun">];</span></li><li class="L4"><span class="pln">        </span><span class="pun">},</span></li><li class="L5"><span class="pln">        message</span><span class="pun">:</span><span class="pln"> </span><span class="str">'Please enter at least {0} characters.'</span></li><li class="L6"><span class="pln">    </span><span class="pun">}</span></li><li class="L7"><span class="pun">});</span></li></ol></pre>
+
+<p>Now you can use the minLength validtype to define an input box that should be inputed at least 5 characters:</p>
+<pre name="code" class="prettyprint linenums prettyprinted"><ol class="linenums"><li class="L0"><span class="tag">&lt;input</span><span class="pln"> </span><span class="atn">class</span><span class="pun">=</span><span class="atv">"easyui-validatebox"</span><span class="pln"> </span><span class="atn">data-options</span><span class="pun">=</span><span class="atv">"validType:'minLength[5]'"</span><span class="tag">&gt;</span></li></ol></pre>
+
+<h4>Properties</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Type</strong></th>
+<th><strong>Description</strong></th>
+<th><strong>Default</strong></th>
+</tr>
+<tr>
+<td>required</td>
+<td>boolean</td>
+<td>Defines whether the field should be inputed.</td>
+
+<td>false</td>
+</tr>
+<tr>
+<td>validType</td>
+<td>string,array</td>
+<td>
+Defines the field valid type, such as email, url, etc. Possible values are:<br>
+1) a valid type string, apply a single validate rule.<br>
+2) a valid type array, apply multiple validate rules.
+The multiple validate rules on a field are available since version 1.3.2.<br>
+3) a key/value pairs, the key is the validing type name, the value is an array consisting validating parameters.
+<p>Code example:</p>
+<pre>&lt;input class="easyui-validatebox" data-options="required:true,validType:'url'"&gt;
+&lt;input class="easyui-validatebox" data-options="
+	required:true,
+	validType:['email','length[0,20]']
+"&gt;
+&lt;input class="easyui-validatebox" data-options="
+	required:true,
+	validType:{
+		length:[10,30],
+		remote:['http://.../action.do','paramName']
+	}
+"&gt;
+</pre>
+</td>
+<td>null</td>
+</tr>
+<tr>
+<td>delay</td>
+<td>number</td>
+<td>
+Delay to validate from the last inputting value.
+Available since version 1.3.2.
+</td>
+<td>200</td>
+</tr>
+<tr>
+<td>missingMessage</td>
+<td>string</td>
+
+<td>Tooltip text that appears when the text box is empty.</td>
+<td>This field is required.</td>
+</tr>
+<tr>
+<td>invalidMessage</td>
+<td>string</td>
+<td>Tooltip text that appears when the content of text box is invalid.</td>
+<td>null</td>
+</tr>
+<tr>
+<td>tipPosition</td>
+<td>string</td>
+<td>
+Defines the position of tip message when the content of text box is invalid. Possible values: 'left','right','top','bottom'.
+Available since version 1.3.2.
+</td>
+<td>right</td>
+</tr>
+<tr>
+<td>deltaX</td>
+<td>number</td>
+<td>Tooltip offset in the X direction. Available since version 1.3.3.</td>
+<td>0</td>
+</tr>
+<tr>
+<td>novalidate</td>
+<td>boolean</td>
+<td>Defines whether to turn off validation. Available since version 1.3.4.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>editable</td>
+<td>boolean</td>
+<td>Defines whether the user can type text directly into the field. Available since version 1.4.5.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>disabled</td>
+<td>boolean</td>
+<td>Defines whether to disable the validatebox. Available since version 1.4.5.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>boolean</td>
+<td>Defines whether the component is read-only. Available since version 1.4.5.</td>
+<td>false</td>
+</tr>
+<tr>
+<td>validateOnCreate</td>
+<td>boolean</td>
+<td>Defines whether to validate after creating the component. Available since version 1.4.5.</td>
+<td>true</td>
+</tr>
+<tr>
+<td>validateOnBlur</td>
+<td>boolean</td>
+<td>Defines whether to validate when losing focus. Available since version 1.4.5.</td>
+<td>false</td>
+</tr>
+</tbody></table>
+
+<h4>Events</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameters</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>onBeforeValidate</td>
+<td>none</td>
+<td>Fires before validate on a field. Available since version 1.4.</td>
+</tr>
+<tr>
+<td>onValidate</td>
+<td>valid</td>
+<td>Fires when validate on a field. Available since version 1.4.</td>
+</tr>
+</tbody></table>
+
+<h4>Methods</h4>
+<table class="doc-table">
+<tbody><tr>
+<th><strong>Name</strong></th>
+<th><strong>Parameter</strong></th>
+<th><strong>Description</strong></th>
+</tr>
+<tr>
+<td>options</td>
+<td>none</td>
+<td>Return the options object.</td>
+</tr>
+<tr>
+<td>destroy</td>
+<td>none</td>
+<td>Remove and destroy the component.</td>
+</tr>
+<tr>
+<td>validate</td>
+<td>none</td>
+<td>Do the validation to determine whether the content of text box is valid.</td>
+</tr>
+<tr>
+<td>isValid</td>
+
+<td>none</td>
+<td>Call validate method and return the validation result, true or false.</td>
+</tr>
+<tr>
+<td>enableValidation</td>
+<td>none</td>
+<td>Enable validation. Available since version 1.3.4.</td>
+</tr>
+<tr>
+<td>disableValidation</td>
+<td>none</td>
+<td>Disable validation. Available since version 1.3.4.</td>
+</tr>
+<tr>
+<td>resetValidation</td>
+<td>none</td>
+<td>Reset validation. Available since version 1.4.5.</td>
+</tr>
+<tr>
+<td>enable</td>
+<td>none</td>
+<td>Enable the component. Available since version 1.4.5.</td>
+</tr>
+<tr>
+<td>disable</td>
+<td>none</td>
+<td>Disable the component. Available since version 1.4.5.</td>
+</tr>
+<tr>
+<td>readonly</td>
+<td>mode</td>
+<td>
+Enable/Disable readonly mode. Available since version 1.4.5.
+<p>Code example:</p>
+<pre>$('#tt').validatebox('readonly');		// enable readonly mode
+$('#tt').validatebox('readonly',true);	// enable readonly mode
+$('#tt').validatebox('readonly',false);	// disable readonly mode
+</pre>
+</td>
+</tr>
+</tbody></table>
+
+</div>
+
+﻿			</div></div></div></div>
+		</div></div>
+	
+
+
+
+<div class="layout-split-proxy-h"></div><div class="layout-split-proxy-v"></div></body></html>

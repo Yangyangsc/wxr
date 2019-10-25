@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<title>我的票</title>
+	<!-- build:css css/style.css -->
+	<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<!-- endbuild -->
+	<script src="../scripts/zepto.min.js"></script>
+	<script src="../scripts/weui.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/apiCaller.js"></script>
+	  <script src="../js/doT.js"></script>
+	<!-- build:js js/main.js -->
+	<!-- endbuild -->
+	<script id="ticket_tmpl" type="text/x-dot-template">
+		<img src="../images/success_top_bg.png" alt="" class="ticket-top">
+		
+		 <img src="http://image.litecoder.com/{{=it.activity_cover}}" alt="" class="ticket-banner">
+		<div class="ticket__content">
+			<img src="http://webapi.litecoder.com/{{=it.qrcode_path}}" id="ticketBarCode" alt="" class="qrcode">
+			<div class="vipname">{{=it.user_name}}</div>
+			<div class="vipcompany">{{=it.user_company}}</div>
+			<div class="ticket-info">
+				<h4 class="title">{{=it.activity_topic}}</h4>
+				<div class="item">
+					<span class="item-title">时间</span>
+					<span class="item-text">{{=common.combine2DateString(it.activity_date_start,it.activity_date_end)}}</span>
+				</div>
+				<div class="item">
+					<span class="item-title">地点</span>
+					<span class="item-text">{{=it.activity_location}}</span>
+				</div>
+				<!--<div class="item" style="display:none">
+					<span class="item-title">票价</span>
+					<span class="item-text text-green">￥99</span>
+				</div>
+				<div class="item" style="display:none">
+					<span class="item-title">票号</span>
+					<span class="item-text">90EWFSDF8I8SDF89SDFJK</span>
+				</div>-->
+			</div>
+			<img src="../images/logo.jpg" alt="" class="logo">
+		</div>
+	</script>
+</head>
+
+<body>
+	<div class="ticket__wrapper">
+		<div class="ticket__container">
+
+		</div>
+	</div>
+	<script>
+		var initLoad = function (orderid) {
+			
+			apiCaller.call('orders/'+orderid+'/ticket', {
+				waitingMessage:'取票中...',
+				type: 'get',
+				success: function (result) {
+					if (result.successed && result.rows.length == 1) {
+						//票
+						var ticketData = result.rows[0];
+						var arrText = doT.template($("#ticket_tmpl").text());
+						var innerHTML = arrText(ticketData);
+						$(".ticket__container").html(innerHTML)
+					}
+
+				}
+			})
+		}
+		$(function () {
+			var orderid=common.query().orderid;
+			initLoad(orderid);
+		})
+	</script>
+</body>
+
+</html>

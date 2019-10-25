@@ -1,0 +1,83 @@
+.page-header {
+	height: 3em;
+	background-color: rgba(0, 0, 0, .75);
+	margin: 0;
+	padding: 0
+}
+
+.container {
+	border: 1.1em solid rgba(0, 0, 0, .15);
+	padding: 0
+}
+
+.acquisition-container .acquisitionForm,
+.acquisition-container .title {
+	padding: 15px
+}
+
+.acquisition-container .title {
+	font-size: 18px;
+	font-family: inherit;
+	margin: 0;
+	text-align: center
+}
+
+.acquisition-container .main-content {
+	min-height: 568px;
+	height: 100%;
+	line-height: 50%;
+	text-align: center;
+	vertical-align: middle;
+	margin: 0 auto;
+	padding-top: 40px
+}
+
+.acquisition-container .main-content .success {
+	width: 60px
+}
+
+.acquisition-container .main-content .success:before {
+	line-height: 50px
+}
+
+.acquisition-container .main-content .title {
+	font-size: 2em
+}
+
+.acquisition-container .main-content .tootip {
+	margin-top: 40px;
+	font-size: 1.5em
+}
+
+.acquisition-container .article-main {
+	margin-top: 20px;
+	margin-bottom: 40px;
+	padding-bottom: 40px;
+	padding-left: 15px;
+	padding-right: 15px;
+	border-bottom: 1px solid rgba(0, 0, 0, .75);
+}
+
+.acquisition-container .article-main .cover {
+	margin-bottom: 20px
+}
+
+.acquisition-container .article-main img {
+	max-width: 100%
+}
+
+.acquisition-container .acquisitionForm {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background-color: hsla(0, 0%, 100%, .8)
+}
+
+.acquisition-container .btn-group-vertical {
+	padding-bottom: 30px
+}
+
+.acquisition-container .btn-group-vertical button {
+	font-size: 1em;
+	height: 2.5em
+}

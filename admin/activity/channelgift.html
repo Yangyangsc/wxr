@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>渠道赠票</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+      <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+   
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+        <script>
+        var detailForm,ticketsData;
+        $(document).ready(function () {
+             var activityid=$.getUrlParam('activityid');
+             ApiCaller.Get({url:'/activity/'+activityid+'/gifttickets',successFunc:function(result){
+                ticketsData = result.rows;
+                result.rows.forEach(function(value,index){
+                    $("#ticketList").append("<option value='"+value.id+"'>"+value.title+"</option>");
+                });
+                initForm();
+            }})
+        });
+        function initForm(){
+            detailForm = new detailForm('formGift', {
+                bindOption: { url: '/channelgift',successFunc:function(result){
+                    showTicketInfo();
+                }},
+                saveOption: {
+                    button: '#lnkSave', url:'/channelgift',
+                    successFunc: function (result) {
+                        dialogHelper.closeModal(result);
+                    }
+                }
+            });
+            detailForm.bindForm();
+        }
+        function showTicketInfo(){
+            var ticket = $('#ticketList');
+            if (ticket.val().length>0){
+                $('.ticketInfo').fadeIn(500);
+                var data =ticketsData[ticket.prop('selectedIndex')-1];
+                $('#spanDesc').text(data.describ);
+                $('#spanPrice').text($.formatMoney(data.price));
+                $('#divColor').css('backgroundColor', data.bgcolor);
+            }
+            else
+                $('.ticketInfo').fadeOut(500);
+        }
+    </script>
+</head>
+
+<form id="formGift" runat="server">
+ <div id="main-layout" class="easyui-layout" style="height: 500px;">
+    <div data-options="region:'north'" style="border: none;">
+        <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+            <a href="#" class="easyui-linkbutton"  iconcls="icon-save" id="lnkSave">保存</a>
+            <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+        </div>
+    </div>
+    <div data-options="region:'center',title:''">
+           <table class="form_table" style="padding-top: 10px;width:90%" data-options="fit:true">
+                    <tr>
+                        <th style="width:60px">赠票 : <font color='red'>*</font></th>
+                        <td>
+                            <select name="ticketid" id="ticketList" class="select easyui-validatebox" style="width:180px" onchange="showTicketInfo(this)"  data-options="missingMessage:'请选择增票',required:true">
+                                <option value="" selected>请选择赠票</option>
+                            </select>
+                        </td>
+                    </tr>
+                     <tr class="ticketInfo" style="display: none">
+                        <th>说明 :</th>
+                        <td colspan="3">
+                            <span id="spanDesc"></span>
+                         </td>
+                    </tr>
+                    <tr class="ticketInfo" style="display: none">
+                        <th>价格 :</th>
+                        <td style="width:80px">
+                            <span id="spanPrice" style="color:red"></span>
+                         </td>
+                         <th style="width:60px">票色：</th>
+                         <td>
+                             <div id="divColor" style="width:40px;height: 30px;border: 1px solid #fff">&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                         </td>
+                    </tr>
+                    <tr class="ticketInfo" style="display: none">
+                        <td colspan="4"><hr/></td>
+                    </tr>
+                    <tr  class="ticketInfo"  style="display: none">
+                        <th>赠送数量 :</th>
+                        <td>
+                            <input class="easyui-numberbox  theme-textbox-radius" style="width: 120px; height: 28px;" value="0"  name="count" data-options="missingMessage:'请输入数量（1~999999）',required:true,min:1,max:999999,precision:0"/>
+                         </td>
+                        <td colspan="2">
+                            <font color="red">注：领完即止</font>
+                         </td>
+                    </tr>
+                    <tr>
+                        <th>备注说明 :</th>
+                        <td colspan="3">
+                            <input placeholder="备注说明" class="easyui-textbox  theme-textbox-radius" style="width: 90%;height: 40px" name="memo" data-options="multiline:true,invalidMessage:'内容不能超过255个字符!',validType:'length[1,255]'">
+                        </td>
+                        
+                    </tr>
+                </table>
+    </div>
+ </div>
+</form>

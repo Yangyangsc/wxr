@@ -1,0 +1,189 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>问答管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    <script src="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.js"></script>
+    <link rel="stylesheet" href="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.css">
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+    <!-- 框架用的js -->
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/slider_question_detail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <style type="text/css">
+        .datagrid-row {
+            height: 90px;
+        }
+
+        .datagrid-cell {
+            white-space: normal;
+        }
+
+        .datagrid-cell img {
+            max-height: inherit;
+        }
+
+        .datagrid-cell-c2-logo {
+            position: relative;
+        }
+    </style>
+</head>
+
+<form id="formSlider" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div data-options="region:'north'" style="border: none;">
+            <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel"
+                    style="margin-left: 7px;">取消</a>
+            </div>
+        </div>
+        <div data-options="region:'center',title:''">
+            <div id="tabSlider" class="easyui-tabs" data-options="tabWidth:130,tabHeight:40,fit:true">
+                <div title="<span class='tt-inner'>问答信息</span>" style="padding: 10px;" data-options="fit:true">
+                    <table class="form_table" style="padding-top: 40px;width: 90%" data-options="fit:true">
+                        <tr>
+                            <th style="width:140px">问题: <font color='red'>*</font>
+                            </th>
+                            <td colspan="3">
+                                <input id="yhq_detail_name" type="text" class="easyui-textbox theme-textbox-radius"
+                                    style="width:95%" placeholder="问题"
+                                    data-options="missingMessage:'请输入问题',required:true,validType:'length[1,50]'"
+                                    name="que" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:140px">正确答案: <font color='red'>*</font>
+                            </th>
+                            <td colspan="3">
+                                <input id="yhq_detail_name" type="text" class="easyui-textbox theme-textbox-radius"
+                                    style="width:95%" placeholder="正确答案"
+                                    data-options="missingMessage:'请输入正确答案',required:true,validType:'length[1,50]'"
+                                    name="ans" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>难度:</th>
+                            <td>
+                                <select name="hard" class="easyui-combobox theme-textbox-radius"
+                                    data-options="editable:false,panelHeight:'auto'"
+                                    style="width: 120px; height: 28px;">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>问题类型:</th>
+                            <td>
+                                <select name="cat_id" class="easyui-combobox theme-textbox-radius"
+                                    data-options="editable:false,panelHeight:'auto'"
+                                    style="width: 120px; height: 28px;">
+                                    <option value="1">运营</option>
+                                    <option value="2">文案</option>
+                                    <option value="3">热点</option>
+                                    <option value="4">技术</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                图片:
+                            </th>
+                            <td>
+                                <img src=" ../images/pluspic_0.png" id="imgLogo" width="90px"
+                                    style="width:90px;height:90px;cursor: pointer;border:1px solid #CCC;" />
+                                <input type="hidden" name="img" id="entLogo" />
+                                <br />
+                                <font color="#999">点击图片上传</font>
+                                <div><a href="#" class="easyui-linkbutton" onclick="removeImage()" data-options="plain:true,iconCls:'icon-remove'">删除</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:140px">答案A: <font color='red'>*</font>
+                            </th>
+                            <td colspan="3">
+                                <input id="yhq_detail_name" type="text" class="easyui-textbox theme-textbox-radius"
+                                    style="width:95%" placeholder="答案A"
+                                    data-options="missingMessage:'请输入答案A',required:true,validType:'length[1,50]'"
+                                    name="opt1" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:140px">答案B: <font color='red'>*</font>
+                            </th>
+                            <td colspan="3">
+                                <input id="yhq_detail_name" type="text" class="easyui-textbox theme-textbox-radius"
+                                    style="width:95%" placeholder="答案B"
+                                    data-options="missingMessage:'请输入答案B',required:true,validType:'length[1,50]'"
+                                    name="opt2" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:140px">答案C: <font color='red'>*</font>
+                            </th>
+                            <td colspan="3">
+                                <input id="yhq_detail_name" type="text" class="easyui-textbox theme-textbox-radius"
+                                    style="width:95%" placeholder="答案C"
+                                    data-options="missingMessage:'请输入答案C',required:true,validType:'length[1,50]'"
+                                    name="opt3" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th style="width:140px">答案D: <font color='red'>*</font>
+                            </th>
+                            <td colspan="3">
+                                <input id="yhq_detail_name" type="text" class="easyui-textbox theme-textbox-radius"
+                                    style="width:95%" placeholder="答案D"
+                                    data-options="missingMessage:'请输入答案D',required:true,validType:'length[1,50]'"
+                                    name="opt4" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>删除:</th>
+                            <td>
+                                <select name="del" class="easyui-combobox theme-textbox-radius"
+                                    data-options="editable:false,panelHeight:'auto'"
+                                    style="width: 120px; height: 28px;">
+                                    <option value="0">否</option>
+                                    <option value="1">是</option>
+                                </select>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

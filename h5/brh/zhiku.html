@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>百人会</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/main.css">
+		<!-- endbuild -->
+		<style>
+			.zhiku__item_main .zhiku-info .infos {
+				font-size: 1rem;
+			}
+		</style>
+	</head>
+
+	<body>
+		<!--列表模版-->
+		<script id="kol_temp" type="text/x-dot-template">
+			{{~it:value:index}}
+			<div class="zhiku__item">
+				<div class="zhiku__item_main">
+					<div class="zhiku-info">
+						<h3 class="title">{{=value.kol_name}}</h3>
+						<p class="infos">
+							{{=value.kol_title}}
+						</p>
+					</div>
+					<div class="zhiku-thumb">
+						<img src="{{? value.kol_cover}} {{= imageServer + common.replace(value.kol_cover, '\\\\', '\/') }} {{??}}./images/head_default.jpg{{?}}" alt="">
+					</div>
+					<a href="javascript:;" class="zhiku-btn__more">了解详情&gt;&gt;</a>
+				</div>
+				<div class="zhiku_dialog">
+					<div class="weui-mask"></div>
+					<div class="weui-dialog">
+						<div class="weui-dialog__hd">
+							<img src="images/item-logo.png" alt="" class="logo">
+							<img src="images/item-close.png" alt="" class="close">
+						</div>
+						<div class="weui-dialog__bd">{{=value.kol_describ}}</div>
+						<a href="javascript:" class="weui-btn weui-btn_default btn-contact" data-kolid="{{=value.kol_id}}">立即预约</a>
+					</div>
+				</div>
+			</div>
+
+			{{~}}
+		</script>
+
+		<div id="kol_list" class="zhiku-list__container">
+
+		</div>
+		<div class="footer-menu_container">
+			<div class="weui-flex">
+				<div class="weui-flex__item" onclick="window.location.href='index.html'">
+					<i class="icon icon-home"></i>
+					<span class="title">首页</span>
+				</div>
+				<div class="weui-flex__item" onclick="window.location.href='media.html'">
+					<i class="icon icon-search"></i>
+					<span class="title">媒体库</span>
+				</div>
+				<div class="weui-flex__item active" onclick="window.location.href='zhiku.html'">
+					<i class="icon icon-star"></i>
+					<span class="title">智库</span>
+				</div>
+				<div class="weui-flex__item" onclick="window.location.href='train.html'">
+					<i class="icon icon-doc"></i>
+					<span class="title">培训</span>
+				</div>
+				<div class="weui-flex__item" onclick="window.location.href='profile.html'">
+					<i class="icon icon-profile"></i>
+					<span class="title">我的</span>
+				</div>
+			</div>
+		</div>
+	</body>
+
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/brh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="zhiku/js/zhiku.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

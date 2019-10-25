@@ -1,0 +1,126 @@
+/*重置*/
+*,
+::before,
+::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  /*系统默认菜单被禁用*/
+  -webkit-user-select: none;
+  /*webkit浏览器*/
+  -khtml-user-select: none;
+  /*早期浏览器*/
+  -moz-user-select: none;
+  /*火狐*/
+  -ms-user-select: none;
+  /*IE10*/
+  user-select: none;
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  /* font-family: 'Microsoft Yahei'; */
+  background-image: url(../../images/answer/answer_bg.jpg);
+  background-repeat: repeat;
+  background-size: 100% auto;
+}
+
+a {
+  text-decoration: none;
+}
+
+
+img {
+  vertical-align: middle;
+}
+
+ul {
+  list-style: none;
+}
+
+input,
+button,
+select,
+textarea {
+  outline: none;
+  border: none;
+}
+
+/* 溢出省略号 */
+
+.ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 禁止滚动 */
+.notScroll {
+  height: 100%;
+  overflow-y: hidden;
+}
+
+
+.weui-animate-fade-in {
+  display: none !important;
+}
+
+
+.bottom_support {
+    color: #ebfcff;
+  font-size: .24rem;
+  text-align: center;
+  padding-bottom: .3rem;
+}
+
+@font-face {
+  font-family: HeiTiFont;
+  src: url('../../fonts/NotoSansHans-Black.otf'),
+    /* url('../../fonts/NotoSansHans-Bold.otf'), */
+    url('../../fonts/NotoSansHans-DemiLight.otf'),
+    url('../../fonts/NotoSansHans-Light.otf'),
+    url('../../fonts/NotoSansHans-Medium.otf'),
+    url('../../fonts/NotoSansHans-Regular.otf'),
+    url('../../fonts/NotoSansHans-Thin-Windows.otf');
+}
+
+
+
+@font-face {
+  font-family: titFont;
+  src: url('../../fonts/NotoSansHans-Regular.otf')
+}
+
+@font-face {
+  font-family: rankFont;
+  src: url('../../fonts/dahot.digital-7 (mono).ttf');
+}
+
+/* Toast弹窗 */
+.Prompt {
+  text-align: center;
+  width: 4rem;
+  height: .8rem;
+  padding: .15rem;
+  display: none;
+  color: #fff;
+  z-index: 99;
+  font-size: 0.34rem;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 0.1rem;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -moz-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  -o-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}

@@ -1,0 +1,76 @@
+# --------------------
+# OS Files
+# --------------------
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# --------------------
+# vim Files
+# --------------------
+*.swp
+
+# --------------------
+# vs Files
+# --------------------
+# User-specific files
+*.user
+*.suo
+*.log
+
+# Build results
+*/[Dd]ebug/
+[Rr]elease/
+x64/
+build/
+[Bb]in/
+[Oo]bj/
+
+# --------------------
+# OSX Files
+# --------------------
+.DS_Store
+.AppleDouble
+.LSOverride
+Icon
+._*
+.Spotlight-V100
+.Trashes
+
+# --------------------
+# vim Files
+# --------------------
+*.swp
+
+# --------------------
+# IntelliJ Files
+# --------------------
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# --------------------
+# packages Files
+# --------------------
+packages/
+#packages.config
+Barter.userprefs
+.vs
+staticfiles
+
+# --------------------
+# npm file
+# --------------------
+npm-debug.log
+*.log
+
+# --------------------
+# packages
+# --------------------
+
+node_modules/
+bower_components/
+*.psd

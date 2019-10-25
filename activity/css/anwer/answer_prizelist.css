@@ -1,0 +1,146 @@
+body {
+  position: relative;
+}
+
+.p_layout {
+  /* padding-bottom: .5rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: .8rem 0;
+  min-height: 100%;
+}
+
+.rankBackBox {
+  width: .52rem;
+  height: .52rem;
+  position: absolute;
+  left: .3rem;
+  top: .08rem;
+  background-image: url(../../images/answer/rankBack.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.rankBackBox a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.p_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 6.8rem;
+  min-height: 65vh;
+  padding-top: 1.08rem;
+  padding-bottom: .34rem;
+  background-image: url(../../images/answer_prizelist.png), url(../../images/rink_head_bottom.png), url(../../images/answer_prize_bgs.png);
+  background-size: 100%;
+  background-repeat: no-repeat, no-repeat, repeat-y;
+  background-position: top, bottom, center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+
+.p_cont {
+  width: 5.82rem;
+  height: 2.31rem;
+  border-radius: .2rem;
+  color: #00517f;
+  background-image: url(../../images/answer_coupon_bgs.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: .15rem;
+  position: relative;
+}
+
+.p_cont .p_left {
+  width: 2rem;
+  height: 1.66rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  border-right: .03rem dashed #00517f;
+  font-family: titFont;
+}
+
+.p_cont .p_left .left_content {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.p_cont .p_left .left_content .prizes {
+  font-size: .6rem;
+}
+
+.p_cont .p_left .left_content .coupons {
+  font-size: .36rem;
+}
+
+.p_cont .p_right {
+  width: 3.78rem;
+  padding-left: .21rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: titFont;
+}
+
+.p_cont .p_right .right_content .right_tit {
+  font-size: .3rem;
+  font-weight: bold;
+  margin-bottom: .1rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.p_cont .p_right .right_content .time {
+  margin-bottom: .05rem;
+}
+
+.p_cont .p_right .right_content .equally {
+  font-size: .2rem;
+}
+
+.contInfo {
+  color: #999;
+}
+
+.contInfo .alreadyUsed {
+  width: 1.28rem;
+  height: 1.28rem;
+  position: absolute;
+  right: .21rem;
+  bottom: .07rem;
+}
+
+
+.p_state {
+  width: 5.79rem;
+  height: 1.55rem;
+  background-image: url(../../images/answer_satebg.png);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  color: #ff4e00;
+  font-size: .34rem;
+  font-weight: bold;
+  padding: 0 .61rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: .2rem;
+}

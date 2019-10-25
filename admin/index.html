@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>票务(Litecoder) - 后台管理</title>
+
+    <!--<link rel="stylesheet" type="text/css" id="swicthstyle" href='App_Themes/green/easyui.css' /> -->
+    <link rel="stylesheet" type="text/css" href="App_Themes/insdep/easyui.css" />
+    <link href="App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" type="text/css" href='App_Themes/font-awesome/css/font-awesome.min.css' />
+
+    <script type="text/javascript" src='Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+   
+    <script type="text/javascript" src='Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    <script type="text/javascript" src='Scripts/Framework/Framework_menu.js'></script>
+    <script type="text/javascript" src='Scripts/Framework/Framework_min_menu.js'></script>
+    <script type="text/javascript" src='Scripts/Framework/index.js'></script>
+
+    
+    <link rel="stylesheet" type="text/css" href='App_Themes/master.css' />
+   
+    <!--<link rel="stylesheet" type="text/css" href='App_Themes/icon.css' />-->
+    <!--<link rel="stylesheet" type="text/css" href='App_Themes/bootstrap-menu.css' />-->
+
+
+    <script type="text/javascript" src="Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="Scripts/urlConfig.js"></script>
+</head>
+<body class="easyui-layout" id="master">
+<!--class="cs-north"  id="divHead"-->
+    <div data-options="region:'north',border:false,bodyCls:'theme-header-layout'" >
+        <div class="theme-navigate">
+            <div class="left">
+                    <a href="#" class="easyui-linkbutton left-control-switch"><i class="fa fa-bars fa-lg"></i></a>
+                    <a href="#" class="easyui-menubutton" data-options="menu:'#mmHistory',hasDownArrow:false">最近使用功能</a>
+                    <div id="mmHistory" class="theme-navigate-menu-panel">
+                    </div>
+
+            </div>
+            <div class="right">
+                <!--<a href="#" class="easyui-linkbutton left-control-switch"><i class="fa fa-bars fa-lg"></i></a>-->
+                <a href="#" class="easyui-menubutton theme-navigate-user-button" data-options="menu:'.theme-navigate-user-panel'"><span id="hrefUserName">匿名</span></a>
+
+                <select id="cc1" class="easyui-combobox theme-navigate-combobox" name="dept" style="width:120px;">   
+                    <option>选择样式</option>   
+                    <option value="Insdep">Insdep</option>   
+                    <option value="Bootstrap">Bootstrap</option> 
+                    <option value="Gray">Gray</option> 
+                    <option value="Metro">Metro</option> 
+                    <option value="Metro">Black</option> 
+                </select>  
+                <div class="theme-navigate-user-panel">
+                    <dl>
+                        <dd>
+                            <!--<img src="../../../themes/insdep/images/portrait86x86.png" width="86" height="86">-->
+                             <img id="userImage" src="App_Themes/insdep/images/portrait86x86.png" width="86" height="86">
+                            <b class="badge-prompt"><span id="spanUserName">匿名</span></b>
+                                <!--<i class="badge color-important">10</i></b>-->
+                            <span id="spanAccount">examples@insdep.com</span>
+                        </dd>
+                        <dt>
+                            <a class="theme-navigate-user-modify" href="#" onclick="editPersonalInfo()">修改资料</a>
+                            <a class="theme-navigate-user-logout"  href='login.html'>注销</a>
+                        </dt>
+                    </dl>
+                </div>
+            </div>
+        </div>
+
+        
+    </div>
+    <!--<div data-options="region:'west',border:true,split:true,title:'导航',minWidth:200" class="cs-west">-->
+    <div data-options="region:'west',border:false,bodyCls:'theme-left-layout'" style="width:150px; ">
+        <!--<div id="menu" class="bs-menu" style="margin: 5px"></div>-->
+            <!--正常菜单--> 
+            <div class="theme-left-normal">
+                <div class="left-control-switch theme-left-switch"><i class="fa fa-chevron-left fa-lg"></i></div>
+                <!--start class="easyui-layout"-->
+                <div class="easyui-layout" data-options="border:false,fit:true"> 
+                    <!--start region:'north'-->
+                    <div data-options="region:'north',border:false" style="height:100px;">
+                        <div class="theme-left-user-panel">
+                            <dl>
+                                <dt>
+                                     <a href="#" onclick="editPersonalInfo()">
+                                        <img id="imgLeftHeader" src="App_Themes/insdep/images/portrait86x86.png" width="43" height="43">
+                                    </a>
+                                </dt>
+                                <dd>
+                                    <b class="badge-prompt"><span id="spanLeftUserName">管理员<span><i class="badge color-important">10</i></b>
+                                    <span id="spanLeftAccount">examples</span>
+                                </dd>
+
+                            </dl>
+                        </div>
+                    </div>   
+                    <!--end region:'north'-->
+
+                    <!--start region:'center'-->
+                    <div data-options="region:'center',border:false">
+                        <!--start easyui-accordion--> 
+                        <div id="menu" class="easyui-accordion"  data-options="heightStyle :'content',border:false,fit:true">   
+                            
+
+                        </div>
+                        <!--end easyui-accordion--> 
+
+                    </div>
+                    <!--end region:'center'-->
+                </div>  
+                <!--end class="easyui-layout"-->
+            </div>
+             <!--最小化菜单--> 
+            <div class="theme-left-minimal">
+                <ul class="easyui-datalist" id="minMenu" data-options="border:false,fit:true">
+                    <!--<li><i class="fa fa-home fa-2x"></i><p>主题</p></li>-->
+                    <!--<li><img src='./images/member.png' style="width:32px"><p>会员管理</p></li>
+                    <li><i class="fa fa-book fa-2x"></i><p>组件</p></li>
+                    <li><i class="fa fa-pencil fa-2x"></i><p>编辑</p></li>
+                    <li><i class="fa fa-cog fa-2x"></i><p>设置</p></li>-->
+                    <li><a class="left-control-switch"><i class="fa fa-chevron-right fa-2x"></i><p>打开</p></a></li>
+                </ul>
+            </div>
+    </div>
+    <div id="mainPanle" region="center" border="true" border="false">
+        <div id="tabs" class="easyui-tabs" fit="true" border="false">
+            <!--<div title="首页">
+            
+            </div>-->
+        </div>
+    </div>
+    <div class="cs-south" data-options="region:'south',border:false" id="footer">
+        Copyright © 2017 广州市企业信息咨询管理有限责任公司 All Rights Reserved
+    </div>
+    <div id="mm" class="easyui-menu" style="width: 120px;">
+        <div id="mm-tabupdate" data-options="iconCls:'icon-reload'">刷新</div>
+        <div class="menu-sep"></div>
+        <div id="mm-tabclose" data-options="iconCls:'icon-cancel'">关闭</div>
+        <div id="mm-tabcloseother" data-options="iconCls:'icon-otherwindow'">关闭其他</div>
+        <div id="mm-tabcloseall">关闭全部</div>
+    </div>
+</body>
+   
+</html>

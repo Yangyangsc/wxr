@@ -1,0 +1,86 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="JQ/jquery-1.7.1.js"></script>
+    <script type="text/javascript">
+        function GetRequest() {
+            var url = location.search; //获取url中"?"符后的字串
+            var theRequest = new Object();
+            if (url.indexOf("?") != -1) {
+                var str = url.substr(1);
+                strs = str.split("&");
+                for (var i = 0; i < strs.length; i++) {
+                    theRequest[strs[i].split("=")[0]] = unescape(strs[i].split("=")[1]);
+                }
+            }
+            return theRequest;
+        }
+        var query = GetRequest();
+        var openid = query["openid"];
+        var orderid = query["oid"];
+
+
+        var jsApiCall = null;
+
+        function test() {
+            $.post("/wechat/mp/pay", {
+                uid: "okv-EwnZotboWRD4qOIucgjncoSE",
+                orderid: orderid || "2f152394-20bc-11e7-a51f-f0def107233b"
+            }, function (result) {
+                alert(JSON.stringify(result));
+                if (result.successed) {
+                    jsApiCall = function jsApiCall() {
+                        WeixinJSBridge.invoke(
+                            'getBrandWCPayRequest',
+                            result.result,//josn串
+                            function (res) {
+                                WeixinJSBridge.log(res.err_msg);
+                                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                                    alert("支付成功");
+                                    // 这里可以跳转到订单完成页面向用户展示
+                                } else {
+                                    alert("支付失败，请重试");
+                                }
+                                // alert(res.err_code);
+                                // alert(res.err_desc);
+                                // alert(res.err_msg);
+                                // alert(res.err_code + res.err_desc + res.err_msg);
+                            }
+                        );
+                    }
+
+                        (function callpay() {
+                            if (typeof WeixinJSBridge == "undefined") {
+                                if (document.addEventListener) {
+                                    document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                                }
+                                else if (document.attachEvent) {
+                                    document.attachEvent('WeixinJSBridgeReady', jsApiCall);
+                                    document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                                }
+                            }
+                            else {
+                                jsApiCall();
+                            }
+                        })();
+                }
+            }, "json");
+        }
+
+        //调用微信JS api 支付
+    </script>
+</head>
+
+<body style="height:100%;width:100%;">
+    <div style="background-color:red;height:100%;width:100%">
+        <input type="button" value="立即支付" onclick="test()" style="width:210px; height:50px; border-radius: 15px;background-color:#00CD00; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;"
+        />
+
+    </div>
+</body>
+
+</html>

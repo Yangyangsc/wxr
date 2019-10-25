@@ -1,0 +1,73 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>用户管理</title>
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+        <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+      <script>
+        var detailForm;
+        $(document).ready(function () {
+            detailForm = new detailForm('formDepartment', {
+                bindOption: { url:'/department/' },
+                saveOption: {
+                button: '#lnkSave', url: '/department',
+                    successFunc: function (result) {
+                        result.text = $('#deptname').val();
+                        dialogHelper.closeModal(result);
+                    }
+                }
+            });
+            detailForm.bindForm();
+            if (detailForm.getCurrentAction() == 'addnew') {
+                $('#pid').val( $.getUrlParam("pid"));
+            }
+        });
+     </script>
+</head>
+
+<body>
+    <form id="formDepartment" runat="server">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align:left;padding:10px 0 10px 40px;">
+                    <a href="#" class="ext_btn ext_btn_submit" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();" class="ext_btn" style="margin-left:7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <input name="pid" id="pid" style="display: none">
+                <table class="form_table" width="100%" style="padding-top:10px;">
+
+                    <tr>
+                        <th>部门编码:</th>
+                        <td>
+                            <input class="input-text easyui-validatebox" style="margin-left:0px;" type="text" name="code" data-options="missingMessage:'请输入部门编码！',required:true" value="" /></td>
+                    </tr>
+                    <tr>
+                        <th>部门名称:</th>
+                        <td>
+                            <input class="input-text easyui-validatebox" style="margin-left:0px;" type="text" id="deptname" name="name" data-options="missingMessage:'请输入部门名称！',required:true" value="" /></td>
+                    </tr>
+                    <tr>
+                        <th>部门排序号:</th>
+                        <td>
+                            <input class="input-text easyui-numberbox" style="margin-left:0px;" type="text" name="index" value="" /></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>
+</body>

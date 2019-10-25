@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>报名成功</title>
+  <script src="../scripts/zepto.min.js"></script>
+  <script type="text/javascript" src="../js/wechatHelper.js"></script>
+  <script type="text/javascript" src="../js/common.js"></script>
+  <script type="text/javascript" src="../js/apiCaller.js"></script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <!-- endbuild -->
+
+  <!-- build:js js/main.js -->
+  <!-- endbuild -->
+</head>
+
+<body>
+  <div class="success__wrapper success__wrapper2"> <!-- success__wrapper2, success__wrapper3 -->
+  
+    <div class="success__container">
+        <img id="imgCover" src="../images/banner1.jpg" alt="" class="ticket-banner">
+        <img src="../images/ticket2.png" class="ticket" alt="">
+        <img src="../images/qrcode.jpg" alt="" class="qrcode">
+        <!--<span  id="userName" class="name"></span>-->
+        <span class="text">长按识别二维码<P>关注公众号「弯弓在道」,获取电子票</p></span>
+    </div>
+  </div>
+</body>
+<script>
+    $(function () {
+        // $('#userName').text(common.query().username);
+        var cover = common.query().cover;
+        if (!common.isEmpty(cover))   $("#imgCover").attr('src', imageServer + cover);
+        ///初始化微信分享
+		common.createWXShareInit(null, function () {
+		  wechatHelper.hideCopyLink();
+		});
+    })
+  </script>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>弯弓新媒体</title>
+  <!-- build:css css/style.css -->
+  <script type="text/javascript" src="./js/wechatHelper.js"></script>
+  <script type="text/javascript" src="./js/common.js"></script>
+  <script type="text/javascript" src="./js/apiCaller.js"></script>
+  <script type="text/javascript" src="./js/doT.js"></script>
+  <script type="text/javascript" src="./js/message.js"></script>
+  <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+
+  <link rel="stylesheet" href="./bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+
+  <style>
+    #descArea {
+      display: block;
+      padding-bottom: 40px;
+    }
+  </style>
+  <script>
+    if (common.isEmpty(common.query().token)) {
+      window.location.href = wechatAuth + '?url=' + window.location.href;
+    }
+  </script>
+  <script id="activity_array_tmpl" type="text/x-dot-template">
+    {{~it:value:index}} {{? (value.ticket_max-value.ticket_sold)>0}}
+    <div data-id={{=value.ticket_id}} class="activity-ticket-item ">
+      {{??}}
+      <div data-id={{=value.ticket_id}} class="activity-ticket-item disable">
+        {{?}}
+        <a class="weui-cell">
+          <div class="weui-cell__hd">
+            {{=value.ticket_title}}
+          </div>
+          <div class="weui-cell__bd weui-cell_primary">
+            <p>{{=value.ticket_desc}}</p>
+          </div>
+          <span class="weui-cell__ft">
+            <div class="activity-ticket-remain">
+               <!--赠票需要显示剩余}}-->
+              {{? isgift==1}}
+                  <span class="price">¥ {{=value.ticket_discount_price}}</span>
+          <p class="remain">剩{{=giftRemain}}张</p>
+          {{??}} {{? (value.ticket_max-value.ticket_sold)>0}}
+          <span class="price">¥ {{=value.ticket_discount_price}}</span> {{??}}
+          <span class="null">售罄</span> {{?}} {{?}}
+
+
+
+          <!--{{? (value.ticket_max-value.ticket_sold)>0}}
+              <p class="remain">剩{{=(value.ticket_max-value.ticket_sold)}}张</p>
+          {{??}}
+              <span class="null">已售罄</span> 
+          {{?}}-->
+      </div>
+      </span>
+      </a>
+    </div>
+    {{~}}
+  </script>
+</head>
+
+<body style="margin-top:-9px">
+  <div class="activity-banner" style="display:none">
+    <img id="imgBanner" src="./images/banner1.jpg" alt="">
+  </div>
+  <div class="activity-infos" style="display:none">
+    <div class="weui-cells__title">
+      <h1 id="activity-title"></h1>
+    </div>
+    <div class="weui-cells activity-infos__lists">
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <span class="activity-infos__title">活动时间</span>
+          <span class="activity-infos__text" id="timeArea"></span>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <span class="activity-infos__title">活动地点</span>
+          <span class="activity-infos__text" id="locationArea"></span>
+        </div>
+      </div>
+      <div class="weui-cell">
+        <div class="weui-cell__bd">
+          <span class="activity-infos__title" id="priceAreaFront">票价范围</span>
+          <span class="activity-infos__text text-green" id="priceArea"></span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="weui-panel weui-panel_access activity-infos__content">
+    <div class="weui-panel__hd" style="display:none">活动介绍</div>
+    <div class="weui-panel__bd">
+      <div class="weui-media-box weui-media-box_text" style="padding: 0px">
+        <p class="weui-media-box__desc" id="descArea">
+
+        </p>
+      </div>
+
+    </div>
+  </div>
+  <div class="bottom-button__fixed">
+    <a href="javascript:;" class="weui-btn weui-btn_warn " id="showIOSActionSheet">立即报名</a>
+  </div>
+  <div>
+    <div class="weui-mask" id="iosMask" style="display: none"></div>
+    <div class="weui-actionsheet" id="iosActionsheet">
+      <div class="weui-panel">
+        <div class="weui-panel__hd">选择票券<img src="./images/close.jpg" alt="" id="iosActionsheetCancel"></div>
+        <div class="weui-panel__bd">
+          <div class="weui-media-box weui-media-box_small-appmsg">
+            <div class="weui-cells" id="activitylist">
+
+            </div>
+            </span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  </div>
+  <script src="./js/doT.js"></script>
+  <script src="./scripts/zepto.min.js"></script>
+  <script src="./scripts/weui.min.js"></script>
+  <script>
+    ////全局变量，定义当前微信用户id,活动id,渠道id,赠票id,分享时的URL
+    var openid, activityid, channelid, giftid, isgift, giftRemain, shareUrl;
+    var locationInfo;
+    var bindHandle = function () {
+      var $iosActionsheet = $('#iosActionsheet');
+      var $iosMask = $('#iosMask');
+
+      function hideActionSheet() {
+        $iosActionsheet.removeClass('weui-actionsheet_toggle');
+        $iosMask.fadeOut(200);
+      }
+      ////地图
+      if (locationInfo!=null){
+        $('#locationArea').on('click', function(){
+          wechatHelper.init(function(){
+              wechatHelper.openLocation(locationInfo);
+          });
+        });
+      }
+      $iosMask.on('click', hideActionSheet);
+      $('#iosActionsheetCancel').on('click', hideActionSheet);
+      $("#showIOSActionSheet").on("click", function () {
+        ////活动已结束
+        if ($(this).hasClass("weui-btn_disabled")) return;
+        ////赠票已送光，引导去购票
+        if ($(this).hasClass("giftover")) {
+          window.location.href = 'index.html?token=' + openid + '&activityid=' + activityid + (channelid ? "&channelid=" + channelid : "");
+          return;
+        }
+        $iosActionsheet.addClass('weui-actionsheet_toggle');
+        $iosMask.fadeIn(200);
+      });
+    }
+    var showPrice = function (tickets) {
+      var min = 99999999;
+      var max = 0
+      for (var i = 0; i < tickets.length; i++) {
+        var ticketData = tickets[i]
+        if (ticketData.ticket_discount_price > max)
+          max = ticketData.ticket_discount_price;
+        if (ticketData.ticket_discount_price < min)
+          min = ticketData.ticket_discount_price;
+      }
+      if (isgift == 1) return "￥" + max
+      return "￥" + min + '  -  ' + max
+    }
+    var initLoad = function () {
+      apiCaller.call('activitys/' + activityid, {
+        type: 'get',
+        data: {
+          cid: channelid,
+          gid: giftid,
+          uid: openid
+        },
+        success: function (result) {
+          if (result.successed && result.rows.length > 0) {
+            var rowData = result.rows[0];
+            ///确定当前是购买渠道或销售渠道
+            isgift = rowData.channel_gift;
+            if (isgift == null || isgift != 1) isgift = 0;
+            ///如果是赠票通道，会返回从哪个渠道id赠送的
+            //if(rowData.channel_id!=null && rowData.channel_id.length>0){
+            channelid = rowData.channel_id;
+            //}
+            
+            $("#showIOSActionSheet").text(isgift == 1 ? '领取赠票' : '购票报名');
+
+            if (rowData.activity_end == 1)
+              $("#showIOSActionSheet").addClass("weui-btn_disabled").text('活动已结束');
+            else if (isgift == 1)  ///如果是赠票渠道，则把底部的按钮换个色
+            {
+              $('#priceAreaFront').text('赠票价值');
+              ////该用户是否已经领过赠票了
+              if (rowData.had_ticket == 1)
+                $("#showIOSActionSheet").addClass("weui-btn_disabled").text('您已领取过赠票');
+              else {
+                $("#showIOSActionSheet").addClass("weui-btn_gift");
+                ///赠票的剩余数量
+                giftRemain = rowData.channel_gift_surplus || 0;
+                ///赠票已领光
+                if (rowData.channel_gift_surplus == null || rowData.channel_gift_surplus <= 0) {
+                  $("#showIOSActionSheet").addClass("giftover").text('赠票已发完,直接购票');
+                }
+              }
+
+            }
+            ///获取到活动地址信息
+            var extPointValue=(common.isEmpty(rowData.long_latitude)?'':rowData.long_latitude);
+            var points = extPointValue.split(',');
+            if (points.length==2 && !common.isEmpty(points[0]) && !common.isEmpty(points[1])){
+              locationInfo={};
+              locationInfo.latitude=parseFloat(points[0]);
+              locationInfo.longitude=parseFloat(points[1]);
+               locationInfo.name=rowData.activity_topic;
+               locationInfo.address=rowData.activity_location;
+               locationInfo.scale=14;
+            }
+
+
+            $("#imgBanner").attr('src', imageServer + rowData.activity_cover);
+            $("#activity-title").html(rowData.activity_topic);
+            $("#descArea").html(rowData.rich_text);
+            $("#locationArea").html(rowData.activity_city_name + ' ' + rowData.activity_location);
+            // var startDate = new Date(Date.parse(rowData.activity_date_start));
+            // var endDate =new Date(Date.parse(rowData.activity_date_end));
+            // var isSameDay =common.format(rowData.activity_date_start,'date') ==common.format(rowData.activity_date_end,'date');
+            // var dateTimeString = isSameDay?
+            //     (common.format(rowData.activity_date_start,'date')+' '+ common.format(rowData.activity_date_start,'time')+' ~ '+common.format(rowData.activity_date_end,'time')):
+            //     (common.format(rowData.activity_date_start) + ' ~ ' +common.format(rowData.activity_date_end));
+            var dateTimeString = common.combine2DateString(rowData.activity_date_start, rowData.activity_date_end);
+            //$("#timeArea").html(common.format(rowData.activity_date_start) + "-" + common.format(rowData.activity_date_end));
+            $("#timeArea").html(dateTimeString);
+            // $("#descArea").html(rowData.activity_desc);
+            $("#priceArea").html(showPrice(rowData.ticket));
+            //票
+            var dataArr = rowData.ticket;
+
+            var arrText = doT.template($("#activity_array_tmpl").text());
+            var innerHTML = arrText(dataArr);
+            document.getElementById("activitylist").innerHTML = innerHTML;
+            $(".activity-ticket-item").on('click', function () {
+              var ticketid = $(this).attr("data-id");
+              if (!$(this).hasClass("disable"))
+                document.location.href = './pages/saveorder.html?openid=' + openid + '&id=' + ticketid + (channelid ? "&cid=" + channelid : "") + ((isgift == 1 && giftid) ? "&giftid=" + giftid : "");
+            })
+            bindHandle();
+            ///缓存微信分享数据
+            var shareImage= common.replace(rowData.avtivity_share_image,'\\\\','\/');
+            var shareOption={title:common.isEmpty(rowData.activity_label)?rowData.activity_topic:rowData.activity_label,
+                                content:rowData.activity_desc,
+                                image:imageServer+shareImage,
+                                activityid:activityid,
+                                channelid:channelid,
+                                giftid:giftid
+                              };
+            common.addCache('shareOption',JSON.stringify(shareOption));
+
+            ///初始化微信分享
+            common.createWXShareInit(shareOption);
+            
+          }
+
+        },
+        error: function (err) {
+          message.toast(err, messageType.error)
+        }
+      })
+    }
+
+    $(function () {
+      ///当前微信账号openid
+      openid = common.query().token;
+      ///当前打开的活动id
+      activityid = common.query().activityid
+      ///当前的渠道id
+      channelid = common.query().channelid;
+      ///当前的增票id;
+      giftid = common.query().giftid;
+      ///得到需要分享的url
+
+
+      //common.addCache('shareLink', shareUrl);
+      //alert('openid:['+openid+ '] and activityid:'+activityid);
+      if (common.isEmpty(openid) || common.isEmpty(activityid))
+        alert('页面缺失重要参数，非法加载!');
+      else
+        initLoad();
+    });
+  </script>
+</body>
+
+</html>

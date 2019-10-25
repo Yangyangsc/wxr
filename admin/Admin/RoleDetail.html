@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>角色管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+     <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+      <script type="text/javascript" src="Scripts/RoleDetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+</head>
+
+<form id="formRole" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div data-options="region:'north'" style="border: none;">
+            <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                <a href="#" class="easyui-linkbutton"  iconcls="icon-save" id="lnkSave">保存</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+            </div>
+        </div>
+        <div data-options="region:'center',title:''">
+            <div id="tabPersonal" class="easyui-tabs" data-options="tabWidth:130,tabHeight:40,fit:true">
+                <div title="<span class='tt-inner'>基本信息</span>" style="padding: 10px;" data-options="fit:true">
+                    <table class="form_table" style="padding-top: 10px;" data-options="fit:true">
+                        <tr>
+                            <th>角色名称: <font color='red'>*</font></th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius"  name="name" data-options="missingMessage:'请输入角色名称',required:true,validType:'length[1,50]'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>系统管理角色: </th>
+                            <td>
+                                <input type="checkbox"  name="admin"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div title="<span class='tt-inner'>用户</span>" style="padding: 5px" data-options="fit:true">
+                    <div id="tools_1" style="width: 100%; border: none;">
+                        <div class="easyui-panel" style="padding: 5px; border: none">
+                            <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="addUsers()">添加用户</a>
+                            <a href="#" id="btnDeleteUser" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除用户</a>
+                        </div>
+                    </div>
+                    <table id="dgUsers" class="form_table" style="padding-top: 10px;" align="center">
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

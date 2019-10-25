@@ -1,0 +1,34 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>图片预览</title>
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script>
+        $(document).ready(function () {
+            var imgUrl = $.getUrlParam('imageUrl');
+            if (!$.isNullOrEmpty(imgUrl)) {
+                $('#mainImage').attr("src", imgUrl);
+            }
+        });
+
+        function getImgNaturalDimensions(img, callback) {
+            var imgae = new Image()
+            image.src = imgUrl;
+            image.onload = function () {
+                if (typeof (callback) == "function")
+                    callback(image,image.width, image.height)
+            }
+        }
+    </script>
+    <style>
+        html, body { margin: 0; padding: 0;}
+    </style>
+</head>
+<body scroll="no">
+    <div id="Layer1" style="position:absolute; width:100%; height:100%; z-index:-1;overflow:hidden">
+        <img id="mainImage" src="" style="width:100%;height:100%"/>
+    </div>    
+</body>
+</html>

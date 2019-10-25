@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>星商城</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="./bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="./css/main.css">
+		<link rel="stylesheet" href="./bower_components/swiper/dist/css/swiper.min.css">
+		<!-- endbuild -->
+		<!-- build:js js/main.js -->
+		<!-- endbuild -->
+		<style>
+			.title {
+				font-size: 1.5rem !important;
+			}
+			
+			.price-vip {
+				font-size: 1.3rem !important;
+				line-height: inherit !important;
+			}
+			
+			.price-normal {
+				font-size: 1.3rem !important;
+			}
+			
+			.goods-title {
+				font-size: 1.3rem;
+			}
+		</style>
+	</head>
+	<!--商品模版-->
+	<script id="goods_tmpl" type="text/x-dot-template">
+		{{~it:value:index}}
+		<li class="goods-item">
+			<a href="ecommerce/goods-details.html?gid={{= value.product_id}}" class="thumbnail">
+				<img src="{{? value.product_image}} {{= imageServer + common.replace(value.product_image, '\\\\', '\/') }} {{??}}./images/goods_default.jpg{{?}}" alt="">
+			</a>
+			<p class="goods-title">{{=value.product_memo}}</p>
+			<div class="goods-info">
+				<h3 class="title">{{=value.product_name}}</h3>
+				<span class="author"></span>
+				<div class="price">
+					{{? value.product_member_price>0}}
+					<span class="price-vip">会员价：¥{{=value.product_member_price}}</span> {{?}}
+					<span class="price-normal">价格：¥{{? value.product_discount_price>0 }}{{=value.product_discount_price}}{{??}}{{=value.product_price}}{{?}}</span>
+				</div>
+			</div>
+		</li>
+		{{~}}
+	</script>
+
+	<body class="container-with-footermenu">
+		<div class="top-banner swiper-container">
+			<!-- Additional required wrapper -->
+			<div id="div_banner" class="swiper-wrapper">
+				<!-- Slides -->
+				<script id="siler_tmpl" type="text/x-dot-template">
+					{{~it:value:index}}
+					<div class="swiper-slide">
+						<img data-id="{{= value.image_id}}" src="{{? value.image_url}} {{= imageServer + common.replace(value.image_url, '\\\\', '\/') }} {{??}} ./images/goods_banner.jpg{{?}}" onclick="{{? value.image_href}} window.location.href='{{= value.image_href}}';{{?}}" alt="">
+					</div>
+					{{~}}
+				</script>
+			</div>
+			<!-- If we need pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+		<div class="goods-list__container">
+			<ul id="ul_goodsls" class="goods-list">
+			</ul>
+		</div>
+		<div class="weui-tabbar footer-menu">
+			<a href="activity.html" class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+            		<i class="weui-tabbar__icon icon-message"></i>
+        		</span>
+				<p class="weui-tabbar__label">星聚吧</p>
+			</a>
+			<a href="javascript:;" class="weui-tabbar__item weui-bar__item_on">
+				<span style="display: inline-block;position: relative;">
+            		<i class="weui-tabbar__icon icon-book"></i> 
+       			</span>
+				<p class="weui-tabbar__label">星商城</p>
+			</a>
+			<a href="my.html" class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+            		<i class="weui-tabbar__icon icon-person"></i>
+       			</span>
+				<p class="weui-tabbar__label">我的</p>
+			</a>
+		</div>
+	</body>
+	<script src="js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api/ecommerce.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bower_components/swiper/dist/js/swiper.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="ecommerce/js/ecommerce.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

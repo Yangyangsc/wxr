@@ -1,0 +1,157 @@
+﻿{
+  "user" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "SELECT SQL_CALC_FOUND_ROWS user_id,user_name,user_email,user_mobile,user_account,dept_name FROM FW_USERS LEFT JOIN FW_DEPARTMENT ON FW_USERS.DEPT_ID=FW_DEPARTMENT.DEPT_ID WHERE FW_USERS.REC_ISDELETED=0",
+      "sort": "user_name",
+      "search": 
+      [
+        {"pattern": " and user_name like '%@name@%' "},
+        {"pattern": " and dept_name like '%@deptname@%' " }
+      ],
+      "field": [
+        {"name": "user_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dept_name","format": "","nullValue": "","mapping": "deptname"},
+        {"name": "user_name","format": "", "nullValue": "", "mapping": "name"},
+        {"name": "user_mobile","format": "","nullValue": "","mapping": "mobile"}
+      ]
+    }
+  },
+  "department" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "SELECT SQL_CALC_FOUND_ROWS dept_id,dept_name,dept_code FROM FW_DEPARTMENT WHERE REC_ISDELETED=0",
+      "sort": "dept_name",
+      "search": 
+      [
+        {"pattern": " and dept_name like '%@name@%' " }
+      ],
+      "field": [
+        {"name": "dept_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dept_name","format": "","nullValue": "","mapping": "name"},
+        {"name": "dept_code","format": "", "nullValue": "", "mapping": "code"}
+      ]
+    }
+  },
+  "addrole" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS role_id,role_name from fw_roles where role_id not in (select role_id from fw_userrole where user_id='@query.user_id@') and rec_isdeleted=0",
+      "sort": "role_name",
+      "search": 
+      [
+        {"pattern": " and role_name like '%@name@%' "}
+      ],
+      "field": [
+        {"name": "role_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "role_name","format": "","nullValue": "","mapping": "name"}
+      ]
+    }
+  },
+  "addroleuser" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS user_id,user_name,d.dept_name from fw_users left join fw_department d on fw_users.dept_id=d.dept_id where user_id not in (select user_id from fw_userrole where role_id='@query.role_id@') and fw_users.rec_isdeleted=0",
+      "sort": "user_name",
+      "search": 
+      [
+        {"pattern": " and user_name like '%@name@%' "}
+      ],
+      "field": [
+        {"name": "user_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "dept_name","format": "","nullValue": "","mapping": "deptname"},
+        {"name": "user_name","format": "","nullValue": "","mapping": "name"}
+      ]
+    }
+  },
+  "adduserandrole" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS * from (select user_id as id,user_name as name,0 as type,'用户' as typename from fw_users where rec_isdeleted=0 union select role_id as id,role_name as name,1 as type,'角色' as typename from fw_roles where rec_isdeleted=0) item where (1=1)",
+      "sort": "type",
+      "search": 
+      [
+        {"pattern": " and name like '%@query.name@%' "},
+        {"pattern": " and type = '@query.type@' "}
+      ],
+      "field": [
+        {"name": "id"},
+        {"name": "name"},
+        {"name": "type"},
+        {"name": "typename"}
+      ]
+    }
+  },
+  "district" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS district_id,district_name,district_index from bas_district where rec_isdeleted=0 and district_level=@query.level@",
+      "sort": "district_index",
+      "search": 
+      [
+        {"pattern": " and district_name like '%@query.name@%' "}
+      ],
+      "field": [
+        {"name": "district_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "district_name","format": "","nullValue": "","mapping": "name"}
+      ]
+    }
+  },
+  "store" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS store_id,store_name from bus_store where rec_isdeleted=0",
+      "sort": "store_name",
+      "search": 
+      [
+        {"pattern": " and store_name like '%@query.name@%' "}
+      ],
+      "field": [
+        {"name": "store_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "store_name","format": "","nullValue": "","mapping": "name"}
+      ]
+    }
+  },
+  "addmembergroup" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS group_id,group_name,(case group_type when 0 then '免费群' when 1 then '收费群' when 2 then '公众号' end) as typename from crm_group where rec_isdeleted=0 and group_id not in (select group_id from crm_group_user where user_id='@query.user_id@')",
+      "sort": "group_index",
+      "search": 
+      [
+        {"pattern": " and group_name like '%@query.name@%' "}
+      ],
+      "field": [
+        {"name": "group_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "group_name","format": "","nullValue": "","mapping": "name"},
+         {"name": "typename","format": "","nullValue": "","mapping": "typename"}
+      ]
+    }
+  },
+  "mediacatalog" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select rec_id,item_name  from fw_dict_item dict where dict_id='7793eac3-56b8-4535-a492-a094884808ba'",
+      "sort": "item_value",
+      "field": [
+        {"name": "rec_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "item_name","format": "","nullValue": "","mapping": "name"}
+      ]
+    }
+  },
+  "addservice" : {
+    "list": {
+      "sqltype":"sql",
+      "sql": "select SQL_CALC_FOUND_ROWS service_id,service_name from brh_bas_service where service_id not in (select service_id from brh_service where enterprise_id='@query.enterprise_id@') and rec_isdeleted=0",
+      "sort": "service_name",
+      "search": 
+      [
+        {"pattern": " and service_name like '%@name@%' "}
+      ],
+      "field": [
+        {"name": "service_id","format": "","nullValue": "","mapping": "id"},
+        {"name": "service_name","format": "","nullValue": "","mapping": "name"}
+      ]
+    }
+  }
+}

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>活动订单</title>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    
+    
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <script type="text/javascript" src="./Scripts/activitydatareport.js"></script>
+     <style type="text/css">
+        .datagrid-footer{background-color: #1b8cf2;}
+        .datagrid-footer .datagrid-ftable{color: #fff}
+    </style>
+</head>   
+<form id="aspnetForm" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div id="side" data-options="region:'west',split:true,title:'活动列表'" style="width: 200px; border-left: none;">
+            <table id="dgActivity"></table>
+            <!--<div id="tools_2" style="width: 100%; border: none;">
+                <div class="easyui-panel" style="padding: 5px; border: none;">
+                    <a id="btnNewCatalog" href="#" class="easyui-linkbutton" title="新建"  data-options="plain:true,iconCls:'icon-add'">新建</a>
+                    <a id="btnEditCatalog" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-edit'">编辑</a>
+                    <a id="btnDeleteCatalog" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                </div>
+            </div>-->
+        </div>
+        <div class="main" id="bt_index_layout_center" data-options="region:'center',title:'活动统计'">
+            <div id="tabActivity" class="easyui-tabs" data-options="fit:true">
+                <div title="活动分析图"   style="padding: 10px;display: none" data-options="fit:true">
+                    <iframe id="activityChart"  frameborder="0"  src="" style="width:100%;height:100%;">
+
+                    </iframe>
+                </div>
+                <div title="汇总明细"   style="padding: 10px;display: none" data-options="fit:true">
+                    <table id="dgTicket"></table>
+                    <div id="tools_ticket" style="width: 100%; border: none">
+                        <div class="easyui-panel" style="width: 100%;padding: 5px; border: none">
+                            <a href="#" id="btnOrderTickets" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'">导出Excel</a>
+                        </div>
+                    </div>
+                </div>
+                <div title="订单明细"  style="padding: 10px;" data-options="fit:true">
+                    <table id="dg"></table>
+                    <div id="tools_order" style="width: 100%; border: none">
+                        <div style="margin-bottom: 5px">
+                            <table class="form_table" style="padding-top: 10px;width:98%">
+                                <tr>
+                                    <th style="width:80px">用户姓名:</th>
+                                    <td style="width:85px"><input class="easyui-textbox theme-textbox-radius" search-options="key:'username'" style="width: 80px;"/></td>
+                                    <!--<th style="width:50px">渠道来源:</th>
+                                    <td style="width:105px">
+                                        <input class="easyui-textbox theme-textbox-radius" search-options="key:'channel'" style="margin-left: 0px;" type="text" value="" /></td>-->
+                                    <th style="width:80px">类型:</th>
+                                    <td style="width:95px">
+                                        <select  search-options="key:'gift',method:'combobox'" class="easyui-combobox theme-textbox-radius easyui-validatebox" data-options="editable:false,panelHeight:'auto'" style="width: 90px;">
+                                            <option value="" selected>全部</option>
+                                            <option value="1">赠票</option>
+                                            <option value="0">销售票</option>
+                                        </select>
+                                    </td>
+                                    <th style="width:80px">票类:</th>
+                                    <td style="width:115px">
+                                        <select id="actTicket" search-options="key:'ticket',method:'combobox'"  class="easyui-combobox theme-textbox-radius" style="width: 110px; height: 28px;">
+                                            
+                                        </select>
+                                    </td>
+                                    <td >
+                                        <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                                        <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                                    </td>
+                                    <!--<th style="width:50px">签到状态:</th>
+                                    <td style="width:105px">
+                                        <select search-options="key:'checkcount',method:'combobox'" class="easyui-combobox theme-textbox-radius" data-options="editable:false" style="width:100px; height: 28px;">
+                                            <option value="" selected>全部</option>
+                                            <option value=">=1">有签到</option>
+                                            <option value="is null">未签到</option>
+                                        </select>
+                                    </td>-->
+                                </tr>
+                                <!--<tr>
+                                     <th>工作单位:</th>
+                                    <td>
+                                        <input class="easyui-textbox theme-textbox-radius" search-options="key:'company'" style="margin-left: 0px;width:110px" type="text" value="" /></td>
+                                     
+                                    
+                                </tr>-->
+                            </table>
+                        </div>
+                        <div class="easyui-panel"  style="width: 100%; padding: 5px; border: none">
+                            <a href="#" id="btnOrderExcel" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'">导出Excel</a>
+                        </div>
+                    </div>
+                </div>
+                 <div title="渠道明细"  style="padding: 10px" data-options="fit:true">
+                    <table id="dgChannel"></table>
+                    <div id="tools_Channel" style="width: 100%; border: none">
+                         <table class="form_table" style="padding-top: 10px;">
+                                <tr>
+                                    <th style="width:60px">渠道名称:</th>
+                                    <td style="width:75px">
+                                        <input class="easyui-textbox theme-textbox-radius" search-options="key:'channelname'" style="margin-left: 0px;width:70px" type="text" value="" /></td>
+                                    <th style="width:60px">票务类型:</th>
+                                    <td  style="width:105px">
+                                        <select id="actTicket4Channel" search-options="key:'ticketid',method:'combobox'"  class="easyui-combobox theme-textbox-radius" style="width: 100px; height: 28px;">
+                                        </select>
+                                    </td>
+								
+                                    <!--<th style="width:60px">售票记录:</th>
+                                    <td style="width:115px">
+                                        <select search-options="key:'ticketcount',method:'combobox'" class="easyui-combobox theme-textbox-radius" data-options="editable:false" style="width: 110px; height: 28px;">
+                                            <option value="" selected>全部</option>
+                                            <option value="0">仅显示有销售</option>
+                                        </select>
+                                    </td>-->
+                                    <td>
+                                        <a href="#" id="btnSearchChannel" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                                        <a href="#" id="btnResetChannel" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                                    </td>
+                                </tr>
+                            </table>
+                            <div class="easyui-panel" style="width: 100%; padding: 5px; border: none">
+                                <a href="#" id="btnOrderChannel" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'">导出Excel</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

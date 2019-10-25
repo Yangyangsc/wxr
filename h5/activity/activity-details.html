@@ -1,0 +1,168 @@
+<!-- 添加div div_go_home css -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<title>活动详情</title>
+	<!-- build:css css/style.css -->
+	<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<!-- endbuild -->
+	<!-- build:js js/goods-details.js -->
+	<style type="text/css">
+		.ticket-active {
+			border-color: blue;
+			color: blue;
+		}
+
+		.ticket-disabled {
+			border-color: gray;
+			color: #4c4c4c;
+		}
+
+		.order-menu.weui-tabbar .weui-tabbar__item p {
+			font-size: 1.6rem;
+		}
+
+		.weui-cell_primary img {
+			max-width: 100%;
+		}
+
+		.my-order__item .weui-media-box__title {
+			font-size: 1.5rem;
+		}
+
+		.div_go_home {
+			width: 3.5rem;
+			height: 3.5rem;
+			position: absolute;
+			right: .3rem;
+			top: .5rem;
+			background: #f2f2f2;
+			border-radius: 50%;
+		}
+	</style>
+</head>
+
+<body id="by_content" class="container-with-footermenu" style="background: #f2f2f2;">
+
+</body>
+<!--描述：模版-->
+<script id="act_tmpl" type="text/x-dot-template">
+	<div class="goods-details__wrapper">
+			<div id="div_go_home" class="div_go_home">
+					<img src="../images/go_home.png" style="width:100%;height:100%;padding:.2rem"></img>
+				</div>
+		<div id="div_cover" class="top-banner swiper-container hide">
+			<img src="{{? it.activity_cover}} {{= imageServer + common.replace(it.activity_cover, '\\\\', '\/') }} {{??}}./images/activity_defualt.jpg{{?}}"
+			 alt="">
+		</div>
+		<div id="div_info" class="my-order__item activity-details__item hide">
+			<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+				<div class="weui-media-box__bd">
+					<h4 class="weui-media-box__title">{{= it.activity_topic}} {{? it.activity_member_only==1}}<span class="weui-badge pull-right" style="margin-left: 5px;color: white;">会员专享</span>{{?}}
+					</h4>
+					<p class="book-info"><i class="icon icon-clock"></i>{{=common.combine2DateString(it.activity_date_start,it.activity_date_end)}}</p>
+					<div class="row">
+						<p class="book-info pull-left" style="line-height: 15px;"><i class="icon icon-map"></i>{{= it.activity_city_name+it.activity_location}}</p>
+						<p class="book-info pull-right" style="display:none">{{? it.saletotal>0}} 已报名人数：{{= it.saletotal}}人{{?}}</p>
+					</div>
+				</div>
+			</a>
+		</div>
+
+		<div id="div_guige" class="weui-panel__bd hide" style="margin:10px auto 10px auto;width: 100%;background-color: white;float:left;padding: 14px 15px 10px;font-size: 1.4rem;">
+			<div style="height: 100%;width: 30px;float: left;background-color: white;margin-top: 2px;">规格</div>
+			<div style="height: 100%;float: left;background-color: white;margin-bottom: 10px;">
+				{{~ it.ticket:titem:index}}
+				<div data-json='{{= JSON.stringify(titem)}}' class="ticket-gg {{? index==0}} ticket-active {{??}} ticket-disabled{{?}}" style="float: left;margin:auto 5px;border: solid 1px;padding: 1px 5px 2px; border-radius: 3px;">
+					{{= titem.ticket_title + (isgift ? (((titem.ticket_max-titem.ticket_sold)<=0? " 已售罄":' 剩余 '+(titem.ticket_max-titem.ticket_sold))):'')}}
+				</div>
+				{{~}}
+			</div>
+			<!--<div style="clear: both;">
+					<div class="pull-left">数量&nbsp;&nbsp;&nbsp;&nbsp;</div>
+					<div class="input-box pull-left">
+						<i id="i_reduce" class="icon-less icon "></i>
+						<input id="buy_count" readonly="readonly" type="number" class="goodscount" value="1" max="1" />
+						<i id="i_increase" class="icon-more icon "></i>
+					</div>
+				</div>-->
+		</div>
+
+		<div id="div_rtcontent" style="clear: both;" class="weui-panel comment-panel activity-details-panel">
+			<div id="div_jieshao" class="weui-panel__hd hide">活动介绍</div>
+			<div class="weui-panel__bd">
+				<div class="weui-media-box weui-media-box_small-appmsg">
+					<div class="weui-cells">
+						<div id="div_rcontent" class="weui-cell">
+							<div class="weui-cell__bd weui-cell_primary">
+								{{= it.rich_text}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="div_foot" class="weui-tabbar footer-menu order-menu hide">
+		<a id="a_price" href="javascript:;" class="weui-tabbar__item">
+			</a>
+		<a style="display:none" href="../membership/index.html?memberid=929906d3-39d2-11e7-812f-f0def1c78a21" class="weui-tabbar__item join {{? it.vip_count>0}} hide{{?}}">
+			<p class="weui-tabbar__label">加入会员</p>
+		</a>
+		<a id="a_freebuy" href="javascript:;" class="weui-tabbar__item buy" style="display: none;">
+			<p class="weui-tabbar__label">免费报名</p>
+		</a>
+		<a id="a_buy" href="javascript:;" class="weui-tabbar__item buy" style="display: none;">
+			<p class="weui-tabbar__label">立即报名</p>
+		</a>
+		<a id="a_not" href="javascript:;" class="weui-tabbar__item buy" style="background: gray;display: none;">
+			<p class="weui-tabbar__label">售罄</p>
+		</a>
+		<a id="a_giftbuyed" href="javascript:;" class="weui-tabbar__item buy" style="background: gray;display: none;">
+			<p class="weui-tabbar__label">您已领取</p>
+		</a>
+		<a id="a_end" href="javascript:;" class="weui-tabbar__item buy" style="background: gray;{{? it.activity_end==0}} display: none;{{?}}">
+			<p class="weui-tabbar__label">活动已结束</p>
+		</a>
+	</div>
+</script>
+<script id="price_tmpl" type="text/x-dot-template">
+	<span class="weui-tabbar__label">
+		{{? isgift}}
+			<p class="price-normal" style="line-height: 50px;color:blue;font-size:1.8rem">免费赠票</p>
+		{{??}}
+			{{? it.ticket_discount_price<=0}}
+				<p class="price-normal">免费</p>
+			{{??}}
+				<p class="price-normal"><span class="unit">¥</span>{{= it.price[0]}} <span class="dot">.{{= it.price[1]}}</span></p>
+				{{? it.ticket_member_price==0}}
+					<p class="price-vip text-blue">会员免费</p>
+				{{?? it.ticket_member_price>0}}
+					<p class="price-vip text-blue">会员价:¥{{= it.ticket_member_price.toFixed(2)}}</p>
+				{{?}}
+			{{?}}
+		{{?}}
+	</span>
+</script>
+<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+<!-- <script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script> -->
+<script src="../js/api/activity.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/actdetail.js?rand=0002" type="text/javascript" charset="utf-8"></script>
+
+</html>

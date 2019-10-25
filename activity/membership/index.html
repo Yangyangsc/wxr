@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>万物皆媒</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="./css/main.css">
+  <style>
+    .bottom-button__fixed {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+
+    .bottom-button__fixed .weui-btn {
+      border-radius: 0;
+      font-size: 19px;
+    }
+
+    .bottom-button__fixed .weui-btn.weui-btn_warn {
+      background-color: #0063f2;
+    }
+  </style>
+
+  <!-- endbuild -->
+
+  <!-- build:js js/main.js -->
+  <!-- endbuild -->
+</head>
+
+<body>
+  <img id="img_poster" src="" alt="" class="home-img">
+  <div id="div_bar" class="bottom-button__fixed" style="display:none;">
+    <a id="a_member" href="javascript:;" class="weui-btn weui-btn_warn ">
+      <!--<span id="s_price"></span>元/年<span style="margin-left:18px;">立即报名</span>-->
+      <span id="joinbutton"></span>
+    </a>
+  </div>
+</body>
+<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/apiCaller.js"></script>
+<script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+<script type="text/javascript" src="../js/wechatHelper.js"></script>
+<script src="../js/lib/weui.min.js"></script>
+<script src="../bower_components/dot/doT.min.js"></script>
+<script src="../bower_components/zepto/zepto.min.js"></script>
+<script type="text/javascript" src="../js/message.js"></script>
+<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+<script>
+  $(function () {
+    var memberid = common.query().memberid;
+    var serial = common.query().serial;
+    var shareSerial = common.query().shareserial;
+  
+    if (common.isEmpty(memberid)) {
+      return alert("页面缺少重要参数!");
+    }
+
+    var userid = common.query().userid;
+    var successed = common.query().successed;
+    if (typeof successed == "undefined" && common.isEmpty(userid)) {
+      var url = window.location.href;
+      url += url.indexOf("?") < 0 ? "?" : "&";
+      window.location.href = wechatAuth + '?url=' + url + "scope=1";
+      return;
+    } else if (common.isEmpty(userid)) {
+      return alert("页面缺少重要参数！");
+    } else {
+		common.addCache("USER_ID", userid);
+		apiCaller.call('ismember/', {
+			type: 'get',
+			data: {
+				memberid: memberid,
+				userid: userid
+			},
+			success: function(result) {
+				if(result.ismember) {
+					window.location.href = "http://activity.huanxinkeji.cn/activity.html?cateid=bf2c83ef-e93e-4bcd-b5bb-7ffa031764e8&slider=activity-top&title=%E5%BC%AF%E5%BC%93%E8%81%9A%E5%90%A7";
+				}
+			}
+		});
+		setTimeout(getMemberDetail,1500)
+	};
+
+	function getMemberDetail() {
+		apiCaller.call('membertype/' + memberid, {
+			type: 'get',
+			success: function(result) {
+				if(result.data) {
+					var memberTitle = result.data.member_name;
+					///修改页面标题
+					document.title = memberTitle;
+					//*修改微信导航栏的标题，只能通过下面毛招
+					var $body = $('body');
+					var $iframe = $('<iframe width="0px" height="0px" src="/favicon.ico"></iframe>');
+					$iframe.on('load', function() {
+						setTimeout(function() {
+							$iframe.off('load').remove();
+						}, 0);
+					}).appendTo($body);
+					///*******************************
+					var btnText = result.data.button_text;
+					if(common.isEmpty(btnText)) btnText = result.data.member_price + '元/年   立即报名';
+					$("#joinbutton").html(btnText);
+
+					if(result.data.member_poster) {
+						$("#img_poster").attr("src", imageServer + result.data.member_poster)
+					}
+					var btnColor = result.data.button_color;
+					if(!common.isEmpty(btnColor)) $("#a_member").css('backgroundColor', btnColor);
+					$('#a_member').attr("href", "./pages/submit.html?memberid=" + memberid + "&userid=" + userid + (shareSerial ? ("&shareserial=" + shareSerial) : ''));
+					$("#div_bar").css("display", "block");
+
+					///缓存微信分享数据
+					var shareOption = {
+						title: result.data.share_title || memberTitle, //"万物皆媒",
+						desc: result.data.member_desc || "邀你加入万物皆媒",
+						imgUrl: imageServer + (result.data.share_image ? result.data.share_image : "product/0e5c8fd0-b10b-4c8d-87ea-b62e31f7c99e.jpg"),
+						link: "http://activity.huanxinkeji.cn/membership/index.html?memberid=" + memberid + "&shareserial=" + serial
+					};
+					common.cacheShareOption(shareOption);
+					///初始化微信分享
+					common.createWXShareInit(shareOption, function() {
+						wechatHelper.hideCopyLink();
+					});
+				}
+			},
+			error: function(err) {
+				///缓存微信分享数据
+				var shareOption = {
+					title: "星会员",
+					desc: "邀你加入星会员",
+					imgUrl: imageServer + "product/0e5c8fd0-b10b-4c8d-87ea-b62e31f7c99e.jpg",
+					link: "http://activity.huanxinkeji.cn/membership/index.html?memberid=" + memberid + "&shareserial=" + serial
+				};
+				///初始化微信分享
+				common.createWXShareInit(shareOption, function() {
+					wechatHelper.hideCopyLink();
+				});
+				message.toast(err, messageType.error)
+			}
+		});
+	}
+});
+</script>
+
+</html>

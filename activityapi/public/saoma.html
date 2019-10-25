@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title></title>
+    <meta charset="utf-8" />
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="JQ/jquery-1.7.1.js"></script>
+
+    <script type="text/javascript">
+        $.get("/wechat/jsconfig", {
+            url: location.href.split('#')[0]
+        }, function (result) {
+            alert(JSON.stringify(result));
+            console.log(result);
+            if (result.successed) {
+                wx.config({
+                    debug: true,
+                    appId: result.appId,
+                    timestamp: result.timestamp,
+                    nonceStr: result.nonceStr,
+                    signature: result.signature,
+                    jsApiList: ['onMenuShareTimeline', 'onMenuShareAppMessage', 'scanQRCode'],
+                });
+                wx.ready(function () {
+                    // wx.checkJsApi({
+                    //     jsApiList: ['scanQRCode'],
+                    //     success: function (res) {
+                    //     }
+                    // });
+
+                    //扫描二维码
+                    document.querySelector('#scanQRCode').onclick = function () {
+                        alert(111);
+                        wx.scanQRCode({
+                            needResult: 1, // 默认为0，扫描结果由微信处理，1则直接返回扫描结果，
+                            scanType: ["qrCode", "barCode"], // 可以指定扫二维码还是一维码，默认二者都有
+                            success: function (res) {
+                                var result = res.resultStr; // 当needResult 为 1 时，扫码返回的结果
+                                alert("扫描成功::扫描码=" + result);
+                            }
+                        });
+                    };//end_document_scanQRCode
+
+                });//end_ready                        
+            } else {
+                alert(result.message)
+            }
+        }, "json");
+
+        //调用微信JS api 支付
+    </script>
+</head>
+
+<body style="height:100%;width:100%;">
+    <div style="background-color:red;height:100%;width:100%">
+        <input type="button" id="scanQRCode" value="hehe" style="width:210px; height:50px; border-radius: 15px;background-color:#00CD00; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;"
+        />
+
+    </div>
+</body>
+
+</html>

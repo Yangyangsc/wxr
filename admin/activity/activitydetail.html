@@ -1,0 +1,262 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>活动管理</title>
+      <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <!--<link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">-->
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+     <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <script type="text/javascript" src="../Scripts/dataBusinessConst.js"></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+     <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <!--百度富文本编辑器-->
+     <script type="text/javascript" src="../Scripts/UEdit-1.4.4/ueditor.config.js"></script>
+     <script type="text/javascript" src="../Scripts/UEdit-1.4.4/ueditor.all.min.js"></script>
+     <script type="text/javascript" src="../Scripts/UEdit-1.4.4/lang/zh-cn/zh-cn.js"></script>
+
+<!--<script type="text/javascript" src='../Scripts/jquery-zclip/jquery.zclip.js'></script>-->
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_memberHelper.js"></script>
+    <script type="text/javascript" src="Scripts/activitydetail.js"></script>
+
+    
+
+    <!--<link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+     <style type="text/css">
+        .tagbox-label {height: 25px !important;line-height: 24px !important;padding: 0px 24px 0px 17px;}
+        #divTicket .datagrid-row {
+            height: 45px;
+        }
+        #divChannel .datagrid-row {
+            height: 40px;
+        }
+        #divChannel .datagrid-cell{
+            white-space:normal; 
+        }
+        #divChannel .datagrid-cell img {
+            max-height: inherit;
+        }
+        #divChannel .datagrid-cell-c2-logo {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <form id="formActivity">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <div id="tabActivity" class="easyui-tabs" data-options="tabWidth:140,tabHeight:35,fit:true">
+                    <div title="<span class='tt-inner'>活动设置</span>" style="padding: 10px;" data-options="fit:true">
+                        <table class="form_table" style="padding-top: 10px; width: 90%" data-options="fit:true">
+                            <tr>
+                                <th style="width: 120px">主题:
+                                </th>
+                                <td colspan="3">
+                                    <input placeholder="活动主题" class="easyui-textbox theme-textbox-radius" style="width: 95%" name="topic" data-options="missingMessage:'请输入活动主题名称',invalidMessage:'活动主题不能超过128个字符!',required:true,validType:'length[1,128]'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    背景:
+                                   
+                                </th>
+                                <td>
+                                    <img alt="封面" id="imgCover" src="../images/activity/default.jpg" style="border: solid 1px #fff;width:190px;height:90px;cursor: pointer"/>
+                                    <input type="hidden" name="cover" id="activityCover" />
+                                </td>
+                                <td colspan="2"><div class="alert-success" style="line-height: 20px;width:83%">背景展示图长宽比例 2：1， 建议尺寸750px*370px</div></td>
+                            </tr>
+                            
+                            <tr>
+                                <th>分类:
+                                </th>
+                                <td>
+                                    <select id="actCatalog" name="catalogid" class="select easyui-validatebox" style="width: 160px; height: 28px;" data-options="missingMessage:'请选择活动分类',required:true">
+                                        <option value="" selected>请选择活动分类</option>
+                                    </select>
+                                </td>
+                                <th>发布状态:
+                                </th>
+                                <td>
+                                     <select name="status" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 160px; height: 28px;">
+                                        <option value="0"  selected>草稿</option>
+                                        <option value="1">发布</option>
+                                        <option value="2">结束</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td/>
+                                 <td colspan="3"><div class="alert-success" style="line-height: 20px;width:90%">适用会员用于设置具备入会资格的成员参加,多选。置空代表不限制参加者身份</div></td>
+                            </tr>
+                            <tr>
+                                <th>适用会员:
+                                </th>
+                                <td colspan="3">
+                                    <input id="actMembers" class="easyui-combobox theme-textbox-radius" style="width:95%; height: 32px;"/>
+                                    <input type="hidden" name="formember" id="hidMembers">
+                                </td>
+                               <!--<td colspan="2">
+                                   <div class="alert-success" style="line-height: 20px;width:90%">仅具备会员资格的成员参加（多选）,不填代表不限制身份</div>
+                               </td>-->
+                            </tr>
+                            <tr>
+                                <th>举办城市: </th>
+                                <td>
+                                    <input placeholder="请选择活动城市"  class="easyui-textbox theme-textbox-radius" id="cityname"  style="width: 90px" readonly name="cityname" data-options="missingMessage:'请选择城市',required:true" />
+                                    <input type="hidden" class="" id="cityid" name="cityid" />
+                                    <a href="#" class="easyui-linkbutton"  iconcls="icon-choose" popup-options="title:'请选择城市',datakey:'district',param:{level:'2'},controlInstance:[{control:'cityname',key:'name',validate:true},{control:'cityid',key:'id'}],icon:'icon-orgnization'">选择</a>
+                                </td>
+                                <th>地址坐标:</th>
+                                <td>
+                                    <input placeholder="地址经纬度"  class="easyui-textbox theme-textbox-radius" name="ext2"  style="width: 90px"  />
+                                    <a href="http://lbs.qq.com/tool/getpoint/" class="easyui-linkbutton" target="_blank"  iconcls="icon-choose">定位</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>详细地址:
+                                </th>
+                                <td colspan="3">
+                                    <input placeholder="活动详细地址，如街道、建筑物、门牌号"  name="location"  class="easyui-textbox theme-textbox-radius" style="width: 95%" rows="3" data-options="invalidMessage:'详细地址超过255个字符!',validType:'length[0,127]'"/>
+                                </td>
+                            </tr>
+                            <tr>
+                               <th>开始时间:
+                                </th>
+                                <td>
+                                    <input class="easyui-datetimebox theme-textbox-radius" id="dtstart"  name="start" style="width: 160px;" data-options="required:true,showSeconds:false">
+                                </td>
+                                <th>结束时间:
+                                </th>
+                                <td>
+                                    <input class="easyui-datetimebox theme-textbox-radius"  id="dtend" name="end" style="width: 160px;" data-options="required:true,showSeconds:false">
+                                </td>
+                            </tr>
+                            <tr>
+                               <th>报名截止:
+                                </th>
+                                <td>
+                                    <input class="easyui-datetimebox theme-textbox-radius"  name="ticketend" style="width: 160px;" data-options="required:true,showSeconds:false">
+                                </td>
+                            </tr>
+							<tr>
+                                <td/>
+                                <td colspan="3"><div class="alert-success" style="line-height: 20px;width:90%">微信用户成功报名活动后,平台发送至用户手机的短信内容</div></td>
+                            </tr>
+							<tr>
+                                <th>报名短信:
+                                </th>
+                                <td colspan="3">
+                                    <input   name="shortmsg"  class="easyui-textbox theme-textbox-radius" style="width: 95%;height: 60px" rows="3" data-options="multiline:true,invalidMessage:'短信内容超过300个字符!',validType:'length[0,300]'"/>
+                                </td>
+                            </tr>
+                            <tr>
+                               <th>活动标签:
+                                </th>
+                                <td colspan="3">
+                                    <input  id="labelInput" class="easyui-tagbox theme-textbox-radius" style="width: 85%;height: 32px;" data-options="invalidMessage:'标签不能超过255个字符!',validType:'length[0,255]'"></input>
+                                    <input type="hidden" name="label" id="realLabel">
+                                    <input type="hidden" name="labelid" id="labelid">
+                                    <a href="#" class="easyui-linkbutton"  iconcls="icon-choose" popup-options="title:'请选择标签',multiselect:true,onlyleaf:true,type:'tree',param:{dataUrl:'/label/tree'},afterSelectFunc:setActivitylable">选择</a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td/>
+                                <td colspan="3"><div class="alert-success" style="line-height: 20px;width:90%">标签信息代表活动的关键属性 如：‘新媒体’,'营销内容'。报名的用户会增加对此标签的兴趣</div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="alert-warning alert-block" style="line-height: 20px;width:100%">微信分享设置</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                 <th style="width: 110px">
+                                    分享小图:
+                                </th>
+                                <td>
+                                    <img alt="分享图片" id="imgShare" src="../images/activity/default_share.jpg" style="border: solid 1px #ccc;width:90px;height:90px;cursor: pointer"/>
+                                    <input type="hidden" name="share" id="activityShare" />
+                                </td>
+                                <td colspan="2"><div class="alert-success" style="line-height: 20px;width:90%">分享小图长宽比例 1：1， 建议尺寸200px*200px</div></td>
+                            </tr>
+                            <tr>
+                                <th>分享标题（售）:
+                                </th>
+                                <td>
+                                    <input  placeholder="分享标题(如无，则同活动主题)"  name="sharetitle" class="easyui-textbox theme-textbox-radius" style="width: 150px" data-options="invalidMessage:'分享标题不能超过50个字符!',validType:'length[0,50]'"></input>
+                                </td>
+                                <th>分享标题（赠）:
+                                </th>
+                                <td>
+                                    <input  placeholder="分享标题(如无，则同活动主题)"  name="gifttitle" class="easyui-textbox theme-textbox-radius" style="width: 150px"  data-options="invalidMessage:'分享标题不能超过50个字符!',validType:'length[0,50]'"></input>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>分享内容:
+                                </th>
+                                <td colspan="3">
+                                    <input placeholder="分享内容" class="easyui-textbox  theme-textbox-radius" style="width: 95%;height: 60px" name="desc" data-options="multiline:true,invalidMessage:'分享内容不能超过200个字符!',validType:'length[1,200]'">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div title="活动详情" style="padding: 10px;" data-options="fit:true">
+                        <script type="text/plain" id="editor" style="width: 850px; height: 370px;">
+                        </script>
+                    </div>
+                    <div id="divTicket" title="票务设置" style="padding: 10px;" data-options="fit:true">
+                        <div id="tools_Ticket" style="width: 100%; border: none;">
+                            <div class="easyui-panel" style="padding: 5px; border: none">
+                                <a id="lnkAddTicket" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
+                                <a id="lnkRemoveTicket" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                            </div>
+                        </div>
+                        <table id="dgTicket" class="form_table" style="padding-top: 10px;" align="center">
+                        </table>
+                    </div>
+                    <div id="divChannel" title="合作渠道" style="padding: 10px;" data-options="fit:true">
+                        <div id="tools_Channel" style="width: 100%; border: none;">
+                            <div class="easyui-panel" style="padding: 5px; border: none">
+                                <a id="lnkAddChannel" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">新增</a>
+                                <a href="#" id="btnChannel" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-OfficeExcel'">导出Excel</a>
+                                <a id="lnkRemoveChannel" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                            </div>
+                        </div>
+                        <table id="dgChannel" class="form_table" style="padding-top: 10px;" align="center">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<body

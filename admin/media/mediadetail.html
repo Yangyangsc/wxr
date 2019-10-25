@@ -1,0 +1,280 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>媒体管理</title>
+      <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <!--<link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">-->
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+     <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <script type="text/javascript" src="../Scripts/dataBusinessConst.js"></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+     <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="Scripts/mediadetail.js"></script>
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+     <style type="text/css">
+        .tagbox-label {height: 25px !important;line-height: 24px !important;padding: 0px 24px 0px 17px;}
+    </style>
+</head>
+<body>
+    <form id="formMedia">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <div id="tabMedia" class="easyui-tabs" data-options="tabWidth:140,tabHeight:35,fit:true">
+                    <div title="<span class='tt-inner'>基本信息</span>" style="padding: 10px;" data-options="fit:true">
+                        <table class="form_table" style="padding-top: 10px; width: 90%" data-options="fit:true">
+                            <tr>
+                                <th style="width: 120px">媒体名称:
+                                </th>
+                                <td>
+                                    <input placeholder="名称" class="easyui-textbox theme-textbox-radius"  name="name" data-options="missingMessage:'请输入名称',invalidMessage:'名称不能超过64个字符!',required:true,validType:'length[1,64]'" />
+                                </td>
+                                <td colspan="2" align="center" rowspan="2" >
+                                    <img alt="图标" id="imgLogo" src="../images/media/default.png" style="border: solid 1px #fff;border-radius: 20%; width:64px;height:64px;cursor: pointer"/>
+                                    <input type="hidden" name="logo" id="mediaLogo" />
+                                </td>
+                            </tr>
+                            <tr>
+                               <th style="width: 120px">账号Id:
+                                </th>
+                                <td>
+                                    <input placeholder="Id" class="easyui-textbox theme-textbox-radius"  name="mediano" data-options="invalidMessage:'id不能超过64个字符!',validType:'length[1,64]'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>承载平台:
+                                </th>
+                                <td>
+                                     <select name="type" id="selType" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                        <option value="0">微信</option>
+                                        <option value="1">微博</option>
+                                        <option value="2">其他</option>
+                                    </select>
+                                </td>
+                                <th class="platform">平台名称:
+                                </th>
+                                <td class="platform">
+                                     <input placeholder="Id" class="easyui-textbox theme-textbox-radius"  name="platform" data-options="invalidMessage:'名称不能超过64个字符!',validType:'length[1,64]'" />
+                                 </td>
+                            </tr>
+                             
+                            <tr>
+                                <th>类型:
+                                </th>
+                                <td>
+                                    <input placeholder="请选择媒体类别"  class="easyui-textbox theme-textbox-radius" id="contentname"  style="width: 90px" readonly name="contentname" data-options="missingMessage:'请选择媒体类别',required:true" />
+                                    <input type="hidden" class="" id="contenttype" name="contenttype" />
+                                    <a href="#" class="easyui-linkbutton"  iconcls="icon-choose" popup-options="title:'请选择媒体类别',datakey:'mediacatalog',controlInstance:[{control:'contentname',key:'name',validate:true},{control:'contenttype',key:'id'}],icon:'icon-orgnization'">选择</a>
+                                </td>
+                                <th>内容形式:
+                                </th>
+                                <td>
+                                   <select name="showtype" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                        <option value="0" selected>图文</option>
+                                        <option value="1">漫画</option>
+                                        <option value="2">音频</option>
+                                        <option value="3">视频</option>
+                                        <option value="4">其他</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>头部大号:
+                                </th>
+                                <td>
+                                   <select name="istop" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                        <option value="0">否</option>
+                                        <option value="1">是</option>
+                                    </select>
+                                </td>
+                                <th>媒体等级:
+                                </th>
+                                <td>
+                                   <select name="level" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                        <option value="0">普通媒体</option>
+                                        <option value="1">严选媒体</option>
+                                        <option value="2">优选媒体</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>链接地址:
+                                </th>
+                                <td colspan="3">
+                                    <input   name="url"  class="easyui-textbox theme-textbox-radius" style="width: 90%;"  data-options="invalidMessage:'请输入合法的url地址!',validType:'url'"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>粉丝数量（万）:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="fans" data-options="required:true,min:1,max:100000,precision:0">
+                                </td>
+                                <th>分类排名:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="rank" data-options="min:1,max:9999999,precision:0">
+                                </td>
+                            </tr>
+                             <tr>
+                                <th>平均阅读:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="avgread" data-options="required:true,min:1,precision:0">
+                                </td>
+                                <th>头条阅读:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="headread" data-options="required:true,min:1,precision:0">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>用户转化率:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="translate" data-options="min:1,max:100,precision:2"> %
+                                </td>
+                                <th>用户转化成本:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="usercost" data-options="min:1,precision:0,prefix:'￥'">
+                                </td>
+                            </tr>
+                            <tr>
+                               <th>媒体标签:
+                                </th>
+                                <td colspan="3">
+                                    <input  id="labelInput" class="easyui-tagbox theme-textbox-radius" style="width: 90%;height: 32px;" data-options="invalidMessage:'标签不能超过255个字符!',validType:'length[0,255]'"></input>
+                                    <input type="hidden" name="label" id="realLabel">
+                                </td>
+                            </tr>
+                           <tr>
+                                <th>媒体简介:
+                                </th>
+                                <td colspan="3">
+                                    <input   name="describ"  class="easyui-textbox theme-textbox-radius" style="width: 90%;height: 50px"  data-options="multiline:true,invalidMessage:'备注超过255个字符!',validType:'length[0,255]'"/>
+                                </td>
+                            </tr>
+                           
+                        </table>
+                    </div>
+                    <div title="<span class='tt-inner'>运营主体</span>" style="padding: 10px;" data-options="fit:true">
+                        <table class="form_table" style="padding-top: 10px; width: 90%" data-options="fit:true">
+                            <tr>
+                                <th>运营主体:
+                                </th>
+                                <td>
+                                     <select name="hosttype" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                        <option value="0" selected>个人</option>
+                                        <option value="1">公司</option>
+                                    </select>
+                                </td>
+                            </tr>
+                           <tr>
+                                <th>主体名称:
+                                </th>
+                                <td colspan="3">
+                                   <input placeholder="主体名称"  style="width:95%" name="hostname"  class="easyui-textbox theme-textbox-radius"  data-options="invalidMessage:'主体名称超过128个字符!',validType:'length[0,128]'"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>运营者账号:
+                                </th>
+                                <td>
+                                   <input placeholder="运营账号"  name="operator"  class="easyui-textbox theme-textbox-radius"  data-options="invalidMessage:'运营账号超过50个字符!',validType:'length[0,128]'"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>所在地市:
+                                </th>
+                                <td>
+                                    <input placeholder="请选择主体所在城市"  class="easyui-textbox theme-textbox-radius" id="cityname"  style="width: 120px" readonly name="city" data-options="missingMessage:'请选择城市',required:true" />
+                                    <input type="hidden" class="" id="cityid" name="cityid" />
+                                    <a href="#" class="easyui-linkbutton"  iconcls="icon-choose" popup-options="title:'请选择城市',datakey:'district',param:{level:'2'},controlInstance:[{control:'cityname',key:'name',validate:true},{control:'cityid',key:'id'}],icon:'icon-orgnization'">选择</a>
+                                </td>
+                                <th>联系电话:
+                                </th>
+                                <td>
+                                     <input placeholder="联系电话"  name="telephone"  class="easyui-textbox theme-textbox-radius" data-options="invalidMessage:'联系电话超过20个字符!',validType:'length[0,20]'"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div title="<span class='tt-inner'>投放报价</span>" style="padding: 10px;" data-options="fit:true">
+                        <table class="form_table" style="padding-top: 10px; width: 90%" data-options="fit:true">
+                             <tr>
+                                <th>头条投放报价: </th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="headprice" data-options="required:true,min:1,precision:2,prefix:'￥'">
+                                </td>
+                                <th>二条投放报价:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="secondprice" data-options="required:true,min:1,precision:2,prefix:'￥'">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>头条投放成本: </th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="headpricecost" data-options="min:1,precision:2,prefix:'￥'">
+                                </td>
+                                <th>二条投放成本:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="secondpricecost" data-options="min:1,precision:2,prefix:'￥'">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>报价有效日期: </th>
+                                <td>
+                                     <input class="easyui-datebox theme-textbox-radius" name="vdate" data-options="required:true">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>撰稿服务: </th>
+                                <td>
+                                    <select name="contribution" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                        <option value="0" selected>不撰稿</option>
+                                        <option value="1">提供撰稿</option>
+                                        <option value="2">视情况而定</option>
+                                    </select>
+                                </td>
+                                <th>撰稿费用:</th>
+                                <td>
+                                     <input class="easyui-numberbox theme-textbox-radius" name="contributionprice" data-options="min:1,precision:2,prefix:'￥'">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>投放排除内容:
+                                </th>
+                                <td colspan="3">
+                                    <input name="except"  class="easyui-textbox theme-textbox-radius" style="width: 95%;height: 60px"  data-options="multiline:true,invalidMessage:'备注超过255个字符!',validType:'length[0,255]'"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<body

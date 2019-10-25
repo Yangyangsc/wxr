@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>通用选择</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+     <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    
+    <script type="text/javascript" src="./js/selectSearchSetting.js"></script>
+    <script type="text/javascript" src="./js/commonSelect.js"></script>
+   
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+</head>  
+<form id="aspnetForm" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <table id="dg"></table>
+        <div id="tools_1" style="padding: 5px; text-align: right">
+            <div class="dialog-button" style="text-align: right; padding: 3px 0 3px 40px;">
+                <a href="#" id="lnkUpload" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-ok'" onclick="ConfirmSelected()">确定</a>
+                <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-cancel'" onclick="dialogHelper.closeModal()">取消</a>
+            </div>
+            <div id="searchBox" style="margin-bottom: 5px">
+                <div id="searchContent"></div>
+                <div id="searchSubmit" style="padding-right: 5px;display: none">
+                         <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>&nbsp;&nbsp;
+                         <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+

@@ -1,0 +1,90 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>商品分类管理</title>
+         <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>    <script type="text/javascript" src="../Scripts/const.js"></script>
+
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+
+      <script>
+        var detailForm,imgCatalog;
+        $(document).ready(function () {
+            imgCatalog= new uploader('imgcatalog',{fileKey:'productcatalog',refControl:{contentControl:'catalogImage',imageControl:'imgcatalog'}});
+            detailForm = new detailForm('formCatalog', {
+                initForm:function(){$('#pid').val( $.getUrlParam("pid"));},
+                bindOption: { url:'/productcatalog/' },
+                saveOption: {
+                button: '#lnkSave', url: '/productcatalog',
+                    successFunc: function (result) {
+                        result.text = $('#catename').val();
+                        dialogHelper.closeModal(result);
+                    }
+                }
+            });
+            detailForm.bindForm();
+        });
+     </script>
+</head>
+
+<body>
+    <form id="formCatalog">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align:left;padding:10px 0 10px 40px;">
+                    <a href="#"  class="easyui-linkbutton"  iconcls="icon-save" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();"  class="easyui-linkbutton"  iconcls="icon-cancel" style="margin-left:7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <table class="form_table" style="padding-top:10px;width:90%" data-options="fit:true">
+                    <tr>
+                        <th style="width:30%">名称:</th>
+                        <td style="width:50%">
+                            <input class="easyui-textbox theme-textbox-radius" style="margin-left:0px;width:90%" type="text" id="catename" name="name" data-options="missingMessage:'请输入名称！',required:true" value="" /></td>
+                        <td rowspan="2" valign="top">
+                                <img src=" ../images/member/default.png" id="imgcatalog" width="48px" style="border:1px solid #888; cursor:pointer" />
+                                <input type="hidden" name="image" id="catalogImage" />
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>排序:</th>
+                        <td>
+                            <input class="easyui-numberbox theme-textbox-radius" type="text" name="index" value="0" /></td>
+                    </tr>
+                    <tr>
+                        <th>停用:</th>
+                        <td>
+                            <input type="checkbox"  name="diabled"/></td>
+                    </tr>
+                </table>
+            </div>
+            <input name="pid" id="pid" style="display: none">
+        </div>
+    </form>
+</body>

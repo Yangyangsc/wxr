@@ -1,0 +1,286 @@
+/* 整体部分 */
+.r_layout {
+  /* padding-bottom: .5rem; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 0 .3rem;
+  min-height: 100%;
+}
+
+
+.rankBackBox {
+  width: .52rem;
+  height: .52rem;
+  position: absolute;
+  left: .3rem;
+  top: .08rem;
+  background-image: url(../../images/answer/rankBack.png);
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.rankBackBox a {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.r_head {
+  width: 6.92rem;
+  height: 2.37rem;
+  background-image: url(../../images/rank_sign.png);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  background-position: center;
+  margin-bottom: .2rem;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sign_btn {
+  width: 2.04rem;
+  height: .59rem;
+  -webkit-animation: shake 1.5s .2s infinite ease both;
+  -moz-animation: shake 1.5s .2s infinite ease both;
+  margin-bottom: .2rem;
+}
+
+.r_box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 6.8rem;
+  min-height: 65vh;
+  padding-top: 1.08rem;
+  padding-bottom: .34rem;
+  background-image: url(../../images/rink_head_top.png), url(../../images/rink_head_bottom.png), url(../../images/rink_bgs.png);
+  background-size: 100%;
+  background-repeat: no-repeat, no-repeat, repeat-y;
+  background-position: top, bottom, center;
+}
+
+.content {
+  padding: .1rem;
+  width: 6.14rem;
+  background: #00395a;
+}
+
+.content.user {
+  margin-top: .14rem;
+}
+
+.content.common {
+  margin-top: .3rem;
+}
+
+.content.user .item {
+  background: #fff;
+}
+
+.content.common .item:nth-of-type(-n+3) {
+  background-color: #fff9ca;
+  border: .05rem solid #fdad33;
+}
+
+.content.common .item {
+  background: #caf1ff;
+  border: .05rem solid transparent;
+}
+
+.item {
+  padding: .1rem;
+  border-radius: .04rem;
+  display: flex;
+  align-items: center;
+}
+
+.item .item_left {
+  width: 1.32rem;
+  height: .61rem;
+  border: .03rem solid #8ef4fc;
+  color: #8ef4fc;
+  font-size: .51rem;
+  font-family: rankFont;
+  background-color: #00395a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: .07rem;
+  padding-bottom: .01rem;
+}
+
+.succ_boxs {
+  display: none;
+}
+
+
+.item .item_middle {
+  width: 2.65rem;
+  display: flex;
+  align-items: center;
+}
+
+
+.item .item_middle .item_img {
+  width: .8rem;
+  height: .8rem;
+  border-radius: 50%;
+  margin-right: .2rem;
+}
+
+.item .item_middle .item_who {
+  color: #00395a;
+  font-size: .26rem;
+  font-family: titFont;
+}
+
+.item .item_middle .item_who p:first-of-type {
+  width: 1.7rem;
+  font-size: .32rem;
+  font-family: titFont;
+}
+
+.item .item_right .item_succ {
+  width: 1.76rem;
+  height: .3rem;
+  margin-bottom: .18rem;
+}
+
+.item .item_right .item_succ .succ_ok {
+  width: 1.76rem;
+  height: .3rem;
+  line-height: .3rem;
+  text-align: center;
+  color: #fdad33;
+  font-size: .22rem;
+  border-radius: .04rem;
+  border: .02rem solid #fdad33;
+  font-family: titFont;
+}
+
+.item .item_right .item_correct {
+  color: #00395a;
+  font-size: .26rem;
+  font-family: titFont;
+}
+
+
+.item+.item {
+  margin-top: .1rem;
+}
+
+/* 排行榜弹窗 */
+
+.r_popup {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.r_popup_box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.r_popup_cont {
+  width: 6.28rem;
+  height: 8.44rem;
+  border-radius: .2rem;
+  border: .03rem solid #0eeef1;
+  padding: .23rem;
+}
+
+.r_popup_info {
+  width: 100%;
+  height: 100%;
+  border-radius: .2rem;
+  background-color: #fff;
+  box-shadow: 0 0 1rem #19faff inset;
+  padding: .88rem .93rem 0;
+}
+
+.r_popup_info .p_cont {
+  color: #2c56b3;
+  font-size: .3rem;
+  font-weight: bold;
+  line-height: .54rem;
+}
+
+.r_popup_info .qrcode {
+  width: 2.59rem;
+  height: 2.59rem;
+  margin-top: .55rem;
+}
+
+.r_popup_info .long_press {
+  color: #2c56b3;
+  font-size: .26rem;
+  font-weight: bold;
+  font-family: titFont;
+}
+
+.r_popup_info .erwei_text {
+  margin: .18rem auto .1rem;
+}
+
+.r_popup_close {
+  width: .52rem;
+  height: .52rem;
+}
+
+
+@-webkit-keyframes shake {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -webkit-transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    -webkit-transform: translateX(5px);
+  }
+}
+
+@-moz-keyframes shake {
+
+  0%,
+  100% {
+    -moz-transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    -moz-transform: translateX(-5px);
+  }
+
+  20%,
+  40%,
+  60%,
+  80% {
+    -moz-transform: translateX(5px);
+  }
+}

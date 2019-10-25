@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>确认订单</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+		<!-- build:js js/goods-details.js -->
+	</head>
+
+	<body class="container-with-footermenu" style="background: #f2f2f2;">
+		<div class="goods-details__wrapper">
+			<div id="div_products" class="weui-panel weui-panel_access goods-order__info">
+
+			</div>
+			<div class="weui-panel address-panel">
+				<div class="weui-panel__hd">
+					<a id="a_addaddr" href="javascript:;" class="add-address pull-right">添加收件地址</a>收件信息</div>
+				<div class="weui-panel__bd">
+					<div class="weui-media-box weui-media-box_small-appmsg">
+						<div id="div_addrlist" class="weui-cells weui-cells_radio">
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="weui-tabbar footer-menu order-menu">
+			<a href="javascript:;" class="weui-tabbar__item flex-2">
+				<span class="weui-tabbar__label">
+        		<p class="price-total"><span class="text">总计：</span><span class="unit">¥</span>
+				<span id="sp_totalunit"></span>
+				<span class="dot">.<span id="sp_totaldot"></span></span>
+				</p>
+				</span>
+			</a>
+			<a id="a_buy" href="javascript:;" class="weui-tabbar__item buy flex-3">
+				<p class="weui-tabbar__label">立即购买</p>
+			</a>
+		</div>
+
+		<!--描述：地址模版-->
+		<script id="addr_tmpl" type="text/x-dot-template">
+			{{~it:value:index}}
+			<a id="a_{{=value.address_id}}" class="weui-cell weui-cell_access" href="javascript:;">
+				<div class="weui-cell__hd">
+					<label class="weui-cell weui-check__label" for="addr_{{=value.address_id}}">
+                  <div class="weui-cell__hd">
+                      <input type="radio" class="weui-check" addrinfo='{{=JSON.stringify(value)}}' name="raddr" id="addr_{{=value.address_id}}" {{? value.address_default==1}} checked="checked" {{?}}>
+                      <i class="weui-icon-checked"></i>
+                  </div>
+                </label>
+				</div>
+				<div class="weui-cell__bd weui-cell_primary">
+					<div class="clearfix">
+						<span class="pull-right mobile">{{=value.mobile}}</span>
+						<span class="pull-left username">{{=value.recipient}}</span>
+					</div>
+					<p class="address">收货地址：{{=value.city_name+value.district_name+value.address_name}}</p>
+				</div>
+				<span onclick="delAddress('{{= value.address_id}}')" class="delete-btn"></span>
+			</a>
+			{{~}}
+		</script>
+
+		<!--描述：商品模版-->
+		<script id="prd_tmpl" type="text/x-dot-template">
+			{{~it.products:value:index}} {{ it.youhui+=value.saleprice-value.vipprice; }}
+			<div id="productid" pid="{{=value.id}}" class="weui-panel__bd">
+				<a href="javascript:void(0);" class="weui-media-box weui-media-box_appmsg">
+					<div class="weui-media-box__hd">
+						<img class="weui-media-box__thumb" src="{{? value.img}} {{= imageServer + common.replace(value.img, '\\\\', '\/') }}{{?}}" alt="">
+					</div>
+					<div class="weui-media-box__bd">
+						<h4 class="weui-media-box__title">{{= value.name}}</h4>
+						<p class="goods-text">{{? value.memo}}{{= value.memo}}{{?}}</p>
+						<div class="clearfix goods-info_price">
+							<div class="input-box pull-right">
+								<i id="i_test" class="icon-less icon reduce"></i>
+								<input id="goodscount" readonly="readonly" type="number" class="goodscount" price="{{? it.isvip==1}} {{= value.vipprice}} {{??}} {{= value.saleprice}} {{?}}" value="1" max="{{= value.buymax}}" />
+								<i class="icon-more icon increase"></i></div>
+							<p class="goods-price pull-left">¥{{? it.isvip==1}}{{= (value.vipprice+8).toFixed(2)}}{{??}} {{= (value.saleprice+8).toFixed(2)}}{{?}}<span>(含运费¥8.00)</span></p>
+						</div>
+					</div>
+				</a>
+			</div>
+			{{~}} {{? it.isvip==0}}
+			<div class="weui-panel__ft">
+				<a href="../membership/index.html?memberid=929906d3-39d2-11e7-812f-f0def1c78a21" class="weui-cell weui-cell_access weui-cell_link">
+					<div class="weui-cell__bd">立享<span class="price">{{= it.youhui.toFixed(2)}}</span>元，还有更多会员福利</div>
+					<span class="weui-cell__ft">加入会员</span>
+				</a>
+			</div>
+			{{?}}
+		</script>
+	</body>
+	<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/user.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/ecommerce.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="js/goodsorder.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

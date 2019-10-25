@@ -1,0 +1,54 @@
+﻿{
+  "appsetting": {
+    "crypto":"md5",
+    "TokenCryptKey":"LITECODER.COM",
+    "security":"true",
+    "savelocal":true,
+    "QRCryptkey":"LITECODER.COM.Qr",
+    "QRImgRelative":"",
+    "QRImgSaveDir":""
+  },
+  "connections":{
+    "dev":{"host": "127.0.0.1","user": "super","password": "pass@word1","database": "framework_wxr",
+        "waitForConnections": false,
+        "connectionLimit": 10,
+        "multipleStatements": true}
+  },
+  "redisSession":false,
+  "redisConnections": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "db":0,
+        "auth_pass": ""
+  },
+  "aliYunOSS":{
+    "region": "oss-cn-shenzhen",
+    "accessKeyId": "L9OCzx9cu00xmJ7N",
+    "accessKeySecret": "9yhIlPwgt3oMNAoLtuAvDRzOzaymBs",
+    "bucket": "lanmeihuitest"
+  },
+  "cacheHandler":"",
+  "weChat":{
+    "appID":"wx3d5296018f11f9a7",
+    "appSecret":"6ec7a9f70a7a6099930ab80ae8ff3e24",
+    "token":"280b3bb72c8c4a5aacf48fb2b7e91338",
+    "encodingAESKey":"zlmiHthcdPA6Z9ybtu0XofgxNgTmdlwX1wGEpmFybPE",
+    "merchantID":"1464160102",
+    "merchantKey":"WAngONGxinmEItI20170426ZMFhaPPY0",
+    "oathCallBack":"http://webapi.huanxinkeji.cn/wechat/oauth/callback",
+    "mpPayCallBack":"http://webapi.huanxinkeji.cn/wechat/mp/pay/callback",
+	  "sharePage":"",
+    "activity_id":"abb814b0-a783-4b01-84b8-d829364ffea4"
+  },
+  "sms":{
+    "CorpID":"GZLKJ0005261",
+    "Pwd":"wg@668"
+  },
+  "membergift":{
+    "giftend":"2017-06-10",
+    "giftid":"c15786b8-b6a2-4e46-8e53-a1efca0191af",
+    "ticketid":"9f0ecb0c-be76-4bf5-b5cb-e5d7e6a81102"
+  },
+  "writeFileRootFolder":"C:/pj/adminapi/public",
+  "membershareurl":"http://activity.huanxinkeji.cn/membership/index.html?memberid=929906d3-39d2-11e7-812f-f0def1c78a21"
+}

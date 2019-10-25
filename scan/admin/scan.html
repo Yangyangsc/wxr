@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+  <title>报名成功</title>
+  <!-- build:css css/style.css -->
+  <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+  <link rel="stylesheet" type="text/css" href="../css/main.css">
+  <script src="../js/doT.js?v=1.0.0.0"></script>
+  <script src="../scripts/zepto.min.js?v=1.0.0.0"></script>
+  <script src="../scripts/weui.min.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/common.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/apiCaller.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/fromWechat.js?v=1.0.0.0"></script>
+  <script type="text/javascript" src="../js/requireLogin.js?v=1.0.0.0"></script>
+  <script id="order_array_tmpl" type="text/x-dot-template">
+    {{~it:value:index}} {{? value.split("|").length==2}}
+    <a href={{="./barcode-scan.html?orderid=" +common.query().orderid+ "&type=" +value.split( "|")[1]}} class="weui-btn weui-btn_primary btn-scan">
+      <span class="scan icon"></span>{{=value.split("|")[0]}}
+    </a>
+    {{?}} {{~}}
+  </script>
+  <script>
+    var initLoad = function () {
+      var orderid = common.query().orderid;
+      apiCaller.authCall('activity/' + orderid + '/checkinbuttons', {
+        type: 'get',
+        success: function (result) {
+          if (result.successed && result.rows.length > 0) {
+            var rowData = result.rows[0];
+            var buttons = rowData.buttons.split(',');
+            var arrText = doT.template($("#order_array_tmpl").text());
+            var innerHTML = arrText(buttons);
+            $(".activity-list__wrapper").html(innerHTML);
+          }
+
+        },
+        error: function () {
+          weui.alert('活动不存在')
+        }
+      })
+    }
+    $(function () {
+      initLoad();
+    })
+  </script>
+
+</head>
+
+<body>
+  <div class="activity-list__wrapper">
+
+  </div>
+</body>
+
+</html>

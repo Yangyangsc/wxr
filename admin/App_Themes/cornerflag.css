@@ -1,0 +1,150 @@
+
+/*
+    Article component
+*/
+.g-article {
+    position: relative;
+    float: left;
+}
+
+@media only screen and (min-width: 767px) {
+    .g-article {
+        width: 50%;
+    }
+}
+
+.article {
+    border-radius: 3px;
+    margin-bottom: 3px;
+    color: #333;
+    -webkit-transition: width .25s ease-out;
+    transition: width .25s ease-out;
+}
+
+.article-title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    padding-left: 5px;
+    padding-right: 5px;
+    margin-top: 12px;
+    margin-bottom: 12px;
+    height: 72px;
+}
+
+.article-title a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.article-title a:hover {
+    color: #83d6de;
+}
+
+
+@media only screen and (max-width: 767px) {
+    .article-title {
+        height: 59px;
+        font-size: 2rem;
+    }
+}
+
+.article-title:hover {
+    color: #999;
+}
+
+.article-title > a {
+    display: block;
+}
+
+.article-title > a:hover {
+    color: inherit;
+}
+
+.article-meta {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-bottom: 5px;
+    overflow: hidden;
+}
+
+.article-image {
+    border-radius: 3px;
+}
+
+/*
+    Flag component
+*/
+
+.flag {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 0;
+}
+
+.flag:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-style: solid;
+    border-width: 24px;
+    z-index: 1;
+}
+
+@media only screen and (max-width: 450px) {
+    .flag:before {
+        border-width: 20px;
+    }
+}
+
+.flag-text {
+    -moz-transform: rotate(-45deg);
+    -ms-transform: rotate(-45deg);
+    -o-transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg) translateZ(0);
+    transform: rotate(-45deg) translateZ(0);
+    color: #FFF;
+    display: inline-block;
+    position: absolute;
+    top: 5px;
+    left: 0;
+    z-index: 1;
+    font-size: 10px;
+    text-transform: uppercase;
+    width: 30px;
+    text-align: center;
+}
+
+.flag-text--large {
+    font-size: 17px;
+}
+
+@media only screen and (max-width: 450px) {
+    .flag-text {
+        font-size: 8px;
+        width: 40px;
+        top: 16px;
+        left: 0;
+    }
+
+    .flag-text--large {
+        font-size: 14px;
+    }
+}
+
+.flag.is-new:before {
+    border-color: rgba(4,120,0,.9) transparent transparent rgba(4,120,0,.9);
+}
+
+@media only screen and (max-width: 450px) {
+    .flag.is-new .flag-text {
+        top: 12px;
+    }
+}
+
+.flag.is-offer:before {
+    border-color: rgba(206,3,5,.7) transparent transparent rgba(206,3,5,.7);
+}

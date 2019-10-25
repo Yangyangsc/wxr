@@ -1,0 +1,78 @@
+﻿{
+  "activityOrder":{
+      "worksheet":"活动订单",
+      "columns":[
+          {"name": "orderdate","title": "日期"},
+          {"name": "name","title": "姓名"},
+          {"name": "mobile","title": "电话"},
+          {"name": "company","title": "工作单位"},
+          {"name": "position","title": "职位"},
+          {"name": "enrolldata","title": "报名资料"},
+          {"name": "channel","title": "引荐渠道"},
+          {"name": "ticket","title": "购票类型"},
+          {"name": "count","title": "购票数量"},
+          {"name": "checkcount","title": "签到数量"},
+          {"name": "price","title": "票面价格"},  
+          {"name": "discount","title": "渠道折扣"},
+          {"name": "total","title": "支付金额"}
+        ]
+  },
+  "activitychannel":{
+      "worksheet":"合作渠道",
+      "columns":[
+          {"name": "name","title": "渠道名称"},
+          {"name": "memo","title": "合作备注"},
+          {"name": "linkurl","title": "推广链接"},
+          {"name": "discount","title": "渠道折扣"},
+          {"name": "disabled","title": "合作状态"}
+        ]
+  },
+  "activityChannelTotal":{
+      "worksheet":"活动渠道推广",
+      "columns":[
+          {"name": "name","title": "渠道名称"},
+          {"name": "tickettitle","title": "票务类型"},
+          {"name": "count","title": "销售数量"},
+          {"name": "total","title": "销售金额"}
+        ]
+  },
+  "activityTicketSales":{
+      "worksheet":"票务汇总",
+      "columns":[
+          {"name": "ticket_title","title": "票务类型"},
+          {"name": "count","title": "总销售数量"},
+          {"name": "total","title": "总销售金额"},
+          {"name": "channelcount","title": "销售数量(合作渠道)"},
+          {"name": "channeltotal","title": "销售金额(合作渠道)"}
+        ]
+  },
+  "memberinfo":{
+      "worksheet":"会员信息",
+      "columns":[
+          {"name": "name","title": "名称"},
+          {"name": "real_name","title": "真实姓名"},
+          {"name": "sexname","title": "性别"},
+          {"name": "mobile","title": "手机号码"},
+          {"name": "city","title": "所在城市"},
+          {"name": "corp","title": "工作单位"},
+          {"name": "department","title": "部门"},
+          {"name": "position","title": "职位"},
+          {"name": "levelname","title": "会员类别"},
+          {"name": "permanentname","title": "会员期效"},
+          {"name": "start","title": "会员期效(起)"},
+          {"name": "end","title": "会员期效(止)"},
+          {"name": "guidename","title": "推荐人"},
+          {"name": "groups","title": "所在群"}
+        ]
+  },
+  "joinMemberOrder":{
+      "worksheet":"入会订单",
+      "columns":[
+          {"name": "paydate","title": "入会日期"},
+          {"name": "username","title": "会员名称"},
+          {"name": "mobile","title": "联系电话"},
+          {"name": "total","title": "入会金额"},
+          {"name": "guider","title": "引导人"}
+        ]
+  }
+}

@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<script>
+			var reg = /\s*title\s*=\s*([^&]*)?/i;
+			var result = reg.exec(decodeURIComponent(window.location.href));
+			if(result) {
+				var hehe = document.getElementsByTagName("head");
+				var eleTile = document.createElement("title");
+				eleTile.innerText = result[1];
+				hehe[0].appendChild(eleTile);
+			}
+		</script>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="./bower_components/weui/dist/style/weui.css">
+		<link rel="stylesheet" href="./bower_components/swiper/dist/css/swiper.min.css">
+		<link rel="stylesheet" type="text/css" href="./css/main.css">
+		<!-- endbuild -->
+		<!-- build:js js/goods-details.js -->
+		<script src="./bower_components/swiper/dist/js/swiper.min.js"></script>
+		<!-- endbuild -->
+		<style>
+			.weui-media-box__thumb {
+				height: 100%;
+			}
+			
+			.weui-media-box_appmsg .weui-media-box__hd {
+				margin-right: 16px;
+			}
+			
+			.home-info{
+			    overflow: hidden;
+			    text-overflow: ellipsis;
+			    white-space: nowrap;
+			    word-wrap: normal;
+			    word-wrap: break-word;
+			    word-break: break-all;
+			}
+			.weui-badge{
+				vertical-align: baseline;
+			}
+		</style>
+	</head>
+
+	<!--轮播广告-->
+	<script id="siler_tmpl" type="text/x-dot-template">
+		{{~it:value:index}}
+		<div class="swiper-slide">
+			<img data-id="{{= value.image_id}}" src="{{? value.image_url}} {{= imageServer + common.replace(value.image_url, '\\\\', '\/') }} {{??}} ./images/goods_banner.jpg{{?}}" onclick="{{? value.image_href}} window.location.href='{{= value.image_href}}';{{?}}" alt="">
+		</div>
+		{{~}}
+	</script>
+
+	<body class="container-with-footermenu">
+		<div class="top-banner swiper-container">
+			<!-- Additional required wrapper -->
+			<div id="div_banner" class="swiper-wrapper">
+				<!-- Slides -->
+			</div>
+			<!-- If we need pagination -->
+			<div class="swiper-pagination"></div>
+		</div>
+		<div id="div_actlist" class="goods-list__container">
+
+		</div>
+		<div id="div_nodata" style="height: 100%; width: 100%; text-align: center;padding-top: 33%; display: none; ">
+			<img src="images/no_data2.png" />
+		</div>
+		<!--描述：活动模版-->
+		<script id="act_tmpl" type="text/x-dot-template">
+			{{~it:value:index}}
+			<a href="javascript:window.location.href='./activity/activity-details.html?activityid={{=value.activity_id}}';" class="weui-media-box weui-media-box_appmsg home-item">
+				<div class="weui-media-box__hd" style="height: 82px;">
+					<img class="weui-media-box__thumb" src="{{? value.activity_cover}} {{= imageServer + common.replace(value.activity_cover, '\\\\', '\/') }} {{??}}./images/activity_defualt.jpg{{?}}" alt="">
+				</div>
+				<div class="weui-media-box__bd">
+					<h4 class="weui-media-box__title">{{= value.activity_topic}}</h4>
+					<p class="home-info">{{=value.activity_date_start}}</p>
+					<p class="home-info">{{=value.activity_city_name+value.activity_location}}</p>
+					<p class="price-details" style="padding-top: 5px;">
+						{{? value.activity_end==1}}
+							<span class="weui-badge" style="margin-left: 5px;float: right;background-color: gray;">已结束</span> 
+						{{?? value.activity_is_free==1 || (value.ticket_discount_price<=0 && value.ticket_price<=0)}}
+							<span class="weui-badge" style="margin-left: 5px;float: right;background-color: green;">免费</span> 
+						{{??}} 
+							{{? value.activity_member_only}}
+								<span class="weui-badge" style="margin-left: 5px;float: right;">会员专享</span> 
+							{{??}}
+								<span class="normal">价格：¥{{?value.ticket_discount_price}}{{=value.ticket_discount_price}}{{??}} {{=value.ticket_price}}{{?}}</span> 
+							{{?}} 
+							{{? value.ticket_member_price}}
+								<span style="{{? value.activity_member_only}} padding-left:0px;{{?}}" class="vip">会员价：¥{{=value.ticket_member_price}}</span> 
+							{{?}} 
+						{{?}}
+					</p>
+				</div>
+			</a>
+			{{~}}
+		</script>
+
+		<div class="weui-tabbar footer-menu">
+			<a id="a_kt" href="activity.html?slider=activity-top&title=星聚吧" onclick="return !(this.className.indexOf('weui-bar__item_on')>0)" class="weui-tabbar__item ">
+				<span style="display: inline-block;position: relative;">
+		            <i class="weui-tabbar__icon icon-message"></i>
+		        </span>
+				<p class="weui-tabbar__label">星聚吧</p>
+			</a>
+			<a id="a_jb" href="activity.html?cateid=6cf932a8-1171-4ef3-9e98-fe9502a84701&slider=class-top&title=线下课堂" onclick="return !(this.className.indexOf('weui-bar__item_on')>0)" class="weui-tabbar__item ">
+				<span style="display: inline-block;position: relative;">
+		            <i class="weui-tabbar__icon icon-message"></i>
+		        </span>
+				<p class="weui-tabbar__label">线下课堂</p>
+			</a>
+			<a href="answer.html" class="weui-tabbar__item">
+				<span style="display: inline-block;position: relative;">
+            		<i class="weui-tabbar__icon icon-person"></i>
+        		</span>
+				<p class="weui-tabbar__label">我的</p>
+			</a>
+		</div>
+	</body>
+
+
+	<script src="bower_components/weui/dist/example/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api/activity.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/api/bas.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="activity/js/activity.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

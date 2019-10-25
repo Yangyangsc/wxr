@@ -1,0 +1,33 @@
+﻿{
+  "appsetting": {
+    "crypto":"md5",
+    "TokenCryptKey":"huanxinkeji.cn",
+    "security":"true",
+	"company":"不明觉厉",
+    "savelocal":true
+  },
+  "connections":{
+    "dev":{"host": "127.0.0.1","user": "super","password": "pass@word1","database": "framework_wxr",
+        "waitForConnections": false,
+        "connectionLimit": 10,
+		"dateStrings":true,
+        "multipleStatements": true}
+  },
+  "writeFileFolder":{
+    "excel":"./public/excel"
+  },
+  "redisSession":false,
+  "redisConnections": {
+        "host": "127.0.0.1",
+        "port": 6379,
+        "db":0,
+        "auth_pass": ""
+  },
+  "aliYunOSS":{
+    "region": "oss-cn-shenzhen",
+    "accessKeyId": "L9OCzx9cu00xmJ7N",
+    "accessKeySecret": "9yhIlPwgt3oMNAoLtuAvDRzOzaymBs",
+    "bucket": "lanmeihuitest"
+  },
+  "cacheHandler":""
+}

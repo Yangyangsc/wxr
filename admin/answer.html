@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>新媒体最强大脑争霸赛</title>
+    <link rel="stylesheet" type="text/css" href="css/schedule.css" />
+    <link rel="stylesheet" type="text/css" href="css/answer_style.css" />
+    <!-- WebApp全屏模式 -->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no,minimal-ui">
+    <!-- 删除苹果默认的工具栏和菜单栏 -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <!-- 设置苹果工具栏颜色 -->
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <!-- safri 添加到主屏界面的显示标题： -->
+    <meta name="apple-mobile-web-app-title" content="新媒体最强大脑争霸赛">
+    <!--忽略页面中的数字识别为电话，忽略email识别 -->
+    <meta name="format-detection" content="telephone=no, email=no" />
+    <!-- 启用360浏览器的极速模式(webkit) -->
+    <meta name="renderer" content="webkit">
+    <!-- 避免IE使用兼容模式 -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- 针对手持设备优化，主要是针对一些老的不识别viewport的浏览器，比如黑莓 -->
+    <meta name="HandheldFriendly" content="true">
+    <!-- 微软的老式浏览器 -->
+    <meta name="MobileOptimized" content="320">
+    <!-- uc强制竖屏 -->
+    <meta name="screen-orientation" content="portrait">
+    <!-- QQ强制竖屏 -->
+    <meta name="x5-orientation" content="portrait">
+    <!-- UC强制全屏 -->
+    <meta name="full-screen" content="yes">
+    <!-- QQ强制全屏 -->
+    <meta name="x5-fullscreen" content="true">
+    <!-- UC应用模式 -->
+    <meta name="browsermode" content="application">
+    <!-- QQ应用模式 -->
+    <meta name="x5-page-mode" content="app">
+    <!-- windows phone 点击无高光 -->
+    <meta name="msapplication-tap-highlight" content="no">
+  </head>
+
+  <body class="box">
+    <!-- loading加载 -->
+    <div class="loading">
+      <img src="./images/answer/donghua.gif">
+      <!-- <p class="progress">0%</p> -->
+    </div>
+
+    <div class="bgContainer">
+
+      <!-- 完善资料 -->
+      <section class="perfect">
+        <img id="perfect_t1" src="./images/answer/answer_completeT1.png">
+        <img id="perfect_t2" src="./images/answer/answer_completeT2.png">
+
+        <!-- 考生性别 -->
+        <section class="p_selectBox">
+          <div class="gender genderOff" data-type="1">男</div>
+          <div class="gender genderOff" data-type="0">女</div>
+        </section>
+
+        <img id="perfect_t3" src="./images/answer/answer_completeT3.png">
+
+        <!-- 从事职业 -->
+        <section class="p_selectBox">
+          <div class="post postOff" data-type="0">文案</div>
+          <div class="post postOff" data-type="1">技术</div>
+          <div class="post postOff" data-type="2">设计</div>
+          <div class="post postOff" data-type="3">运营</div>
+          <div class="post postOff" data-type="4">管理</div>
+          <div class="post postOff" data-type="5">其他</div>
+        </section>
+
+        <!-- 开始答题 -->
+        <div class="test"></div>
+      </section>
+
+      <!-- 主页 -->
+      <section class="homeBox">
+        <!-- 灯 -->
+        <div class="light"></div>
+        <!-- 文字动画 -->
+        <div id="bodymovin">
+          <img src="images/answer/3.gif" alt="">
+        </div>
+        <!-- 门牌 -->
+        <div class="doorplate">
+          <!-- 背景音乐控制按钮 -->
+          <div class="bgMusic bgMusicOn" id="audioBtn"></div>
+          <!-- 剩余次数 -->
+          <div class="residue"></div>
+        </div>
+        <!-- 门 -->
+        <div class="door">
+          <!-- 表演区域 -->
+          <section class="showArea">
+            <section class="peopleGirlBox">
+              <div class="showPeople">
+                <img class="answer_paper" src="images/answer/answer_paper.png" alt="">
+                <img class="right_hands" src="images/answer/right_hands.png" alt="">
+                <img class="cheek_parts" src="images/answer/cheek_parts.png" alt="">
+                <img class="left_hand" src="images/answer/leftHand.png" alt="">
+                <img class="body_parts" src="images/answer/body_parts.png" alt="">
+              </div>
+              <!-- 舞台 -->
+              <section class="stage"></section>
+            </section>
+            <section class="peopleManBox">
+              <div class="showPeople">
+                <img class="man_subject" src="images/answer/mans.png" alt="">
+                <img class="man_right_hands" src="images/answer/man_right_hand.png" alt="">
+                <img class="arm_guard" src="images/answer/arm_guard.png" alt="">
+              </div>
+              <!-- 舞台 -->
+              <section class="stage"></section>
+            </section>
+
+          </section>
+          <!-- 门框 -->
+          <section class="doorFrame"></section>
+
+          <!-- 开始答题 -->
+          <div class="startBut">
+            <div class="jiantou_left">
+              <div></div>
+            </div>
+            <div class="jiantou_right">
+              <div></div>
+            </div>
+          </div>
+          <!-- 我的奖品 -->
+          <div data-href="../../answer_prizelist.html" class="prize jump"></div>
+          <!-- 排行榜 -->
+          <div data-href="../../answer_rankinglist.html" class="ranking_list jump"></div>
+        </div>
+        <!-- 门下线 -->
+        <div class="doorLine"></div>
+        <!-- 地砖 -->
+        <div class="floorTile"></div>
+        <!-- 背景音乐容器 -->
+        <audio id="bgMusic" src="music/subobj_music.mp3" loop="loop" preload="auto"></audio>
+      </section>
+
+      <!-- 答题须知 -->
+      <section class="mustBox">
+        <section class="ruleBox">
+          <!-- 规则段落1 -->
+          <p>本题库是针对新媒体从业者能力的测试</p>
+          <p class="ruleText"><span>规则说明</span></p>
+          <p>1、全程200秒，共20道题；</p>
+          <p class="m_section">2、前100名全对的伙伴，将免费获得2019第四届中国新媒体千人峰会<span>（主题：私域流量崛起与企业媒体化新局）</span>门票一张（原价680元，早鸟票380元）；</p>
+          <p class="m_section">3、排行榜中用时最短的<span>前三位<span>全对精英，将获得<span>VIP票，与大咖共进午餐机会；</span></p>
+          <p class="m_section">4、100名后的小伙伴们，答对一题可在<span>早鸟票</span>价格基础上减10元，最高可减200元；
+            是时候秀出你真正的实力</p>
+          <p class="m_section"><span>获得与新媒体大佬同场，</span></p>
+          <p><span>与秦朔老师共进午餐的机会啦。</span></p>
+        </section>
+
+        <!-- 开始答题 -->
+        <div class="test m_testBut"></div>
+      </section>
+
+      <!-- 答题倒计时 -->
+      <section class="countDownBox">
+        <div class="doorBox">
+          <div id="leftDoor" class="leftDoorOn"></div>
+          <div id="rightDoor" class="rightDoorOn"></div>
+        </div>
+        <div class="c_number"><img src="" alt=""></div>
+      </section>
+
+      <!-- 答题部分 -->
+      <section class="answerBox">
+        <!-- 答题倒计时 -->
+        <section class="countDown">200</section>
+        <!-- 答题主体部分 -->
+        <section class="answerContainer">
+          <section class="answerInfo">
+            <section class="omit">第一题</section>
+            <section class="omit"></section>
+          </section>
+        </section>
+      </section>
+
+      <!-- 生成结果 -->
+      <section class="resultBox">
+        <!-- 边框 -->
+        <div class="resultImg">
+          <section class="userInfo">
+            <section>考生:<text class="names" id="user_name"></text></section>
+            <section>考生号:<text id="user_number"></text></section>
+          </section>
+          <img class="r_frame" src="images/answer/result.png">
+          <img class="r_content" src="">
+
+          <!-- 海报容器 -->
+          <section class="posterBox">
+            <img id="scream" src="images/answer/poster.png">
+            <div class="scream_two">
+              <img id="scream2" src="">
+              <text class="text_score"><text id="textScore"></text></text>
+            </div>
+            <img id="scream3" src="">
+            <canvas id="myCanvas" width="340" height="600"></canvas>
+          </section>
+        </div>
+        <!-- 文字提示 -->
+        <div class="result_hint"></div>
+        <div class="butContainer">
+          <!-- 重新挑战 -->
+          <div class="challenge"></div>
+          <!-- 立即购票 -->
+          <div class="buyBut"></div>
+        </div>
+      </section>
+
+      <!-- 名次弹窗 -->
+      <aside class="mask maskBox">
+        <section class="rank">
+          <span class="r_title1">恭喜您打败了<span id="rankingNum"></span>参赛者</span>
+          <span class="r_title2">成为NO.<span id="pmsNum"></span>新</span>
+          <span class="r_title2">媒体人</span>
+          <span class="explain">关闭弹框后，点击【立即领票】</span>
+          <span class="explain">可获取峰会入场券一张</span>
+          <aside class="knowBut"></aside>
+        </section>
+      </aside>
+
+      <!-- 进度条 -->
+      <aside class="mask schedule">
+        <div class="wrapper">
+          <div class="load-bar">
+            <div class="load-bar-inner" data-loading="0"> <span id="counter"></span> </div>
+          </div>
+          <p></p>
+        </div>
+      </aside>
+
+
+      <!-- 每个人只能答题三次，3次以前的就出现这个弹窗 -->
+      <div class="answerNotPopup">
+        <div class="not_box">
+          <img class="not_arrow" src="images/answer/rink_arrow.png" alt="">
+          <img class="not_img" src="images/answer/answerNotUsedUp.png" alt="">
+        </div>
+      </div>
+
+      <!-- 三次题目都答完的时候就出现这个弹窗 -->
+      <div class="answerHavePopup">
+        <div class="have_box">
+          <img class="have_arrow" src="images/answer/rink_arrow.png" alt="">
+          <img class="have_img" src="images/answer/answerHaveBeen.png" alt="">
+        </div>
+      </div>
+      <div class="Prompt"></div>
+
+      <audio id="openDoor" class="opendoor" src="music/opendoor.mp3" preload="auto"></audio>
+      <audio id="countDownMusic" src="music/count_down_music.mp3" preload="auto"></audio>
+      <!-- REM单位适配文件引入 -->
+      <script type="text/javascript" src="js/answer/answer_reset.js"></script>
+      <script type="text/javascript" src="js/answer/answer_common.js"></script>
+      <script src="js/cache.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/common.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/autoLogin.js" type="text/javascript" charset="utf-8"></script>
+      <script src="bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/api/user.js" type="text/javascript" charset="utf-8"></script>
+      <script src="bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/message.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+      <script src="js/wechatHelperShare.js" type="text/javascript" charset="utf-8"></script>
+
+      <!-- JQ库引入 -->
+      <script src="js/answer/answer_jquery-3.3.1.min.js"></script>
+      <!-- 资源加载数据列表文件 -->
+      <script src="js/answer/answer_resource.js"></script>
+      <!-- 资源加载处理文件 -->
+      <script src="js/answer/answer_resourceLoading.js"></script>
+      <!-- 答题逻辑处理文件 -->
+      <script src="js/answer/answer.js"></script>
+
+  </body>
+</html>

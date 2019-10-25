@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>商品管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <!--百度富文本编辑器-->
+    <script type="text/javascript" src="../Scripts/UEdit-1.4.4/ueditor.config.js"></script>
+    <script type="text/javascript" src="../Scripts/UEdit-1.4.4/ueditor.all.min.js"></script>
+    <script type="text/javascript" src="../Scripts/UEdit-1.4.4/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/productdetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <style type="text/css">
+        .pictures {
+            overflow: auto;
+            height: 100%;
+            background: #fff;
+        }
+
+        .limit {
+            display: none
+        }
+
+        ;
+
+        .pictures ul {
+            list-style: none;
+            margin: 0;
+            padding: 0px;
+        }
+
+        .pictures li:last-child {
+            display: inline;
+            float: left;
+            margin-right: 30px;
+        }
+
+        .pictures li {
+            display: inline;
+            float: left;
+            margin-right: 128px;
+        }
+
+        .pictures li div {
+            text-align: center;
+        }
+
+        .item {
+            display: block;
+            text-decoration: none;
+        }
+
+        .item img {
+            border: 1px solid #333;
+            width: 160px;
+        }
+
+        .item p {
+            margin: 0;
+            font-weight: bold;
+            text-align: center;
+            color: #c3c3c3;
+        }
+
+        .cart {
+            float: right;
+            position: relative;
+            width: 260px;
+            height: 100%;
+            background: #ccc;
+            padding: 0px 10px;
+        }
+
+        .ctitle {
+            text-align: center;
+            color: #555;
+            font-size: 18px;
+            padding: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <form id="formProduct">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel"
+                        style="margin-left: 7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <div id="tabProduct" class="easyui-tabs" data-options="fit:true">
+                    <div title="商品信息" style="padding: 10px;" data-options="fit:true">
+                        <table align="center" class="form_table" style="margin-left: 10px; padding-top: 5px;width:95%"
+                            data-options="fit:true">
+                            <tr>
+                                <td colspan="4" style="padding-left: 8px;" style="color:#333">
+                                    <div style="display: inline; border-left: 8px solid lightgreen"></div>
+                                    &nbsp;&nbsp;基础信息</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width: 80px">名称:</th>
+                                <td colspan="3">
+                                    <input placeholder="商品名称" class="easyui-textbox theme-textbox-radius"
+                                        style="width:85%" name="name"
+                                        data-options="missingMessage:'请输入商品名称',required:true,validType:'length[1,64]'" />
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <th>类型:</th>
+                                <td style="width:180px">
+                                    <input placeholder="商品分类" class="easyui-textbox theme-textbox-radius"
+                                        name="catalogname" style="width:100px" id="catalogname" readonly />
+                                    <input type="hidden" id="catalogid" name="catalogid" />
+                                    <a href="#" class="easyui-linkbutton" iconcls="icon-choose"
+                                        popup-options="title:'请选择商品分类',type:'tree',param:{dataUrl:'/productcatalog'},controlInstance:[{control:'catalogname',key:'text',validate:true},{control:'catalogid',key:'id'}],icon:'icon-category'">选择</a>
+                                </td>
+                                <th>商品属性: </th>
+                                <td>
+                                    <select name="type" class="easyui-combobox theme-textbox-radius"
+                                        data-options="editable:false,panelHeight: 'auto'" style="width: 120px;">
+                                        <option value="1">实物商品</option>
+                                        <option value="0">虚拟商品</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>图片:</th>
+                                <td colspan="3">
+                                    <div class="pictures">
+                                        <ul id="productPictures">
+                                            <li>
+                                                <div style="height:20px;font-size: 9px;color:#666">商品正面</div>
+                                                <img src="../images/product.png" id="imgProduct"
+                                                    style="width:90px;cursor: pointer;border:solid 1px #ccc">
+                                                <div><a href="#" class="easyui-linkbutton" onclick="removeImage()"
+                                                        data-options="plain:true,iconCls:'icon-remove'">删除</a>
+                                            </li>
+                                            <li>
+
+                                                <div style="height:20px;font-size: 9px;color:#666">商品侧面（左）</div>
+                                                <img src="../images/product.png" id="imgProduct1"
+                                                    style="width:90px;cursor: pointer;border:solid 1px #ccc">
+                                                <div><a href="#" class="easyui-linkbutton" onclick="removeImage(1)"
+                                                        data-options="plain:true,iconCls:'icon-remove'">删除</a>
+                                            </li>
+                                            <li>
+                                                <div style="height:20px;font-size: 9px;color:#666">商品侧面（右）</div>
+                                                <img src="../images/product.png" id="imgProduct2"
+                                                    style="width:90px;cursor: pointer;border:solid 1px #ccc">
+                                                <div><a href="#" class="easyui-linkbutton" onclick="removeImage(2)"
+                                                        data-options="plain:true,iconCls:'icon-remove'">删除</a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <input type="hidden" name="image" id="productImage" />
+                                    <input type="hidden" name="image1" id="productImage1" />
+                                    <input type="hidden" name="image2" id="productImage2" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="padding-left: 8px;" style="color:#333">
+                                    <div style="display: inline; border-left: 8px solid lightgreen"></div>
+                                    &nbsp;&nbsp;价格设置</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>市场价格:</th>
+                                <td>
+                                    <input class="easyui-numberbox theme-textbox-radius" style="width:120px"
+                                        name="price"
+                                        data-options="missingMessage:'请输入商品价格',required:true,min:0,max:9999999,precision:2,prefix:'￥'" />
+                                </td>
+                                <!--<td colspan="2">
+                                <div class="alert-warning" style="line-height: 20px;width:250px">市场销售价格</div>  
+                            </td>-->
+                            </tr>
+                            <tr>
+                                <th>促销价格:</th>
+                                <td>
+                                    <input style="width:120px" class="easyui-numberbox theme-textbox-radius"
+                                        name="discountprice"
+                                        data-options="missingMessage:'请输入商品促销价格',required:true,min:0,precision:2,prefix:'￥'" />
+                                </td>
+                                <th>会员价格:</th>
+                                <td>
+                                    <input id="pDeal" class="easyui-numberbox theme-textbox-radius" style="width:120px"
+                                        name="memberprice"
+                                        data-options="missingMessage:'请输入商品会员价',required:true,min:0,precision:2,prefix:'￥'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="4" style="padding-left: 8px;" style="color:#333">
+                                    <div style="display: inline; border-left: 8px solid lightgreen"></div>
+                                    &nbsp;&nbsp;库存设置</h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>库存: </th>
+                                <td>
+                                    <select name="limittype" id="selLimitType"
+                                        class="easyui-combobox theme-textbox-radius"
+                                        data-options="editable:false,panelHeight: 'auto'" class="select"
+                                        style="width: 120px; height: 28px;">
+                                        <option value="0">无上限</option>
+                                        <option value="1">有限库存</option>
+                                    </select>
+                                </td>
+                                <th class="limit">库存量：</th>
+                                <td class="limit">
+                                    <input style="width:120px" class="easyui-numberbox theme-textbox-radius"
+                                        name="quantity" data-options="min:0,max:9999999,precision:0" />
+                                </td>
+                            </tr>
+
+
+                            <tr>
+                                <td colspan="4" style="padding-left: 8px;" style="color:#333">
+                                    <div style="display: inline; border-left: 8px solid lightgreen"></div>
+                                    &nbsp;&nbsp;购买上限 <font color="red">(0表示不限制）</font>
+                                    </h6>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>会员购买上限:</th>
+                                <td>
+                                    <input value="0" style="width:120px" class="easyui-numberbox theme-textbox-radius"
+                                        name="membermaxbuy" data-options="min:0,max:9999999,precision:0" />
+                                </td>
+
+                                <th>非会员购买上限:</th>
+                                <td>
+                                    <input value="0" style="width:120px" class="easyui-numberbox theme-textbox-radius"
+                                        name="maxbuy" data-options="min:0,max:9999999,precision:0" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>备注说明 :
+                                </th>
+                                <td colspan="3">
+                                    <input placeholder="备注说明" class="easyui-textbox  theme-textbox-radius"
+                                        style="width: 85%;height: 60px" name="memo"
+                                        data-options="multiline:true,invalidMessage:'内容不能超过255个字符!',validType:'length[1,255]'">
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div title="推广详情" style="padding: 2px" data-options="fit:true">
+                        <script type="text/plain" id="editor" style="width: 790px; height: 320px;">
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>

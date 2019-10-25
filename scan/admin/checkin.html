@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=11,chrome=1">
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta http-equiv="cache-control" content="no-cache">
+    <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <!--以下这几个js你要换成你自己的-->
+    <script src="../scripts/zepto.min.js?v=1.0.0.0"></script>
+    <script src="../scripts/weui.min.js?v=1.0.0.0"></script>
+    <script src="http://res.wx.qq.com/open/js/jweixin-1.0.0.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/common.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/apiCaller.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/wechatHelper.js?v=1.0.0.1"></script>
+    <script type="text/javascript" src="../js/fromWechat.js?v=1.0.0.0"></script>
+    <script type="text/javascript" src="../js/requireLogin.js?v=1.0.0.0"></script>
+    <title>签到</title>
+
+</head>
+
+<body>
+    <div id="checkinSuccess" class="sign-in__wrapper" style="display: none">
+        <div class="sign-in__container">
+            <img src="../images/ticket-tag.jpg" alt="">
+            <a href="javascript:;" id="ticketInfo" class="weui-btn weui-btn_primary ticket-type vip"></a>
+            <div style="text-align: left;padding-left: 35px">
+                <p>签到人 : <span id="welcome"></span></p>
+                <p>工作单位 ：<span id="company"></span></p>
+            </div>
+            <a href="javascript:;" onclick="checkinTicket();" class="weui-btn weui-btn_primary btn-sign-in">签到</a>
+        </div>
+    </div>
+    <div id="checkinFailed" class="sign-in__wrapper" style="display: none">
+        <div class="sign-in__container">
+            <img src="../images/ticket-error.jpg" alt="">
+            <p class="error" style="line-height: 1.6"><img src="../images/icon-error.jpg" alt="" class="icon-error">错误:该票不适合<br/>(
+                <span id="failedText"></span>)</p>
+            <a href="javascript:;" onclick="startUpScan();" class="weui-btn weui-btn_primary btn-sign-in">返回</a>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        function toScan() {
+            var activityid = common.query().activityid;
+            var url = './barcode-scan.html?activityid=' + activityid + "&type=1";
+            window.location.href = url
+        }
+
+        function startUpScan() {
+            wechatHelper.init(function () {
+                wechatHelper.scan({
+                    success: function (result) {
+                        showTicketInfo(result, 1);
+                    },
+                    cancel: function () {
+                        window.location.href = './orders.html'
+                    },
+                    fail: function () {
+                        startUpScan();
+                    }
+                })
+            })
+
+        }
+
+        var failedText = ["参数错误", "该票根非本次活动或票根不存在", "票根不符合当前类型", "该二维码已使用"]
+        ///执行验票
+        function checkinTicket() {
+            ///获取到页面url里面的参数
+            ///订单id,二维码中的信息
+            //var orderid = common.query().orderid;
+            ///当前要验票的类型（如门票，午餐，根据扫码按钮类型)
+            var checktype = common.query().type;
+            ///执行签到
+            apiCaller.authCall('activityorder/' + scanedOrderId + '/checkin', {
+                withToken: false,
+                waitingMask: false,
+                data: {
+                    userid: currentUserId,
+                    type: 1
+                },
+                success: function (result) {
+                    if (result.successed) {
+                        ////成功，调用微信关闭窗口，继续扫码
+                        ////wx.closeWindow();
+                        weui.alert('成功，关闭窗口继续扫码', {
+                            title: '成功，关闭窗口继续扫码',
+                            buttons: [{
+                                label: '确定',
+                                type: 'primary',
+                                onClick: function () {
+                                    startUpScan();
+                                }
+                            }]
+                        })
+                    }
+                    else {
+                        ///失败，
+                        $('#checkinSuccess').hide();
+                        $('#failedText').text(failedText[result.errorcode]);
+                        $('#checkinFailed').show();
+                    }
+
+                },
+                error: function (result) {
+
+                },
+            })
+        }
+        var currentActivityid, scanedOrderId, currentUserId;
+        $(function () {
+            currentUserId = common.getCurrentUser().id;
+            ///获取到页面url里面的参数
+            ///当前正在扫码的活动id
+            currentActivityid = common.query().activityid;
+            ///订单id,二维码中的信息
+            scanedOrderId = common.query().orderid;
+            ///当前要验票的类型（如门票，午餐，根据扫码按钮类型)
+            checktype = 1; //common.query().type;
+            ///获取扫描的二维码票的信息，并显示出来
+            //showTicketInfo(currentActivityid,scanedOrderId,checktype)
+            showTicketInfo(scanedOrderId, 1);
+
+
+        })
+
+        function showTicketInfo(orderid, type) {
+            scanedOrderId = orderid;
+            apiCaller.authCall('activityorder/' + orderid, {
+                type: 'get',
+                data: {
+                    type: type,
+                    activityid: currentActivityid
+                },
+                withToken: false,
+                waitingMask: false,
+                success: function (result) {
+                    if (result.successed) {
+                        $('#checkinFailed').hide();
+                        var rowData = result.rows;
+                        ///成功后显示票务信息
+                        $('#ticketInfo').text(rowData.ticket);
+                        $('#welcome').text(rowData.name);
+                        $('#company').text(rowData.company);
+                        $('#ticketInfo').css('backgroundColor', rowData.bgcolor);
+                        $('#checkinSuccess').show();
+                    }
+                    else {
+                        ///失败则显示失败的信息
+                        $('#checkinSuccess').hide();
+                        $('#failedText').text(failedText[result.errorcode]);
+                        $('#checkinFailed').show();
+                    }
+
+                },
+                error: function (err) {
+                    ///失败则显示失败的信息
+                    // $('#failedText').text(failedText[result.errorcode]);
+                    // $('.checkinFailed').show();
+                },
+            })
+        }
+    </script>
+</body>
+
+</html>

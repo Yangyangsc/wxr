@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>文章管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+     <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+     <script type="text/javascript" src="../Scripts/dataBusinessConst.js"></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <!--百度富文本编辑器-->
+     <script type="text/javascript" src="../Scripts/UEdit-1.4.4/ueditor.config.js"></script>
+     <script type="text/javascript" src="../Scripts/UEdit-1.4.4/ueditor.all.min.js"></script>
+     <script type="text/javascript" src="../Scripts/UEdit-1.4.4/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/articledetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <style>
+        .tagbox-label {height: 25px !important;line-height: 24px !important;padding: 0px 24px 0px 17px;}
+    </style>
+</head>
+<body>
+    <form id="formArticle">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <div id="tabArticle" class="easyui-tabs" data-options="tabWidth:140,tabHeight:35,fit:true">
+                    <div title="资讯信息" style="padding: 10px;" data-options="fit:true">
+                        <!--<div style="height: 40px; background-color: #999; text-align: center">
+                            <span id="auditStatus" style="padding-top: 15px; font-size: 12px; color: white">资讯状态: [草稿]</span><br />
+                            <br />
+                            <span id="auditOpinion" style="margin-left: 0px; text-align: left; padding-top: 15px; font-size: 10px; color: white"></span>
+                        </div>-->
+                        <table class="form_table" style="padding-top: 10px; width: 95%" data-options="fit:true">
+                            <tr>
+                                <th style="width: 120px">标题:
+                                </th>
+                                <td colspan="2">
+                                    <input placeholder="资讯标题" class="easyui-textbox theme-textbox-radius" style="width: 95%" name="title" data-options="missingMessage:'请输入资讯标题',invalidMessage:'资讯标题不能超过128个字符!',required:true,validType:'length[1,128]'" />
+                                </td>
+                                <td>
+                                    <select name="publishstatus" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 90px;">
+                                        <option value="0" selected="selected">草稿</option>
+                                        <option value="3">发布</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>
+                                    封面:
+                                </th>
+                                <td >
+                                    <img alt="封面" id="imgCover" src="../images/article/default.jpg" style="border: solid 1px #fff;width:120px;height:90px;cursor: pointer"/>
+                                    <input type="hidden" name="image" id="articleCover" />
+                                </td>
+                                <td colspan="2"><div class="alert-success" style="line-height: 20px;">内容封面长宽比例 4：3， 建议尺寸360px*270px</div></td>
+                            </tr>
+                            <tr>
+                                <th>栏目:
+                                </th>
+                                <td>
+                                     <input placeholder="栏目" readonly  class="easyui-textbox theme-textbox-radius" name="catelogname" style="width:70px" id="catelogname"  data-options="missingMessage:'请选择资讯栏目',required:true"/>
+                                    <input type="hidden" id="catelogid" name="catelogid" />
+                                    <a href="#" class="easyui-linkbutton"  iconcls="icon-choose" popup-options="title:'请选择文章栏目',type:'tree',param:{dataUrl:'/articlecatelog'},controlInstance:[{control:'catelogname',key:'text',validate:true},{control:'catelogid',key:'id'}],icon:'icon-category'">选择</a>
+                                </td>
+                                <th>作者:
+                                </th>
+                                <td>
+                                    <input  id="author"  class="easyui-textbox theme-textbox-radius"   name="author" data-options="invalidMessage:'作者名称超过50个字符!',validType:'length[1,50]'">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>导读摘要:
+                                </th>
+                                <td colspan="3">
+                                    <input placeholder="摘要" class="easyui-textbox theme-textbox-radius" style="width: 95%;height: 50px" name="brief" data-options="multiline:true,invalidMessage:'摘要不能超过255个字符!',validType:'length[1,255]'">
+                               </td>
+                            </tr>
+                            <tr>
+                                <td/>
+                                <td colspan="3"><div class="alert-success" style="line-height: 20px;">导读摘要是文章内容的简略内容，也是通过微信分享的内容部分</div></td>
+                            </tr>
+                            <tr style="display: none">
+                                <th>类型:
+                                </th>
+                                <td style="width: 25%">
+                                    <select id="selType" name="type" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'"  style="width: 140px; height: 28px;">
+                                        <option value="0" selected="selected">文章资讯</option>
+                                        <option value="1">外部链接</option>
+                                    </select>
+                                </td>
+                               
+                            </tr>
+                            <tr class="outClass"  style="display: none">
+                                <th>链接地址:
+                                </th>
+                                <td colspan="3">
+                                    <input class="easyui-textbox theme-textbox-radius" style="width: 95%;" name="linkurl" data-options="invalidMessage:'链接地址输入不能超过255个字符!',validType:'length[1,255]'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>原创/转载:
+                                </th>
+                                <td>
+                                    <select id="selOriginal" name="original"  class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 140px; height: 28px;">
+                                        <option value="0" selected="selected">原创</option>
+                                        <option value="1">转载</option>
+                                    </select>
+                                </td>
+                                 <th>发布日期:
+                                </th>
+                                <td>
+                                    <input class="easyui-datebox easyui-textbox  theme-textbox-radius"  name="publishdate" style="width: 150px;" data-options="required:true">
+                                </td>
+                                <td/>
+                                
+                            </tr>
+                            <tr class="refClass">
+                                <th>转载来源:
+                                </th>
+                                <td>
+                                    <input id="source" class="easyui-textbox theme-textbox-radius" name="source" data-options="invalidMessage:'转载来源输入不能超过50个字符!',validType:'length[1,50]'" />
+                                </td>
+                            </tr>
+                            <tr class="refClass">
+                                <th>原文地址:</th>
+                                <td colspan="3">
+                                    <input style="width: 95%;" class="easyui-textbox theme-textbox-radius" name="sourceurl" data-options="invalidMessage:'原文路径输入不能超过255个字符!',validType:'length[1,255]'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>文章标签: </th>
+                                <td colspan="3">
+                                    <input  id="labelInput" class="easyui-tagbox theme-textbox-radius" style="width: 95%;height: 32px;" data-options="invalidMessage:'标签不能超过255个字符!',validType:'length[0,255]'"></input>
+                                    <input type="hidden" name="label" id="realLabel">
+                                </td>
+                            </tr>
+                             <tr>
+                                <td/>
+                                <td colspan="3"><div class="alert-success" style="line-height: 20px;">标签信息代表文章的关键属性 如：‘新媒体’,'旅游'。阅读的用户会增加对此标签的兴趣</div></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">
+                                    <div class="alert-warning alert-block" style="line-height: 20px;">微信分享设置</div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>分享图片:</th>
+                                <td>
+                                    <img alt="分享图片" id="imgShare" src="../images/article/default_share.jpg" style="border: solid 1px #fff;width:90px;height:90px;cursor: pointer"/>
+                                    <input type="hidden" name="share" id="articleShare" />
+                                </td>
+                                <td colspan="2"><div class="alert-success" style="line-height: 20px;">分享小图长宽比例 1：1， 建议尺寸200px*200px</div></td>
+                            </tr>
+                            <tr>
+                                <th>分享标题:
+                                </th>
+                                <td colspan="3">
+                                    <input name="sharetitle" class="easyui-textbox theme-textbox-radius" style="width:95%" data-options="invalidMessage:'分享标题不能超过50个字符!',validType:'length[0,50]'"></input>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div title="正文编排" style="padding: 10px;" data-options="fit:true">
+                        <script type="text/plain" id="editor" style="width: 850px; height: 370px;">
+                        </script>
+                    </div>
+                    <div title="相关附件" style="padding: 10px;" data-options="fit:true">
+                        <div id="tools_1" style="width: 100%; border: none;">
+                            <div class="easyui-panel" style="padding: 5px; border: none">
+                                <a id="lnkUploadFile" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="addFiles()">上传</a>
+                                <a id="lnkRemoveFile" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除</a>
+                            </div>
+                        </div>
+                        <table id="dgFiles" class="form_table" style="padding-top: 10px;" align="center">
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+<body

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+		<title>百人会</title>
+		<!-- build:css css/style.css -->
+		<link rel="stylesheet" href="../../bower_components/weui/dist/style/weui.min.css">
+		<link rel="stylesheet" type="text/css" href="../css/main.css">
+		<!-- endbuild -->
+
+	</head>
+
+	<body style="padding-bottom: 0px;">
+		<div id="app_list" class="services-container">
+			<img src="../images/null.png" alt="" class="null">
+		</div>
+		<!--列表模版-->
+		<script id="app_temp" type="text/x-dot-template">
+			<div class="weui-cells">
+				{{~it:value:index}}
+				<div class="weui-cell">
+					<div class="weui-cell__bd">
+						<p class="name">{{=value.service_name}} {{? value.bus_name}}| {{=value.bus_name}}{{?}}</p>
+						<p class="date">{{=value.app_date}}</p>
+					</div>
+					<div class="weui-cell__ft">
+						{{? value.app_status==0}}<span class="weui-badge state-ing">预约中</span> {{?? value.app_status==1}}<span class="weui-badge state-done">预约成功</span> {{?? value.app_status==2}}<span class="weui-badge state-cancel">预约失败</span> {{?}}
+					</div>
+				</div>
+				{{~}}
+			</div>
+		</script>
+	</body>
+	<script src="../../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/common.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/message.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/cache.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../js/api/brh.js" type="text/javascript" charset="utf-8"></script>
+	<script src="../../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+
+	<script src="js/my-services.js" type="text/javascript" charset="utf-8"></script>
+
+</html>

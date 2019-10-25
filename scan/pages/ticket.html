@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1">
+	<title>我的票</title>
+	<!-- build:css css/style.css -->
+	<link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+	<link rel="stylesheet" type="text/css" href="../css/main.css">
+	<!-- endbuild -->
+	<script src="../scripts/zepto.min.js"></script>
+	<script src="../scripts/weui.min.js"></script>
+	<script type="text/javascript" src="../js/common.js"></script>
+	<script type="text/javascript" src="../js/apiCaller.js"></script>
+	<script type="text/javascript" src="../js/fromWechat.js"></script>
+	<!-- build:js js/main.js -->
+	<!-- endbuild -->
+	<script id="ticket_tmpl" type="text/x-dot-template">
+		<img src="../images/success_top_bg.png" alt="" class="ticket-top">
+		<div class="ticket__content">
+			<img src="../images/qrcode.jpg" alt="" class="qrcode">
+			<div class="vipname">李冬梅</div>
+			<div class="vipcompany">新方向传媒有限公司</div>
+			<div class="ticket-info">
+				<h4 class="title">2017中国广州新媒体千人峰会</h4>
+				<div class="item">
+					<span class="item-title">时间</span>
+					<span class="item-text">2017.06.16 08:30-18:00</span>
+				</div>
+				<div class="item">
+					<span class="item-title">地点</span>
+					<span class="item-text">广州国际媒体港</span>
+				</div>
+				<div class="item">
+					<span class="item-title">票价</span>
+					<span class="item-text text-green">￥99</span>
+				</div>
+				<div class="item">
+					<span class="item-title">票号</span>
+					<span class="item-text">90EWFSDF8I8SDF89SDFJK</span>
+				</div>
+			</div>
+			<img src="../images/logo.jpg" alt="" class="logo">
+		</div>
+	</script>
+</head>
+
+<body>
+	<div class="ticket__wrapper">
+		<div class="ticket__container">
+
+		</div>
+	</div>
+	<script>
+		var initLoad = function () {
+			var loading = weui.loading('正在加载...');
+			var openid = common.getCache('openid');
+			if (common.isEmpty(openid)) {
+				window.location.href = '../pages/ticket.html'
+				return;
+			}
+			apiCaller.call('orders?uid=' + openid + '&page=1&rows=100', {
+				type: 'get',
+				success: function (result) {
+					loading.hide();
+					if (result.successed && result.rows.length > 0) {
+						//票
+						var ticketData = result.row[0];
+
+						var arrText = doT.template($("#ticket_tmpl").text());
+						var innerHTML = arrText(ticketData);
+						$(".ticket__container").html(innerHTML)
+
+					}
+
+				},
+				error: function () {
+					loading.hide();
+				}
+			})
+		}
+		$(function () {
+			initLoad();
+		})
+	</script>
+</body>
+
+</html>

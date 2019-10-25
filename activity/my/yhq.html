@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>优惠券</title>
+    <link rel="stylesheet" href="../bower_components/weui/dist/style/weui.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/button.min.css">
+    <!-- <link rel="stylesheet" href="./css/main.css"> -->
+    <link rel="stylesheet" href="./css/load1.css">
+</head>
+
+<body>
+    <div>
+        <div id="yhq_div" style="width:70rem;margin: 4.3rem auto 0;">
+            <form>
+                <input id="yhq_input" required='' type='text' style="height:6rem;font-size: 4rem;"
+                    onkeyup="this.value=this.value.replace(/[^\d\.\d{0,2}]/g,'')" />
+                <label alt='请输入额值' placeholder='额值' style="font-size:4rem;"></label>
+            </form>
+        </div>
+        <div id="div_button" style="width:20rem;margin:0 auto;">
+            <div class="svg-wrapper">
+                <svg height="60" width="240" xmlns="http://www.w3.org/2000/svg">
+                    <rect id="shape" height="60" width="240" />
+                    <div id="text">
+                        <a style="color:black;"><span class="spot"></span>提交</a>
+                    </div>
+                </svg>
+            </div>
+        </div>
+
+        <!-- 无数据时显示 -->
+        <div id="div_nodata" style="height: 100%; width: 100%; text-align: center;padding-top: 40%; display: none;">
+            <img src="../images/no_data.png" style="width: 100px;" />
+            <p style="font-size: 19px;color: gray;">暂无数据</p>
+        </div>
+        <!-- 加载动画 -->
+        <div id="load1" class="load-container load1" style="display: none;">
+            <div class="loader">Loading...</div>
+        </div>
+    </div>
+
+</body>
+
+<script src="../js/cache.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/common.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/urlConfig.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/autoLogin.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/apiCaller.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/api/activity.js" type="text/javascript" charset="utf-8"></script>
+<script src="../bower_components/zepto/zepto.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/lib/weui.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/message.js" type="text/javascript" charset="utf-8"></script>
+<script src="../bower_components/dot/doT.min.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="js/yhq.js" type="text/javascript" charset="utf-8"></script>
+
+<script src="../js/lib/jweixin-1.0.0.js" type="text/javascript" charset="utf-8"></script>
+<script src="../js/wechatHelper.js" type="text/javascript" charset="utf-8"></script>
+
+
+</html>

@@ -1,0 +1,129 @@
+﻿<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <title>智库</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/koldetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+</head>
+
+
+<body>
+    <form id="formKol">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel"
+                        style="margin-left: 7px;">取消</a>
+                </div>
+            </div>
+
+            <div data-options="region:'center',title:''">
+                <div id="tabProduct" class="easyui-tabs" data-options="fit:true">
+                    <div title="导师基本信息" style="padding: 10px;" data-options="fit:true">
+                        <table class="form_table" style="width:95%" data-options="fit:true">
+                            <tr>
+                                <th style="width: 90px">姓名:
+                                </th>
+                                <td>
+                                    <input class="easyui-textbox theme-textbox-radius" name="name"
+                                        data-options="missingMessage:'请输入姓名',invalidMessage:'输入内容不能超过30个字符!',required:true,validType:'length[1,30]'" />
+                                </td>
+                                <th>服务状态:
+                                </th>
+                                <td>
+                                    <select name="status" class="easyui-combobox theme-textbox-radius"
+                                        data-options="editable:false,panelHeight:'auto'" style="width: 110px;">
+                                        <option value="0">可预约</option>
+                                        <option value="1">暂停服务</option>
+                                    </select>
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="width:90px">导师头像:</th>
+                                <td>
+                                    <img src=" ../images/pluspic_0.png" id="imgLogo"
+                                        style="width:64px;height:64px;cursor: pointer;border:1px solid #CCC;" />
+                                    <input type="hidden" name="image" id="kolHead" />
+                                </td>
+                                <td colspan="2">
+                                    <div class="alert-success" style="line-height: 20px;width:83%">
+                                        点击图片上传<br />上传图片建议尺寸200px*200px</div>
+                                </td>
+                            </tr>
+
+                            <tr>
+                                <th>所在企业:
+                                </th>
+                                <td colspan="3">
+                                    <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="company"
+                                        data-options="invalidMessage:'输入内容不能超过128个字符!',validType:'length[1,128]'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>职位头衔:
+                                </th>
+                                <td colspan="3">
+                                    <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="title"
+                                        data-options="invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>联系方式:
+                                </th>
+                                <td>
+                                    <input class="easyui-textbox theme-textbox-radius" name="contact"
+                                        data-options="invalidMessage:'输入内容不能超过64个字符!',validType:'length[1,64]'" />
+                                </td>
+                                <th>咨询价值:
+                                </th>
+                                <td>
+                                    <input class="easyui-textbox theme-textbox-radius" name="value"
+                                        data-options="invalidMessage:'输入内容不能超过64个字符!',validType:'length[1,64]'" />
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div title="导师介绍" style="padding: 10px;" data-options="fit:true">
+                        <div>
+                            <input class="easyui-textbox  theme-textbox-radius" style="width: 98%;height: 360px"
+                                name="desc"
+                                data-options="multiline:true,invalidMessage:'不能超过255个字符!',validType:'length[1,2000]'">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</body>
+
+</html>

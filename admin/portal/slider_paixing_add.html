@@ -1,0 +1,102 @@
+<!DOCTYPE html PUBLIC" -//W3C//DTD XHTML 1.0 Transitional//EN""http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>问答添加</title>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="edge" />
+        <link id="linkstyle" rel="stylesheet" type="text/css"
+            href="../App_Themes/green/easyui.css" />
+        <link rel="stylesheet" type="text/css"
+            href="../App_Themes/insdep/easyui.css" />
+        <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet"
+            type="text/css">
+        <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet"
+            type="text/css">
+        <link href="../App_Themes/insdep/insdep_theme_default.css"
+            rel="stylesheet" type="text/css">
+        <link href="../App_Themes/insdep/icon.css" rel="stylesheet"
+            type="text/css">
+
+        <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+        <script type="text/javascript"
+            src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+        <script type="text/javascript"
+            src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+        <script type="text/javascript"
+            src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+        <script
+            src="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.js"></script>
+        <link rel="stylesheet"
+            href="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.css">
+        <!--以下三个是用于上传的-->
+        <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+        <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_uploader.js"></script>
+        <!--框架用的js-->
+        <script type="text/javascript" src="../Scripts/const.js"></script>
+        <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_mdiPage.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_common.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_baseForm.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_formHelper.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_detailform.js"></script>
+        <script type="text/javascript"
+            src="../Scripts/Framework/Framework_memberHelper.js"></script>
+        <script type="text/javascript" src="Scripts/slider_paixing_add.js"></script>
+        <style>.label-top{ margin:0 0 10px; display:block;}</style>
+
+        <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+        <!--<link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />-->
+    </head>
+
+
+
+    <form id="formMember" runat="server">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+            <div data-options="region:'north'" style="border: none;">
+                <div class="dialog-button" style="text-align: left; padding:
+                    10px 10px 10px 40px;">
+                    <a href="#" class="easyui-linkbutton" iconcls="icon-save"
+                        id="lnkSave">保存</a>
+                    <a href="javascript:dialogHelper.closeModal();"
+                        class="easyui-linkbutton" iconcls="icon-cancel"
+                        style="margin-left: 7px;">取消</a>
+                </div>
+            </div>
+            <div data-options="region:'center',title:''">
+                <table class="form_table" style="padding-top: 10px;width: 95%"
+                    data-options="fit:true">
+                    <tr>
+                        <td style="width: 80%" valign="top">
+                            <table class="form_table" style="width:100%"
+                                data-options="fit:true">
+                                <tr>
+                                    <th style="width: 130px">问题:<font
+                                            color='red'>*</font>
+                                    </th>
+                                    <td colspan="3">
+                                        <input placeholder="问题详情"
+                                            class="easyui-textbox
+                                            theme-textbox-radius"
+                                            style="width:95%" name="que"
+                                            data-options="missingMessage:'请输入问题详情',invalidMessage:'输入内容不能超过50个字符!',required:true,validType:'length[1,50]'"
+                                            />
+                                    </td>
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </form>

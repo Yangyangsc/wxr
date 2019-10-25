@@ -1,0 +1,135 @@
+﻿body {
+	font: 12px/20px "微软雅黑", "宋体", Arial, sans-serif, Verdana, Tahoma;
+	padding: 0;
+	margin: 0;
+}
+#divHead {background-color: #2d3e50}
+#divHead a:link {
+ color:#fff;
+ text-decoration: none;
+}
+#divHead a:visited {
+	color:#fff;
+ text-decoration: none;
+}
+#divHead a:hover {
+	color:#fff;
+ text-decoration: underline;
+}
+#divHead a:active {
+	color:#fff;
+ text-decoration: none;
+}
+.cs-north {
+	height:65px;
+}
+.cs-north-bg {
+	width: 100%;
+	height: 65px;
+      overflow:hidden;
+}
+.cs-north-logo {
+	margin: 8px 25px 0px 20px;
+    background: url(logo.png) no-repeat ;
+    width:200px;
+    height:65px;
+    padding-left:10px;
+	display: inline-block;
+	color:#000000;font-size:22px;font-weight:bold;text-decoration:none
+}
+.fr {
+float: right;
+}
+.fl {
+float: left;
+}
+#photo_info{
+	width:280px;
+	height: 80px; 
+}
+#photo_info #photo{
+	padding-top: 2px;
+}
+#base_info #photo img{
+	width:48px;
+	height: 48px;
+	/*border:1px solid  #0c4169;*/
+	border:1px solid  #fff;
+    -webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+	-ms-border-radius: 50%;
+	-o-border-radius: 50%;
+	border-radius: 50%;
+    opacity: 0.9;
+	filter:alpha(opacity=90); 
+}
+.help_info{
+	float: right;
+    margin-top:-22px;
+	margin-right: -105px;
+}
+.cs-userinfo {
+	float: right;
+    margin-top:9px;
+	margin-right: 120px;
+}
+.cs-skin {
+    float: right;
+    margin-top:9px;
+	margin-right: -90px;
+}
+
+.cs-west {
+	width:200px;padding:0px;
+}
+.cs-south {
+	height:25px;padding:0px;text-align:center;
+}
+.cs-navi-tab {
+	padding: 5px;
+}
+.cs-tab-menu {
+	width:120px;
+}
+.cs-home-remark {
+	padding: 10px;
+}
+.wrapper {
+    float: right;
+    height: 30px;
+    margin-left: 10px;
+}
+.ui-skin-nav {
+    
+	padding: 0;
+	margin-right: -63px;
+    margin-top:0px;
+	list-style: none outside none;
+	height: 10px;
+}
+
+.ui-skin-nav .li-skinitem {
+    float: left;
+    font-size: 12px;
+    line-height: 30px;
+	margin-left: 10px;
+    text-align: center;
+}
+.ui-skin-nav .li-skinitem span {
+	cursor: pointer;
+	width:10px;
+	height:10px;
+	display:inline-block;
+}
+.ui-skin-nav .li-skinitem span.cs-skin-on{
+	border: 1px solid #FFFFFF;
+}
+
+.ui-skin-nav .li-skinitem span.gray{background-color:gray;}
+.ui-skin-nav .li-skinitem span.metro{background-color:white;}
+.ui-skin-nav .li-skinitem span.blue{background-color:#95B8E7;}
+.ui-skin-nav .li-skinitem span.green{background-color:#b1c242;}
+.ui-skin-nav .li-skinitem span.dark-hive{background-color:black;}
+.ui-skin-nav .li-skinitem span.sunny{background-color:#FFE57E;}
+
+

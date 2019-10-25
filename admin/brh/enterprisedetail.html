@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>百人会员企业</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="Scripts/enterprisedetail.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+     <style>
+        .numberBox {
+            width: 100px;
+        }
+    </style>
+</head>
+
+
+<body>
+    <form id="formEnterprise">
+        <div id="main-layout" class="easyui-layout" style="height: 500px;">
+
+        <div data-options="region:'north'" style="border: none;">
+            <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+            </div>
+        </div>
+
+        <div data-options="region:'center',title:''">
+            <div id="tabEnterprise" class="easyui-tabs" data-options="fit:true">
+                <div title="<span class='tt-inner'>企业信息</span>" style="padding: 10px;" data-options="fit:true">
+                    <table class="form_table" style="width:95%" data-options="fit:true">
+                       <!--<tr>
+                            <th>企业类型:
+                            </th>
+                            <td>
+                                <select  name="type" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight:'auto'"  style="width: 120px; height: 28px;">
+                                     <option value="0">媒体</option>
+                                      <option value="1">企业</option>
+                                </select>   
+                            </td>
+                        </tr>-->
+                        <tr>
+                            <th style="width: 110px">企业名称(中文):
+                            </th>
+                            <td colspan="3">
+                                <input class="easyui-textbox theme-textbox-radius" style="width: 95%" name="name" data-options="missingMessage:'请输入企业名称',invalidMessage:'输入内容不能超过128个字符!',required:true,validType:'length[1,128]'" />
+                            </td>
+                            <td width="80px" rowspan="3" valign="top" align="center">
+                                <img src=" ../images/enterprise/default.png" id="imgLogo" width="90px" style="width:90px;height:90px;cursor: pointer;border:1px solid #CCC;" />
+                                <input type="hidden" name="image" id="entLogo" />
+                                <br/>
+                                <font color="#999">点击图片上传</font>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>企业名称(英文):
+                            </th>
+                            <td colspan="3">
+                                <input class="easyui-textbox theme-textbox-radius"  style="width: 95%" name="ename" data-options="invalidMessage:'输入内容不能超过128个字符!',validType:'length[1,128]'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>登录账号:
+                            </th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius" id="loginid" name="account" data-options="missingMessage:'请输入登录账号',required:true,validType:'length[1,50]'" />                              
+                            </td>
+                             <td colspan="2"> <span id="errormessage"></span></td>
+                         
+                        </tr>
+                        <tr>
+                            <th>会员级别:
+                            </th>
+                            <td>
+                                <select  name="level" class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight:'auto'"  style="width: 120px; height: 28px;">
+                                     <option value="1">企业标准会员</option>
+                                      <option value="2">理事单位会员</option>
+                                </select>   
+                            </td>
+                            <th style="width:130px">所属行业:</th>
+                            <td>
+                                <select  name="business" id="comBusiness" class="easyui-combobox theme-textbox-radius"  style="width: 120px; height: 28px;">
+                                    
+                                </select>  
+                            </td>
+                        </tr>
+                         <tr>
+                            <th>入会时间:</th>
+                            <td>
+                                <input class="easyui-datebox theme-textbox-radius" id="startdate"  name="startdate" data-options="missingMessage:'请选择入会时间',required:true" />
+                            </td>
+                             <th>截止时间:</th>
+                            <td>
+                                <input class="easyui-datebox theme-textbox-radius" id="enddate" name="enddate" data-options="missingMessage:'请选择截止时间',required:true" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>联系人:</th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius"  name="contact" data-options="missingMessage:'请输入企业联系人',required:true,invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                            </td>
+                             <th>联系电话:</th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius" name="mobile" data-options="missingMessage:'请输入企业联系人电话',required:true,invalidMessage:'输入内容不能超过11个字符!',validType:'length[1,11]'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>企业官网:</th>
+                            <td colspan="3">
+                                <input class="easyui-textbox theme-textbox-radius" style="width:95%" name="website" data-options="invalidMessage:'请输入合法的官网地址',validType:'url'" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>企业公众号:</th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius"  name="wechat" data-options="invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                            </td>
+                             <th>企业微博:</th>
+                            <td>
+                                <input class="easyui-textbox theme-textbox-radius" name="weblog" data-options="invalidMessage:'输入内容不能超过50个字符!',validType:'length[1,50]'" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div title="<span class='tt-inner'>服务券</span>" style="padding: 5px" data-options="fit:true">
+                    <div id="tools_1" style="width: 100%; border: none;">
+                        <div class="easyui-panel" style="padding: 5px; border: none">
+                            <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'" onclick="addServices()">添加服务</a>
+                            <a href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-save'" onclick="batchUpdateCount()">更新服务数量</a>
+                            <a id="lnkRemoveRole" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-delete'">删除服务</a>
+                        </div>
+                    </div>
+                    <table id="dgService" class="form_table" style="padding-top: 3px;" align="center">
+                    </table>
+                </div>
+                <div title="<span class='tt-inner'>服务申请</span>" style="padding: 5px" data-options="fit:true">
+                    <div id="tools_AppService" style="width: 100%; border: none;">
+                         <table class="form_table" style="padding-top: 10px;">
+                            <tr>
+                                <th>处理状态:</th>
+                                <td style="padding-right: 5px;">
+                                    <select  search-options="key:'type',method:'combobox'"   class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 100px; height: 28px;">
+                                        <option value="" selected>全部</option>
+                                        <option value="0">未响应</option>
+                                        <option value="1">已完成</option>
+                                        <option value="2">预约失败</option>
+                                    </select></td>
+                                <td>
+                                    <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                                    <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="easyui-panel" style="padding: 5px; border: none">
+                            <a id="lnkProcess" onclick="process()" href="#" class="easyui-linkbutton" data-options="plain:true,iconCls:'icon-add'">处理申请</a>
+                        </div>
+                    </div>
+                    <table id="dgAppService" class="form_table" style="padding-top: 3px;" align="center">
+                    </table>
+                </div>
+            </div>
+        </div>
+        </div>
+    </form>
+</body>
+</html>

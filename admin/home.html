@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>首页</title>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <!--<link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">-->
+    <!--<link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">-->
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+     <script type="text/javascript" src='Scripts/jquery-easyui/jquery.portal.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+      <!--第三方插件加载-->
+    <script src="Scripts/justgage-1.2.2/raphael-2.1.4.min.js"></script>
+    <script src="Scripts/justgage-1.2.2/justgage.js"></script>
+
+    <script type="text/javascript" src="Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_mdiPage.js"></script>
+     <script type="text/javascript" src="Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_common.js"></script>
+    
+     <script type="text/javascript" src="Scripts/Highcharts/4.2.3/highcharts.js"></script>
+    <script type="text/javascript" src="Scripts/Highcharts/4.2.3/exporting.js"></script>
+    <script type="text/javascript" src="Scripts/Framework/Framework_Charts.js"></script>
+    <script type="text/javascript" src="Scripts/home.js"></script>
+    <style>
+            .gauge {
+            width: 130px;
+            height: 80px;
+            text-align: center;
+            line-height: 80px;
+            font-size: 18px;
+            font-weight: bold;
+            }
+            .color_1{color:#FE8036}
+            .color_2{color:#47B647}
+            .color_3{color:#333}
+            .color_4{color:red}
+            .color_5{color:green}
+    </style>
+</head>   
+    <div class="easyui-layout" data-options="fit:true">
+        <div>
+                <div class="theme-user-info-panel">
+                    <div class="left" style="padding-top: 20px; text-align: center">
+                    	<img src="./images/userhead/userheader.png" width="48" height="48">
+                        <br>
+                         <h4>用户数据</h4>
+                    </div>
+                    <div class="right">
+                        <ul>
+                        	<li><div id="totalUser" class="gauge color_1"></div><span>累计用户</span></li>
+                            <li><div id="todayUser" class="gauge color_2" ></div><span>今日新增</span></li>
+                        	<li><div id="ggMember" class="gauge color_3"></div><span>累计会员</span></li>
+                            <li><div id="ggTodayMember" class="gauge color_5"></div><span>今日入会</span></li>
+                            <li><div id="memberIncome" class="gauge color_4"> -- </div><span>会费收入</span></li>
+                        </ul>
+                    </div>
+                </div>
+                 <div class="theme-user-info-panel">
+                    <div class="left" style=" padding-top: 20px;text-align: center;">
+                    	<img src="./images/activity/activity.png" width="48" height="48">
+                        <br>
+                         <h4>活动数据</h4>
+                    </div>
+                    <div class="right">
+                        <ul>
+                        	<li><div id="totalActivity" class="gauge color_1"></div><span>发布中的活动</span></li>
+                            <li><div id="totalEnroll" class="gauge color_2" ></div><span>累计报名</span></li>
+                        	<li><div id="totalIncome" class="gauge color_4"></div><span>累计收入</span></li>
+                            <li><div id="todayEnroll" class="gauge color_3"></div><span>今日报名</span></li>
+                            <li><div id="todayIncome" class="gauge color_5"></div><span>今日收入</span></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="theme-user-info-panel">
+                    <div class="left" style=" padding-top: 20px;text-align: center;">
+                    	<img src="./images/enterprise/union.png" width="48" height="48">
+                        <br>
+                         <h4>百人会</h4>
+                    </div>
+                    <div class="right">
+                        <ul>
+                        	<li><div id="totalBrh" class="gauge color_1"></div><span>企业数</span></li>
+                            <li><div id="totalApp" class="gauge color_2" ></div><span>待处理的服务申请</span></li>
+                        </ul>
+                    </div>
+                </div>
+        </div>
+       
+
+        <!--<div style="height:600px">
+                <div style="font-weight: 23px;">
+                    <div style="width:80px;height:40px;background-color:green;margin:10px auto 0px 10px;
+                    text-align: center;line-height: 40px;color: white;float: left;font-weight: bold;">
+                        会员总数
+                    </div>
+                    <div style="width:80px;height:40px;margin:10px auto 0px 10px;
+                    line-height: 40px;float: left;font-weight: bold;font-size: 16px;">
+                        <span id="s_allcount">0</span>人
+                    </div>
+                    <div style="width:80px;height:40px;background-color:#c65a10;margin:10px auto 0px 16px;
+                    text-align: center;line-height: 40px;color: white;float: left;font-weight: bold;">
+                        今日新增
+                    </div>
+                    <div style="width:80px;height:40px;margin:10px auto 0px 10px;
+                    line-height: 40px;float: left;font-weight: bold;font-size: 16px;">
+                        <span id="s_todaycount">0</span>人
+                    </div>
+                </div>
+                <div id="pp" style="position: relative">
+                    <div style="width: 50%"></div>
+                    <div style="width: 50%"></div>
+                </div>
+                <div id="usergrow">
+                </div>
+                <div id="userspread">
+                </div>
+                <div id="sexspread">
+                </div>
+        </div>-->
+    </div>
+</html>

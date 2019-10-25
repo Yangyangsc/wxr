@@ -1,0 +1,81 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>平台收入流水</title>
+     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../Scripts/jquery-easyui/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_listform.js"></script>
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+    <script type="text/javascript" src="./Scripts/payments.js"></script>
+     <style type="text/css">
+        .datagrid-btable .datagrid-row {height: 50px;}
+        .datagrid-footer{background-color: #1b8cf2;}
+        .datagrid-footer .datagrid-ftable{color: #fff}
+    </style>
+
+</head>   
+<form id="formProductOrder" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+    <div class="main"  data-options="region:'center',title:'',border:false" style="border:none;">
+        <table id="dg"></table>
+        <div id="tools_Consume">
+            <div style="margin-bottom: 5px">
+                <table  style="padding-top: 10px;width:95%" class="form_table">
+                    <tr>
+                        <th>订单编号:</th>
+                        <td >
+                            <input class="easyui-textbox theme-textbox-radius"  search-options="key:'orderno'" style="width:130px;margin-left: 0px;" type="text"/>
+                        </td>
+                         <th>消费时间:</th>
+                        <td>
+                            <input class="easyui-datebox  theme-textbox-radius" search-options="key:'start',method:'datebox'" style="width: 110px;"/>
+                             至
+                            <input class="easyui-datebox  theme-textbox-radius" search-options="key:'end',method:'datebox'" style="width: 110px;"/>
+                        </td>
+                        
+                    </tr>
+                    <tr>
+                       <th>消费类型:</th>
+                        <td style="padding-right: 5px;">
+                            <select  search-options="key:'type',method:'combobox'"   class="easyui-combobox theme-textbox-radius" data-options="editable:false,panelHeight: 'auto'" style="width: 130px; height: 28px;">
+                                <option value="" selected>全部</option>
+                                <option value="0">会员会费</option>
+                                <option value="1">活动费用</option>
+                                <option value="2">产品/服务购买</option>
+                            </select>
+                        </td>
+                       <th>用户:</th>
+                        <td>
+                            <input class="easyui-textbox theme-textbox-radius"  search-options="key:'username'" style="width:240px;margin-left: 0px;" type="text"/>
+                        </td>
+                        <td>
+                            <a href="#" id="btnSearch" class="easyui-linkbutton" iconcls="icon-search">查询</a>
+                            <a href="#" id="btnReset" class="easyui-linkbutton" iconcls="icon-reload">重置</a>
+                        </td>
+                        
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+    </div>
+</form>

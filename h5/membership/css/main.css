@@ -1,0 +1,166 @@
+html,
+body {
+  width: 100%;
+  height: 100%;
+  color: #4c4c4c;
+  background: #f2f2f2;
+  font-size: 10px; }
+.wx-toast__container .weui-toast{
+  width:10.6em;
+  font-size:13px;
+}
+* {
+  box-sizing: border-box; }
+
+.pos-abs {
+  position: absolute; }
+
+.pull-left {
+  float: left !important; }
+
+.pull-right {
+  float: right !important; }
+
+.text-green {
+  color: #00d62a !important; }
+
+.text-red {
+  color: #f20000 !important; }
+
+.hide {
+  display: none !important; }
+
+.home-img {
+  display: block;
+  padding-bottom: 40px;
+  width: 100%; }
+
+.user-header__info {
+  padding: 10px;
+  position: relative;
+  overflow: hidden;
+  background: #fff; }
+  .user-header__info .user-header__title {
+    line-height: 6rem;
+    font-size: 1.6rem; }
+  .user-header__info .user-thumbnail {
+    margin-left:42%;
+    width: 6rem;
+    height: 6rem;
+    overflow: hidden;
+    border-radius: 50%; }
+    .user-header__info .user-thumbnail img {
+      display: block;
+      width: 100%;
+      height: 100%; }
+
+.user-info__lists {
+  margin-top: 7px; }
+  .user-info__lists .weui-cell__hd img {
+    display: block;
+    width: 2.4rem;
+    height: 2.4rem; }
+  .user-info__lists .weui-input {
+    padding-left: 5px;
+    font-size: 1.6rem; }
+    .user-info__lists .weui-input::-webkit-input-placeholder {
+      color: #b2b2b2; }
+  .user-info__lists .weui-cell:before {
+    left: 47px;
+    right: 15px; }
+  .user-info__lists .weui-btn_mini {
+    float: right;
+    padding: .2rem 1rem;
+    border-radius: 0;
+    background: #0062e8; }
+   
+    .user-info__lists .weui-btn_mini:active {
+      background: #004cb5; }
+  .user-info__lists .sex-title {
+    padding-left: 5px;
+    display: inline-block;
+    color: #b2b2b2; }
+  .user-info__lists .sex-items {
+    margin-left: 5px;
+    display: inline-block; }
+    .user-info__lists .sex-items label {
+      width: 4rem;
+      margin-right: 3rem;
+      display: inline-block; }
+      .user-info__lists .sex-items label input {
+        display: none; }
+        .user-info__lists .sex-items label input:checked ~ .icon-selected {
+          display: inline-block; }
+      .user-info__lists .sex-items label span {
+        line-height: 1;
+        display: inline-block; }
+      .user-info__lists .sex-items label .icon-selected {
+        margin-left: 5px;
+        margin-top: 2px;
+        margin-bottom: -2px;
+        display: none;
+        width: 1.3rem;
+        height: 1.3rem;
+        background: url(../images/icon-selected.png) no-repeat center;
+        background-size: contain; }
+
+.user-submit-btn {
+  margin: 2rem;
+  background: #f20000;
+  font-size: 1.7rem; }
+  .user-submit-btn:active {
+    background: #bf0000; }
+
+.success__wrapper {
+  width: 100%;
+  height: 100%;
+  background: url(../images/bg.jpg) no-repeat center;
+  background-size: cover; }
+  .success__wrapper .success__container {
+    float: left;
+    margin-top: 2rem;
+    position: relative;
+    width: 100%; }
+    .success__wrapper .success__container .userhead {
+      position: absolute;
+      top: 24%;
+      width: 100px;
+      border-radius: 50%;
+      transform: translateX(-50%);
+      left: 50%; }
+    .success__wrapper .success__container .username {
+      position: absolute;
+      top: 43%;
+      width: 80%;
+      text-align: center;
+      transform: translateX(-50%);
+      left: 50%;
+      font-size: 1.7rem;
+      font-weight: bold;
+      color: black; }
+    .success__wrapper .success__container .qrcode {
+      position: absolute;
+      top: 68%;
+      width: 30%;
+      transform: translateX(-50%);
+      left: 50%; }
+    .success__wrapper .success__container .number {
+      position: absolute;
+      top: 50%;
+      width: 80%;
+      text-align: center;
+      transform: translateX(-50%);
+      left: 50%;
+      font-size: 1.8rem;
+      color: #0062e8; }
+  .success__wrapper .success-content_bg {
+    display: block;
+    width: 100%; }
+
+.code-input {
+  padding: 6px;
+  height: auto;
+  text-align: center;
+  border: 1px solid #f2f2f2; }
+
+/*# sourceMappingURL=main.css.map */

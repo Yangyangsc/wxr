@@ -1,0 +1,125 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>会员类型管理</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    <script src="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.js"></script>
+	<link rel="stylesheet" href="../Scripts/colorpicker/jquery-minicolors-sample/jquery.minicolors.css">
+    <!--以下三个是用于上传的-->
+    <script type="text/javascript" src='../Scripts/jquery.ui.widget.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery.fileupload.js'></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_uploader.js"></script>
+    <!--框架用的js-->
+    <script type="text/javascript" src="../Scripts/const.js"></script>
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_memberHelper.js"></script>
+    <script type="text/javascript" src="Scripts/membertype.js"></script>
+    
+   <style>.label-top{ margin:0 0 10px; display:block;}</style>
+
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />-->
+</head>
+
+
+
+<form id="formMember" runat="server">
+    <div id="main-layout" class="easyui-layout" style="height: 500px;">
+        <div data-options="region:'north'" style="border: none;">
+            <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+                <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+                <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+            </div>
+        </div>
+        <div data-options="region:'center',title:''">
+            <table class="form_table" style="padding-top: 10px;width: 95%" data-options="fit:true">
+                <tr>
+                    <td style="width: 80%" valign="top">
+                        <table class="form_table" style="width:100%" data-options="fit:true">
+                                <tr>
+                                    <th style="width: 130px">名称:<font color='red'>*</font>
+                                    </th>
+                                    <td colspan="3">
+                                        <input placeholder="社群名称" class="easyui-textbox theme-textbox-radius" style="width: 95%" name="name" data-options="missingMessage:'请输入会员类型名称',invalidMessage:'输入内容不能超过50个字符!',required:true,validType:'length[1,50]'" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <!--<th>级别:
+                                    </th>
+                                    <td>
+                                        <select id="selMemberType" class="easyui-combobox theme-textbox-radius" data-options="editable:false" name="level" style="width:140px">
+                                           
+                                        </select>
+                                    </td>-->
+                                    <th>会费标准(年）:<font color='red'>*</font>
+                                    </th>
+                                    <td>
+                                        <input  class="easyui-numberbox easyui-validatebox"  style="width:140px" name="price" data-options="missingMessage:'请输入会费标准',required:true,min:0,max:9999999,precision:2,prefix:'￥'"/>
+                                    </td>
+                                </tr>
+                                 <tr>
+                                    <th>按钮文字:
+                                    </th>
+                                    <td>
+                                        <input  class="easyui-textbox easyui-validatebox"  style="width:140px" name="buttontext"/>
+                                    </td>
+                                    <th>按钮颜色:
+                                    </th>
+                                    <td>
+                                        <input  class="easyui-validatebox" type="text"  style="width:90px" name="buttoncolor" id="buttoncolor" class=" theme-textbox-radius" style="width: 140px;height:30px;cursor: pointer" data-position="bottom left" value="#004cb5"/>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>推广海报:<br/><font color="red">建议宽750px</font>
+                                    </th>
+                                    <td>
+                                        <img src=" ../images/membertype/default.jpg" id="imgPoster" style="width:140px;cursor: pointer;border: 1px solid #ccc;" />
+                                        <input type="hidden" name="poster" id="memberPoster" />
+                                    </td>
+                                    <th>分享图片:<br/>
+                                        <font color="red">尺寸300px*300px</font>
+                                    </th>
+                                    <td>
+                                        <img src=" ../images/membertype/default_share.jpg" id="imgShare" style="width:60px;cursor: pointer;border: 1px solid #ccc;" />
+                                        <input type="hidden" name="shareimage" id="memberShare" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>分享标题:
+                                    </th>
+                                    <td colspan="3">
+                                        <input placeholder="分享标题" class="easyui-textbox theme-textbox-radius" style="width: 95%" name="sharetitle" data-options="invalidMessage:'输入内容不能超过128个字符!',validType:'length[1,128]'" />
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>描述/备注:</th>
+                                    <td colspan="3">
+                                        <input class="easyui-textbox  theme-textbox-radius" style="width: 95%;height: 70px" name="desc" data-options="multiline:true,invalidMessage:'输入内容不能超过255个字符!',validType:'length[1,255]'">
+                                    </td>
+                                </tr>
+                            </table>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</form>

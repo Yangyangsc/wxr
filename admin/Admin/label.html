@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>标签管理</title>
+      <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="edge" />
+    <link id="linkstyle" rel="stylesheet" type="text/css" href="../App_Themes/green/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="../App_Themes/insdep/easyui.css" />
+    <link href="../App_Themes/insdep/easyui_animation.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/easyui_plus.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/insdep_theme_default.css" rel="stylesheet" type="text/css">
+    <link href="../App_Themes/insdep/icon.css" rel="stylesheet" type="text/css">
+
+    <script type="text/javascript" src='../Scripts/jquery-3.1.1.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/jquery.easyui.min.js'></script>
+    <script type="text/javascript" src='../Scripts/jquery-easyui/locale/easyui-lang-zh_CN.js'></script>
+    <script type="text/javascript" src="../App_Themes/insdep/jquery.insdep-extend.min.js"></script>
+    
+    <script type="text/javascript" src="../Scripts/urlConfig.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_mdiPage.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_ApiCaller.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_common.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_baseForm.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_dialogHelper.js"></script>
+    <script type="text/javascript" src="../Scripts/Framework/Framework_formHelper.js"></script>
+    
+    <script type="text/javascript" src="../Scripts/Framework/Framework_detailform.js"></script>
+    <!--<link rel="stylesheet" type="text/css" href="../App_Themes/demo.css" />-->
+    <link rel="stylesheet" type="text/css" href="../App_Themes/icon.css" />
+        <script>
+        var detailForm;
+        $(document).ready(function () {
+            detailForm = new detailForm('formLabel', {
+                initForm:function(){
+                    if (!$.isNullOrEmpty($.getUrlParam('pid')))
+                     $('#pid').val($.getUrlParam('pid'));
+                },
+                bindOption: { url: '/label' },
+                saveOption: {
+                    button: '#lnkSave', url:'/label',
+                    successFunc: function (result) {
+                        dialogHelper.closeModal(result);
+                    }
+                }
+            });
+            detailForm.bindForm();
+        });
+    </script>
+</head>
+
+<form id="formLabel" runat="server">
+ <div id="main-layout" class="easyui-layout" style="height: 500px;">
+    <div data-options="region:'north'" style="border: none;">
+        <div class="dialog-button" style="text-align: left; padding: 10px 10px 10px 40px;">
+            <a href="#" class="easyui-linkbutton" iconcls="icon-save" id="lnkSave">保存</a>
+            <a href="javascript:dialogHelper.closeModal();" class="easyui-linkbutton" iconcls="icon-cancel" style="margin-left: 7px;">取消</a>
+        </div>
+    </div>
+    <div data-options="region:'center',title:''">
+         <input type="hidden" id="pid" name="parent" />
+        <table class="form_table" style="padding-top: 30px;width:90%" data-options="fit:true">
+            <tr>
+                <th style="width:140px">标签名称:</th>
+                <td>
+                    <input class="easyui-textbox theme-textbox-radius"  style="width: 200px" name="label" data-options="missingMessage:'请输入标签名称',required:true,validType:'length[1,50]'" />
+                </td>
+            </tr>
+            <tr>
+                <th>排序索引:</th>
+                <td>
+                    <input class="easyui-numberbox theme-textbox-radius"   style="width: 80px"  name="index" data-options="min:0,max:100000" />
+                </td>
+            </tr>
+        </table>
+    </div>
+ </div>
+</form>

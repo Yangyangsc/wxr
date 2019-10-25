@@ -1,0 +1,10 @@
+﻿#!/usr/bin/env node
+var debug = require('debug')('WebFramework');
+var app = require('../app');
+
+app.set('port', process.env.PORT || 5001);
+
+var server = app.listen(app.get('port'), "0.0.0.0", function () {
+    // debug('Express server listening on port ' + server.address().port);
+    console.log('Express server listening on port ' + server.address().port);
+});
